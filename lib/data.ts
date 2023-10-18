@@ -1,7 +1,10 @@
 import React from "react";
+// import { MdMilitaryTech } from "react-icons/md";
+// import { FaReact } from "react-icons/fa";
+// import { LiaToothSolid } from "react-icons/lia";
+import { LuGraduationCap } from "react-icons/lu";
 import { CgWorkAlt } from "react-icons/cg";
 import { FaReact } from "react-icons/fa";
-import { LuGraduationCap } from "react-icons/lu";
 import corpcommentImg from "@/public/corpcomment.png";
 import rmtdevImg from "@/public/rmtdev.png";
 import wordanalyticsImg from "@/public/wordanalytics.png";
