@@ -11,6 +11,10 @@ import { FaGithubSquare } from "react-icons/fa";
 import { useInView } from "react-intersection-observer";
 import { useActiveSectionContext } from "@/context/active-section-context";
 import { useSectionInView } from "@/lib/hooks";
+// import guamflagImg from "@/public/guamflag.png";
+// import flag3Img from "@/public/flag3.png";
+import flagsqImg from "@/public/flagsq.png";
+// import CV.pdf from "@/public/CV.pdf";
 
 export default function Intro() {
   const { ref } = useSectionInView("Home", 0.5);
@@ -52,7 +56,13 @@ export default function Intro() {
                 duration: 0.7,
               }}
             >
-              🌺
+              <Image
+                src="/flagsq.png"
+                alt="guam"
+                width="50"
+                height="40"
+                quality="100"
+              />
             </motion.span>
           </motion.div>
         </div>
@@ -89,7 +99,7 @@ export default function Intro() {
 
         <a
           className="group bg-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:bg-violet-950 hover:scale-105 hover:text-white active:scale-105 transition borderBlack"
-          href="/CV.pdf"
+          href="/Ethan Flores - Software Engineer - Resume.pdf"
           download
         >
           Download CV{" "}

@@ -28,6 +28,7 @@ export const sendEmail = async (formData: FormData) => {
   // must be explicitly stated because typescript does not pick up on the helper function (server-side)
   // or the user-side validations
 
+  let data;
   try {
     await resend.emails.send({
       from: "Contact from Portfolio Site<onboarding@resend.dev>",
@@ -38,10 +39,14 @@ export const sendEmail = async (formData: FormData) => {
       // react: React.createElement(ContactFormEmail, {
       //   message: message as string,
       //   senderEmail: senderEmail as string,
+      // }),
     });
   } catch (error: unknown) {
     return {
       error: getErrorMessage(error),
     };
   }
+  return {
+    data,
+  };
 };
