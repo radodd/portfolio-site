@@ -56,9 +56,10 @@ export const experiencesData = [
     date: "2022-2023",
   },
   {
-    title: "Hack Reactor Bootcamp",
+    title: "Hack Reactor by Galvanize",
     location: "Remote",
-    description: "Created and deployed fullstack web applications.",
+    description:
+      "Studied the fundamentals of full-stack software engineering, covering Python and Django, HTML/CSS, databases, and collaboration in project development. Familiarized with data management and cloud-based development, including WebSockets, GitHub Copilot, and DevSecOps practices, culminating in a personal project that replicates professional software development processes",
     icon: React.createElement(FaReact),
     date: "2023",
   },

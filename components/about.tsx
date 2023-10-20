@@ -19,30 +19,37 @@ export default function About() {
     >
       <SectionHeading>About Me</SectionHeading>
       <p className="mb-3">
+        I am <span className="underline">passionate</span> about contributing to
+        the development of innovative products and services that address
+        critical issues such as affordable healthcare accessibility, equitable
+        community empowerment, and sustainable positive enduring change for
+        individuals and the environment{" "}
+      </p>{" "}
+      <p>
         After graduating with a degree in{" "}
-        <span className="font-medium">Accounting</span>, I decided to pursue my
-        passion for programming. I enrolled in a coding bootcamp and learned{" "}
-        <span className="font-medium">full-stack web development</span>.{" "}
-        <span className="italic">My favorite part of programming</span> is the
-        problem-solving aspect. I <span className="underline">love</span> the
-        feeling of finally figuring out a solution to a problem. My core stack
-        is{" "}
         <span className="font-medium">
-          React, Next.js, Node.js, and MongoDB
+          Health Science, Pre-Physical Therapy
+        </span>{" "}
+        . I proudly served as a Combat Engineer in the
+        <span className="font-medium"> US Army Officer Corps</span> for five
+        years. This experience instilled a strong sense of discipline, time
+        management, task prioritization and the ability to effectively delegate
+        responsibilites withing a team. All skills that have proven invaluable
+        in my software engineering career.
+      </p>
+      <p>
+        {" "}
+        I enrolled in a coding bootcamp and learned{" "}
+        <span className="font-medium">full-stack web development</span>.{" "}
+        <span className="italic">My favorite part of programming</span> is its
+        need for complex problem-solving. My core stack is{" "}
+        <span className="font-medium">
+          React, Redux, Node.js, Next.js, and MongoDB
         </span>
-        . I am also familiar with TypeScript and Prisma. I am always looking to
-        learn new technologies. I am currently looking for a{" "}
+        . I continue to challenge myself with certifications from Google, Meta,
+        and AWS. I am currently looking for a{" "}
         <span className="font-medium">full-time position</span> as a software
         developer.
-      </p>
-
-      <p>
-        <span className="italic">When I'm not coding</span>, I enjoy playing
-        video games, watching movies, and playing with my dog. I also enjoy{" "}
-        <span className="font-medium">learning new things</span>. I am currently
-        learning about{" "}
-        <span className="font-medium">history and philosophy</span>. I'm also
-        learning how to play the guitar.
       </p>
     </motion.section>
   );

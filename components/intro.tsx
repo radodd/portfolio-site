@@ -74,8 +74,7 @@ export default function Intro() {
       >
         <span className="font-bold">Hi, I'm Ethan F. Flores.</span> I am a{" "}
         <span className="font-bold underline">full-stack engineer</span> based
-        in Santa Barbara, CA. I enjoy building{" "}
-        <span className="italic">web applications</span>.
+        in Santa Barbara, CA.
       </motion.h1>
       <motion.div
         className="flex flex-col sm:flex-row items-center justify-center gap-2 px-4 text-lg font-medium"
