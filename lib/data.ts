@@ -1,10 +1,10 @@
 import React from "react";
-// import { MdMilitaryTech } from "react-icons/md";
-// import { FaReact } from "react-icons/fa";
-// import { LiaToothSolid } from "react-icons/lia";
-import { LuGraduationCap } from "react-icons/lu";
-import { CgWorkAlt } from "react-icons/cg";
+import { MdMilitaryTech } from "react-icons/md";
 import { FaReact } from "react-icons/fa";
+import { LiaToothSolid } from "react-icons/lia";
+// import { LuGraduationCap } from "react-icons/lu";
+// import { CgWorkAlt } from "react-icons/cg";
+// import { FaReact } from "react-icons/fa";
 import corpcommentImg from "@/public/corpcomment.png";
 import rmtdevImg from "@/public/rmtdev.png";
 import wordanalyticsImg from "@/public/wordanalytics.png";
@@ -38,28 +38,27 @@ export const links = [
 
 export const experiencesData = [
   {
-    title: "Graduated bootcamp",
-    location: "Miami, FL",
+    title: "US Army Officer, Combat Engineer",
+    location: "Schofield Barracks, HI",
     description:
-      "I graduated after 6 months of studying. I immediately found a job as a front-end developer.",
-    icon: React.createElement(LuGraduationCap),
-    date: "2019",
+      "I led and executed combat engineering operations, specializing in mobility support, route clearance, and countermobility. I also was responsible for the forecasting, planning, and coordination of engineering training requirements and objectives.",
+    icon: React.createElement(MdMilitaryTech),
+    date: "2016-2021",
   },
   {
-    title: "Front-End Developer",
-    location: "Orlando, FL",
+    title: "Dental Front Office",
+    location: "Santa Barbara, CA",
     description:
-      "I worked as a front-end developer for 2 years in 1 job and 1 year in another job. I also upskilled to the full stack.",
-    icon: React.createElement(CgWorkAlt),
-    date: "2019 - 2021",
+      "Supported administrative services for Spanish-speaking, Native American, and low-income patients.",
+    icon: React.createElement(LiaToothSolid),
+    date: "2022-2023",
   },
   {
-    title: "Full-Stack Developer",
-    location: "Houston, TX",
-    description:
-      "I'm now a full-stack developer working as a freelancer. My stack includes React, Next.js, TypeScript, Tailwind, Prisma and MongoDB. I'm open to full-time opportunities.",
+    title: "Hack Reactor Bootcamp",
+    location: "Remote",
+    description: "Created and deployed fullstack web applications.",
     icon: React.createElement(FaReact),
-    date: "2021 - present",
+    date: "2023",
   },
 ] as const;
 
