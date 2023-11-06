@@ -12,6 +12,7 @@ import { useSectionInView } from "@/lib/hooks";
 
 export default function Experience() {
   const { ref } = useSectionInView("Experience");
+  // Use object destructuring, so you don't need to remember the exact order
 
   return (
     <section ref={ref} id="experience" className="scroll-mt-28 mb-28 sm:mb-40">
