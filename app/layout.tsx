@@ -2,6 +2,8 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import Header from "@/components/header";
 import ActiveSectionContextProvider from "@/context/active-section-context";
+import { runReport } from "@/analytics";
+import { useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,6 +17,22 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  runReport();
+  // useEffect(() => {
+  //   // Define an async function to call runReport
+  //   const initializeAnalytics = async () => {
+  //     try {
+  //       await runReport(); // Await the result of the asynchronous function
+  //     } catch (error) {
+  //       // Handle any errors here
+  //       console.error("Error in runReport:", error);
+  //     }
+  //   };
+
+  //   // Call the async function when the component mounts
+  //   initializeAnalytics();
+  // }, []); // The empty dependency array ensures it runs only once when mounted
+
   return (
     <html lang="en" className="!scroll-smooth">
       <body
@@ -30,3 +48,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+runReport();

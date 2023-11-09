@@ -2,7 +2,7 @@
  * TODO(developer): Uncomment this variable and replace with your
  *   Google Analytics 4 property ID before running the sample.
  */
-propertyId = "415210150";
+const propertyId = "415210150";
 
 // Imports the Google Analytics Data API client library.
 const { BetaAnalyticsDataClient } = require("@google-analytics/data");
@@ -39,4 +39,5 @@ async function runReport() {
   });
 }
 
-runReport();
+// Export the runReport function so it can be used in other modules.
+module.exports = { runReport };
