@@ -2,8 +2,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import Header from "@/components/header";
 import ActiveSectionContextProvider from "@/context/active-section-context";
-import { runReport } from "@/analytics";
-import { useEffect } from "react";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,24 +16,23 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  runReport();
-  // useEffect(() => {
-  //   // Define an async function to call runReport
-  //   const initializeAnalytics = async () => {
-  //     try {
-  //       await runReport(); // Await the result of the asynchronous function
-  //     } catch (error) {
-  //       // Handle any errors here
-  //       console.error("Error in runReport:", error);
-  //     }
-  //   };
-
-  //   // Call the async function when the component mounts
-  //   initializeAnalytics();
-  // }, []); // The empty dependency array ensures it runs only once when mounted
-
   return (
     <html lang="en" className="!scroll-smooth">
+      <Script
+        strategy="lazyOnload"
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+      />
+
+      <Script strategy="lazyOnload" id="google-analytics-script">
+        {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+                    page_path: window.location.pathname,
+                    });
+                `}
+      </Script>
       <body
         className={`${inter.className} bg-slate-50 text-gray-950 relative pt-28 sm:pt-36`}
       >
@@ -48,5 +46,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-runReport();
