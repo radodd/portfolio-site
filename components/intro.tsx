@@ -106,7 +106,7 @@ export default function Intro() {
         </a>
 
         <a
-          className="bg-white text-gray-700 px-7 py-3 flex items-center gap-2 rounded-full focus:scale-110 hover:bg-violet-950 hover:scale-[1.15] active:scale-105 transition borderBlack hover:text-white group-hover:opacity-100"
+          className="linkedin-btn bg-white text-gray-700 px-7 py-3 flex items-center gap-2 rounded-full focus:scale-110 hover:bg-violet-950 hover:scale-[1.15] active:scale-105 transition borderBlack hover:text-white group-hover:opacity-100"
           href="https://www.linkedin.com/in/ethanf-flores"
           target="_blank"
         >
