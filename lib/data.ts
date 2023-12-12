@@ -88,7 +88,7 @@ export const experiencesData = [
 
 export const projectsData = [
   {
-    title: "Therapist Website",
+    title: "Coaching and Consulting Website",
     description:
       "A personalized website for a private practice with an emphasis of mental health and wellness",
     tags: ["Next.js", "React", "Tailwind", "TypeScript"],
@@ -97,7 +97,7 @@ export const projectsData = [
   {
     title: "Friendship Center Santa Barbara",
     description:
-      "A non-profit organization in need of a website that advertised availabel services to elder clients, provided a great user experience and maintained the principles of accessability",
+      "A non-profit organization offering adult day program services to elder clients. I provided insight on a effective UX/UI while maintaining the principles of accessability",
     tags: ["CMS", "Google Analytics"],
     imageUrl: FriendshipCenter,
   },
