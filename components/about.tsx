@@ -19,37 +19,35 @@ export default function About() {
     >
       <SectionHeading>About Me</SectionHeading>
       <p className="mb-3">
-        I am <span className="underline">passionate</span> about contributing to
-        the development of innovative products and services that address
-        critical issues such as affordable healthcare accessibility, equitable
-        community empowerment, and sustainable positive enduring change for
-        individuals and the environment{" "}
-      </p>{" "}
-      <p>
-        After graduating with a degree in{" "}
-        <span className="font-medium">
-          Health Science, Pre-Physical Therapy
-        </span>{" "}
-        . I proudly served as a Combat Engineer in the
-        <span className="font-medium"> US Army Officer Corps</span> for five
-        years. This experience instilled a strong sense of discipline, time
-        management, task prioritization and the ability to effectively delegate
-        responsibilites withing a team. All skills that have proven invaluable
-        in my software engineering career.
+        I am a <span className="font-medium">software engineer</span> with a
+        non-traditional background. I am naturally curious and proactive with an
+        eagerness to learn. I pride myself on my work ethic and always
+        collaborate with a "can-do" mindset. Currently, as a{" "}
+        <span className="underline">Freelance Web Developer</span> I have had
+        the opportunity to collaborate with non-profit organizations and with
+        clients who are active in the healthcare sector.
       </p>
-      <p>
-        {" "}
-        I enrolled in a coding bootcamp and learned{" "}
-        <span className="font-medium">full-stack web development</span>.{" "}
-        <span className="italic">My favorite part of programming</span> is its
-        need for complex problem-solving. My core stack is{" "}
+      <p className="mb-3">
+        I hold a B.S. in{" "}
         <span className="font-medium">
-          React, Redux, Node.js, Next.js, and MongoDB
+          Health Science, Pre-Physical Therapy,{" "}
         </span>
-        . I continue to challenge myself with certifications from Google, Meta,
-        and AWS. I am currently looking for a{" "}
-        <span className="font-medium">full-time position</span> as a software
-        developer.
+        I am a veteran of the{" "}
+        <span className="font-medium">US Army Officer Corps</span> and Guam
+        native.
+      </p>
+
+      <p>
+        Enrolling into the{" "}
+        <span className="font-medium">Hack Reactor by Galvanize</span> coding
+        bootcamp was the start of my career. As I continue to grow my skills I
+        intend to continue to work in the web development space and collaborate
+        with non-profit organizations with the{" "}
+        <span className="italic">goal</span> of eroding the barriers to
+        equitable healthcare access. My core stack is{" "}
+        <span className="font-medium">
+          React, Redux, Next.js, Tailwind, TypeScript.
+        </span>
       </p>
     </motion.section>
   );

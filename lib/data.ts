@@ -2,14 +2,27 @@ import React from "react";
 import { MdMilitaryTech } from "react-icons/md";
 import { FaReact } from "react-icons/fa";
 import { LiaToothSolid } from "react-icons/lia";
-// import { LuGraduationCap } from "react-icons/lu";
-// import { CgWorkAlt } from "react-icons/cg";
-// import { FaReact } from "react-icons/fa";
-// import corpcommentImg from "@/public/corpcomment.png";
-// import rmtdevImg from "@/public/rmtdev.png";
-// import wordanalyticsImg from "@/public/wordanalytics.png";
+import { FaCode } from "react-icons/fa";
 import animosImg from "@/public/animos.png";
 import autovantageImg from "@/public/autovantage.png";
+import HTML from "@/public/HTML.png";
+import CSS from "@/public/CSS.png";
+import JS from "@/public/JS.png";
+import ReactJs from "@/public/ReactJs.png";
+import Redux from "@/public/Redux.png";
+import NextJs from "@/public/NextJs.png";
+import Node from "@/public/Node.png";
+import Git from "@/public/Git.png";
+import TailwindCSS from "@/public/TailwindCSS.png";
+import Mongo from "@/public/Mongo.png";
+import FastAPI from "@/public/FastAPI.png";
+import PostgreSQL from "@/public/PostgreSQL.png";
+import Python from "@/public/Python.png";
+import Django from "@/public/Django.png";
+import FramerMotion from "@/public/FramerMotion.png";
+import TypeScript from "@/public/TypeScript.png";
+import TherapistSite from "@/public/TherapistSite.png";
+import FriendshipCenter from "@/public/FriendshipCenter.png";
 
 export const links = [
   {
@@ -40,6 +53,14 @@ export const links = [
 
 export const experiencesData = [
   {
+    title: "Freelance Web Development and Design",
+    location: "Remote",
+    description:
+      "Collaborated with a senior product designer, UX/UI designer, and fellow engineer to ideate, design, develop, and deploy a sophisticated website. Created a seamless communication workflow that allowed for real-time responses and proper prioritization of painpoints, edgecases, and issues that resulted in the generation of effective solutions.",
+    icon: React.createElement(FaCode),
+    date: "2023-Present",
+  },
+  {
     title: "US Army Officer, Combat Engineer",
     location: "Schofield Barracks, HI",
     description:
@@ -66,6 +87,20 @@ export const experiencesData = [
 ] as const;
 
 export const projectsData = [
+  {
+    title: "Therapist Website",
+    description:
+      "A personalized website for a private practice with an emphasis of mental health and wellness",
+    tags: ["Next.js", "React", "Tailwind", "TypeScript"],
+    imageUrl: TherapistSite,
+  },
+  {
+    title: "Friendship Center Santa Barbara",
+    description:
+      "A non-profit organization in need of a website that advertised availabel services to elder clients, provided a great user experience and maintained the principles of accessability",
+    tags: ["CMS", "Google Analytics"],
+    imageUrl: FriendshipCenter,
+  },
   {
     title: "Animos",
     description:
@@ -97,20 +132,20 @@ export const projectsData = [
 ] as const;
 
 export const skillsData = [
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "React",
-  "Redux",
-  "Next.js",
-  "Node.js",
-  "Git",
-  "Tailwind",
-  "MongoDB",
-  "FastAPI",
-  "PostgreSQL",
-  "Python",
-  "Django",
-  "Framer Motion",
-  "TypeScript",
+  HTML,
+  CSS,
+  JS,
+  ReactJs,
+  Redux,
+  NextJs,
+  Node,
+  Git,
+  TailwindCSS,
+  Mongo,
+  FastAPI,
+  PostgreSQL,
+  Python,
+  Django,
+  FramerMotion,
+  TypeScript,
 ] as const;
