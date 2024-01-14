@@ -100,6 +100,7 @@ export default function Project({
             muted
             loop
             width="100%"
+            controls={false}
             onClick={redirect}
             // quality={95}
             className="absolute top-8 -right-40 w-[28.25rem] rounded-lg shadow-2xl translate-x-[10px] hover:cursor-pointer transition
