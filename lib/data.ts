@@ -63,20 +63,20 @@ export const experiencesData = [
     date: "2023-Present",
   },
   {
-    title: "US Army Officer, Combat Engineer",
-    location: "Schofield Barracks, HI",
-    description:
-      "I led and executed combat engineering operations, specializing in mobility support, route clearance, and countermobility. I also was responsible for the forecasting, planning, and coordination of engineering training requirements and objectives.",
-    icon: React.createElement(MdMilitaryTech),
-    date: "2016-2021",
-  },
-  {
     title: "Dental Front Office",
     location: "Santa Barbara, CA",
     description:
       "Supported administrative services for Spanish-speaking, Native American, and low-income patients.",
     icon: React.createElement(LiaToothSolid),
     date: "2022-2023",
+  },
+  {
+    title: "US Army Officer, Combat Engineer",
+    location: "Schofield Barracks, HI",
+    description:
+      "I led and executed combat engineering operations, specializing in mobility support, route clearance, and countermobility. I also was responsible for the forecasting, planning, and coordination of engineering training requirements and objectives.",
+    icon: React.createElement(MdMilitaryTech),
+    date: "2016-2021",
   },
   {
     title: "Hack Reactor by Galvanize",
@@ -114,21 +114,21 @@ export const projectsData = [
     imageUrl: animosImg.src,
     href: "https://github.com/radodd/animos",
   },
-  {
-    title: "AutoVantage",
-    description:
-      "Auto shop management portal that allows users to track inventory, sales, and services or all vehicles.",
-    tags: [
-      "Python",
-      "JavaScript",
-      "Django",
-      "Bootstrap",
-      "PostgreSQL",
-      "Insomnia",
-    ],
-    imageUrl: autovantageImg.src,
-    href: "https://github.com/radodd/AutoVantage",
-  },
+  // {
+  // title: "AutoVantage",
+  // description:
+  //   "Auto shop management portal that allows users to track inventory, sales, and services or all vehicles.",
+  // tags: [
+  //   "Python",
+  //   "JavaScript",
+  //   "Django",
+  //   "Bootstrap",
+  //   "PostgreSQL",
+  //   "Insomnia",
+  // ],
+  // imageUrl: autovantageImg.src,
+  // href: "https://github.com/radodd/AutoVantage",
+  // },
   // {
   //   title: "Word Analytics",
   //   description:

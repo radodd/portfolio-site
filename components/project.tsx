@@ -53,13 +53,15 @@ export default function Project({
         scale: scaleProgress,
         opacity: opacityProgress,
       }}
-      className="group mb-3 sm:mb-8 last:mb-0"
+      className="group mb-3 sm:mb-8 mx-4 last:mb-0"
     >
       <section
-        className="bg-gray-100 max-w-[42rem] border border-black/5 rounded-lg overflow-hidden sm:pr-8 relative sm:h-[20rem] group-odd:pl-8 hover:bg-gray-200 transition flex flex-col md:flex-row"
+        className="bg-gray-100 max-w-[42rem] border  border-black/5 rounded-lg overflow-hidden sm:pr-8 relative sm:h-[20rem]
+        max-mobile:h-auto
+        group-odd:pl-8 hover:bg-gray-200 transition flex flex-col md:flex-row max-mobile:max-w-[393px] "
         // onMouseMove={handleMouseMove}
       >
-        <div className="pt-4 pb-7 px-5 sm:pl-10 sm:pr-2 sm:pt-10 sm:max-w-[50%] flex flex-col h-full group-odd:ml-[18rem] group-even:mr-[19rem]">
+        <div className="pt-4 pb-7 px-5 sm:pl-10 sm:pr-2 sm:pt-10 sm:max-w-[50%] flex flex-col h-full group-odd:ml-[18rem] group-even:mr-[19rem] max-[394px]:group-odd:ml-1 max-mobile:group-odd:mt-[17rem] max-mobile:group-even:mr-1 max-mobile:group-even:mt-[17rem]">
           <h3 className="text-2xl font-semibold">{title}</h3>
           <p className="mt-2 leading-relaxed text-gray-700">{description}</p>
           <ul className="flex flex-wrap mt-4 gap-2 sm:mt-auto">
@@ -92,7 +94,12 @@ export default function Project({
 
           group-odd:group-hover:translate-x-3
           group-odd:group-hover:translate-y-3
-          group-odd:group-hover:rotate-2"
+          group-odd:group-hover:rotate-2
+
+          max-mobile:-translate-x-[10rem]
+          max-mobile:group-odd:translate-x-[10rem]
+          max-mobile:-translate-y-[2rem]
+          max-mobile:scale-90"
           />
         ) : (
           <video
@@ -115,7 +122,11 @@ export default function Project({
 
             group-odd:group-hover:translate-x-3
             group-odd:group-hover:translate-y-3
-            group-odd:group-hover:rotate-2"
+            group-odd:group-hover:rotate-2
+
+            max-mobile:translate-x-[10rem]
+            max-mobile:-translate-y-[2rem]
+            max-mobile:scale-90"
           >
             <source src={video} type="video/mp4" />
             Your browser does not support the video tag.
