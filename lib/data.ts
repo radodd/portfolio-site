@@ -23,6 +23,8 @@ import FramerMotion from "@/public/FramerMotion.png";
 import TypeScript from "@/public/TypeScript.png";
 import TherapistSite from "@/public/TherapistSite.png";
 import FriendshipCenter from "@/public/FriendshipCenter.png";
+import test from "@/public/test.mp4";
+import recording from "@/public/recording.mp4";
 
 export const links = [
   {
@@ -92,21 +94,25 @@ export const projectsData = [
     description:
       "A personalized website for a private practice with an emphasis of mental health and wellness",
     tags: ["Next.js", "React", "Tailwind", "TypeScript"],
-    imageUrl: TherapistSite,
+    imageUrl: "",
+    video: test,
+    href: "https://genfulton.com",
   },
   {
     title: "Friendship Center Santa Barbara",
     description:
       "A non-profit organization offering adult day program services to elder clients. I provided insight on a effective UX/UI while maintaining the principles of accessability",
-    tags: ["CMS", "Google Analytics"],
-    imageUrl: FriendshipCenter,
+    tags: ["SEO", "Google Analytics", "CMS"],
+    imageUrl: FriendshipCenter.src,
+    href: "https://www.friendshipcentersb.org/",
   },
   {
     title: "Animos",
     description:
       "A social media web application that connects users and their pets with other pet owns and allows users to schedule, promote, and publicize pet-friendly meet-ups at pet-friendly locations.",
     tags: ["Python", "JavaScript", "React", "Redux", "FastAPI", "MongoDB"],
-    imageUrl: animosImg,
+    imageUrl: animosImg.src,
+    href: "https://github.com/radodd/animos",
   },
   {
     title: "AutoVantage",
@@ -120,7 +126,8 @@ export const projectsData = [
       "PostgreSQL",
       "Insomnia",
     ],
-    imageUrl: autovantageImg,
+    imageUrl: autovantageImg.src,
+    href: "https://github.com/radodd/AutoVantage",
   },
   // {
   //   title: "Word Analytics",
