@@ -18,7 +18,7 @@ export default function About() {
       transition={{ delay: 0.175 }}
     >
       <SectionHeading>About Me</SectionHeading>
-      <p className="mb-3">
+      <p className="mb-3 text-neutral-300">
         I am a <span className="font-medium">software engineer</span> with a
         non-traditional background. I am naturally curious and proactive with an
         eagerness to learn. I pride myself on my work ethic and always
@@ -27,7 +27,7 @@ export default function About() {
         the opportunity to collaborate with non-profit organizations and with
         clients who are active in the healthcare sector.
       </p>
-      <p className="mb-3">
+      <p className="mb-3 text-neutral-300">
         I hold a B.S. in{" "}
         <span className="font-medium">
           Health Science, Pre-Physical Therapy,{" "}
@@ -37,7 +37,7 @@ export default function About() {
         native.
       </p>
 
-      <p>
+      <p className="text-neutral-300">
         Enrolling into the{" "}
         <span className="font-medium">Hack Reactor by Galvanize</span> coding
         bootcamp was the start of my career. As I continue to grow my skills I

@@ -8,16 +8,24 @@ import { useScroll } from "framer-motion";
 import Project from "./project";
 import { useSectionInView } from "@/lib/hooks";
 
+import styles from "@/scss/projects.module.scss";
+
 export default function Projects() {
   const { ref } = useSectionInView("Projects", 0.5);
 
   return (
-    <section ref={ref} id="projects" className="scroll-mt-28 mb-28">
+    <section
+      ref={ref}
+      id="projects"
+      className="scroll-mt-28 mb-28 border border-orange-300"
+    >
       <SectionHeading>My projects</SectionHeading>
-      <div className="">
+      <div className={styles.projectsGrid}>
         {projectsData.map((project, index) => (
           <React.Fragment key={index}>
-            <Project {...project} />
+            <div className={styles.projectCard}>
+              <Project {...project} />
+            </div>
           </React.Fragment>
         ))}
       </div>

@@ -89,21 +89,22 @@ export const experiencesData = [
 ] as const;
 
 export const projectsData = [
-  {
-    title: "Coaching and Consulting Website",
-    description:
-      "A personalized website for a private practice with an emphasis of mental health and wellness",
-    tags: ["Next.js", "React", "Tailwind", "TypeScript"],
-    imageUrl: "",
-    video: test,
-    href: "https://genfulton.com",
-  },
+  // {
+  //   title: "Coaching and Consulting Website",
+  //   description:
+  //     "A personalized website for a private practice with an emphasis of mental health and wellness",
+  //   tags: ["Next.js", "React", "Tailwind", "TypeScript"],
+  //   imageUrl: "",
+  //   // video: test,
+  //   href: "https://genfulton.com",
+  // },
   {
     title: "Friendship Center Santa Barbara",
     description:
       "A non-profit organization offering adult day program services to elder clients. I provided insight on a effective UX/UI while maintaining the principles of accessability",
     tags: ["SEO", "Google Analytics", "CMS"],
-    imageUrl: FriendshipCenter.src,
+    // imageUrl: FriendshipCenter.src,
+    imageUrl: "/FriendshipCenter.png",
     href: "https://www.friendshipcentersb.org/",
   },
   {
@@ -111,9 +112,19 @@ export const projectsData = [
     description:
       "A social media web application that connects users and their pets with other pet owns and allows users to schedule, promote, and publicize pet-friendly meet-ups at pet-friendly locations.",
     tags: ["Python", "JavaScript", "React", "Redux", "FastAPI", "MongoDB"],
-    imageUrl: animosImg.src,
+    // imageUrl: animosImg.src,
+    imageUrl: "/animos.png",
     href: "https://github.com/radodd/animos",
   },
+  // {
+  //   title: "Animos",
+  //   description:
+  //     "A social media web application that connects users and their pets with other pet owns and allows users to schedule, promote, and publicize pet-friendly meet-ups at pet-friendly locations.",
+  //   tags: ["Python", "JavaScript", "React", "Redux", "FastAPI", "MongoDB"],
+  //   // imageUrl: animosImg.src,
+  //   imageUrl: "/animos.png",
+  //   href: "https://github.com/radodd/animos",
+  // },
   // {
   // title: "AutoVantage",
   // description:

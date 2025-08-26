@@ -16,6 +16,8 @@ import { useSectionInView } from "@/lib/hooks";
 import flagsqImg from "@/public/flagsq.png";
 // import CV.pdf from "@/public/CV.pdf";
 
+import styles from "@/scss/intro.module.scss";
+
 export default function Intro() {
   const { ref } = useSectionInView("Home", 0.5);
   const { setActiveSection, setTimeOfLastClick } = useActiveSectionContext();
@@ -24,58 +26,63 @@ export default function Intro() {
     <section
       ref={ref}
       id="home"
-      className="mb-28 max-w-[50rem] text-center sm:mb-0 scroll-mt-[100rem]"
+      className="mb-28 max-w-[70rem] text-center sm:mb-0 scroll-mt-[100rem]"
     >
-      <div className="flex items-center justify-center">
-        <div className="relative">
-          <motion.div
+      <div className="relative flex flex-row-reverse items-center justify-center w-full gap-6 pb-12">
+        {/* <div className="relative"> */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            type: "tween",
+            duration: 0.2,
+          }}
+          className="flex-1"
+        >
+          <div className={styles.imageWrapper}>
+            <Image
+              src="/selfie2.jpeg"
+              alt="profile picture"
+              width="1000"
+              height="1000"
+              quality="100"
+              priority={true}
+              className={styles.image}
+            />
+          </div>
+
+          <motion.span
+            className="absolute bottom-0 right-0 text-4xl"
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{
-              type: "tween",
-              duration: 0.2,
+              type: "spring",
+              stiffness: 125,
+              delay: 0.1,
+              duration: 0.7,
             }}
           >
-            <Image
-              src="/selfie.jpg"
-              alt="profile picture"
-              width="192"
-              height="192"
-              quality="100"
-              priority={true}
-              className="h-36 w-36 rounded-full object-cover  border-[0.35rem] border-white shadow-xl"
-            />
-            <motion.span
-              className="absolute bottom-0 right-0 text-4xl"
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{
-                type: "spring",
-                stiffness: 125,
-                delay: 0.1,
-                duration: 0.7,
-              }}
-            >
-              <Image
+            {/* <Image
                 src="/flagsq.png"
                 alt="guam"
                 width="50"
                 height="40"
                 quality="100"
-              />
-            </motion.span>
-          </motion.div>
-        </div>
+              /> */}
+          </motion.span>
+        </motion.div>
+        {/* </div> */}
+        <motion.h1
+          className="flex-1 mb-10 mt-4 px-4 text-2xl font-medium !leading-[1.5] sm:text-4xl"
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <span className="font-bold text-neutral-300 ">
+            Hi, I'm Ethan F. Flores. I am a full-stack engineer based in
+            Raleigh, NC.
+          </span>
+        </motion.h1>{" "}
       </div>
-      <motion.h1
-        className="mb-10 mt-4 px-4 text-2xl font-medium !leading-[1.5] sm:text-4xl"
-        initial={{ opacity: 0, y: 100 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        <span className="font-bold">Hi, I'm Ethan F. Flores.</span> I am a{" "}
-        <span className="font-bold underline">full-stack engineer</span> based
-        in Santa Barbara, CA.
-      </motion.h1>
       <motion.div
         className="flex flex-col sm:flex-row items-center justify-center gap-2 px-4 text-lg font-medium"
         initial={{ opacity: 0, y: 100 }}
@@ -86,7 +93,7 @@ export default function Intro() {
       >
         <Link
           href="#contact"
-          className="group bg-gray-900 text-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:bg-gray-950 hover:scale-105 active:scale-105 transition"
+          className="group bg-accent text-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:bg-accent-dark hover:scale-105 active:scale-105 transition"
           onClick={() => {
             setActiveSection("Contact");
             setTimeOfLastClick(Date.now());
@@ -97,7 +104,7 @@ export default function Intro() {
         </Link>
 
         <a
-          className="group bg-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:bg-violet-950 hover:scale-105 hover:text-white active:scale-105 transition borderBlack"
+          className="group bg-secondary bg-opacity-80 px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:bg-secondary hover:scale-105 text-white active:scale-105 transition borderBlack"
           href="/Ethan Flores - Software Engineer - Resume.pdf"
           download
         >
@@ -106,7 +113,7 @@ export default function Intro() {
         </a>
 
         <a
-          className="linkedin-btn bg-white text-gray-700 px-7 py-3 flex items-center gap-2 rounded-full focus:scale-110 hover:bg-violet-950 hover:scale-[1.15] active:scale-105 transition borderBlack hover:text-white group-hover:opacity-100"
+          className="linkedin-btn bg-zinc-300 text-gray-700 px-7 py-3 flex items-center gap-2 rounded-full focus:scale-110 hover:bg-slate-50 hover:scale-[1.15] active:scale-105 transition borderBlack group-hover:opacity-100"
           href="https://www.linkedin.com/in/ethanf-flores"
           target="_blank"
         >
@@ -114,7 +121,7 @@ export default function Intro() {
         </a>
 
         <a
-          className="bg-white text-gray-700 px-7 py-3 flex items-center gap-2 rounded-full focus:scale-110 hover:bg-violet-950 hover:scale-[1.15] active:scale-105 transition borderBlack hover:text-white group-hover:opacity-100"
+          className="bg-zinc-300 text-gray-700 px-7 py-3 flex items-center gap-2 rounded-full focus:scale-110 hover:bg-slate-50 hover:scale-[1.15] active:scale-105 transition borderBlack  group-hover:opacity-100"
           href="https://www.github.com/radodd"
           target="_blank"
         >
