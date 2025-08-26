@@ -41,7 +41,7 @@ export default function Intro() {
         >
           <div className={styles.imageWrapper}>
             <Image
-              src="/selfie2.jpeg"
+              src="/selfie2.png"
               alt="profile picture"
               width="1000"
               height="1000"
