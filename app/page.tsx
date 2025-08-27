@@ -16,7 +16,10 @@ export default function Home() {
       <About />
       <Projects />
       <Double projectsData={[projectsData[0], projectsData[1]]} />
-      {/* <Double projectsData={[projectsData[2], projectsData[3]]} /> */}
+      <Double
+        projectsData={[projectsData[2], projectsData[3]]}
+        reversed={true}
+      />
 
       <Skills />
       <Experience />

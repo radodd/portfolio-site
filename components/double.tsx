@@ -12,13 +12,16 @@ interface ProjectsDataTypes {
     imageUrl: string;
     href: string;
   }[];
+  reversed?: boolean;
 }
 
-const Double = ({ projectsData }: ProjectsDataTypes) => {
+const Double = ({ projectsData, reversed }: ProjectsDataTypes) => {
   const firstImage = useRef<HTMLDivElement | null>(null);
   const secondImage = useRef<HTMLDivElement | null>(null);
-  let xPercent = 0;
+  let xPercent = reversed ? 100 : 0;
   let requestAnimationFrameId: number | null = null;
+  let currentXPercent = reversed ? 100 : 0;
+  let speed = 0.15;
 
   const manageMouseMove = (e: any) => {
     const { clientX } = e;
@@ -34,9 +37,18 @@ const Double = ({ projectsData }: ProjectsDataTypes) => {
   };
 
   const animate = () => {
+    const deltaXPercent = xPercent - currentXPercent;
+    currentXPercent = currentXPercent + deltaXPercent * speed;
+
     if (firstImage.current && secondImage.current) {
-      firstImage.current.style.width = 66.66 - xPercent * 0.33 + "%";
-      secondImage.current.style.width = 33.33 + xPercent * 0.33 + "%";
+      firstImage.current.style.width = 66.66 - currentXPercent * 0.33 + "%";
+      secondImage.current.style.width = 33.33 + currentXPercent * 0.33 + "%";
+      // requestAnimationFrame(animate);
+    }
+    if (Math.round(currentXPercent) === Math.round(xPercent)) {
+      cancelAnimationFrame(requestAnimationFrameId as number);
+      requestAnimationFrameId = null;
+    } else {
       requestAnimationFrame(animate);
     }
   };
@@ -56,9 +68,11 @@ const Double = ({ projectsData }: ProjectsDataTypes) => {
         <div className={styles.body}>
           <h3>{projectsData[0].title}</h3>
           <p>{projectsData[0].description}</p>
-          {projectsData[0].tags.map((i, index) => (
-            <p key={index}>{i}</p>
-          ))}
+          <div className={styles.tagContainer}>
+            {projectsData[0].tags.map((i, index) => (
+              <span key={index}>{i}</span>
+            ))}
+          </div>
         </div>
       </div>
       <div ref={secondImage} className={styles.imageContainer}>
@@ -69,9 +83,11 @@ const Double = ({ projectsData }: ProjectsDataTypes) => {
         <div className={styles.body}>
           <h3>{projectsData[1].title}</h3>
           <p>{projectsData[1].description}</p>
-          {projectsData[1].tags.map((i, index) => (
-            <p key={index}>{i}</p>
-          ))}
+          <div className={styles.tagContainer}>
+            {projectsData[1].tags.map((i, index) => (
+              <span key={index}>{i}</span>
+            ))}
+          </div>
         </div>
       </div>
     </div>

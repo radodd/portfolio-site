@@ -89,23 +89,31 @@ export const experiencesData = [
 ] as const;
 
 export const projectsData = [
-  // {
-  //   title: "Coaching and Consulting Website",
-  //   description:
-  //     "A personalized website for a private practice with an emphasis of mental health and wellness",
-  //   tags: ["Next.js", "React", "Tailwind", "TypeScript"],
-  //   imageUrl: "",
-  //   // video: test,
-  //   href: "https://genfulton.com",
-  // },
   {
-    title: "Friendship Center Santa Barbara",
+    title: "Coaching and Consulting Website",
     description:
-      "A non-profit organization offering adult day program services to elder clients. I provided insight on a effective UX/UI while maintaining the principles of accessability",
-    tags: ["SEO", "Google Analytics", "CMS"],
-    // imageUrl: FriendshipCenter.src,
-    imageUrl: "/FriendshipCenter.png",
-    href: "https://www.friendshipcentersb.org/",
+      "A personalized website for a private practice with an emphasis of mental health and wellness",
+    tags: ["Next.js", "TypeScript", "Tailwind", "Sass"],
+    imageUrl: "/mockup-gen2.png",
+    // video: test,
+    href: "https://genfulton.com",
+  },
+  {
+    title: "MRC Rock & Sand",
+    description:
+      "An e-commerce platform that specializes in providing natural stone products for construction, landscaping, building facades, countertops, and retaining walls.",
+    tags: ["Next.js", "TypeScript", "Tailwind", "Sass"],
+    imageUrl: "/mockup-mrc2.png",
+    href: "https://www.stonesuppliers.net/",
+  },
+  {
+    title: "Animos",
+    description:
+      "A social media web application that connects users and their pets with other pet owns and allows users to schedule, promote, and publicize pet-friendly meet-ups at pet-friendly locations.",
+    tags: ["Python", "JavaScript", "React", "Redux", "FastAPI", "MongoDB"],
+    // imageUrl: animosImg.src,
+    imageUrl: "/animos.png",
+    href: "https://github.com/radodd/animos",
   },
   {
     title: "Animos",
@@ -117,13 +125,13 @@ export const projectsData = [
     href: "https://github.com/radodd/animos",
   },
   // {
-  //   title: "Animos",
+  //   title: "Friendship Center Santa Barbara",
   //   description:
-  //     "A social media web application that connects users and their pets with other pet owns and allows users to schedule, promote, and publicize pet-friendly meet-ups at pet-friendly locations.",
-  //   tags: ["Python", "JavaScript", "React", "Redux", "FastAPI", "MongoDB"],
-  //   // imageUrl: animosImg.src,
-  //   imageUrl: "/animos.png",
-  //   href: "https://github.com/radodd/animos",
+  //     "A non-profit organization offering adult day program services to elder clients. I provided insight on a effective UX/UI while maintaining the principles of accessability",
+  //   tags: ["SEO", "Google Analytics", "CMS"],
+  //   // imageUrl: FriendshipCenter.src,
+  //   imageUrl: "/mockup-mrc2.png",
+  //   href: "https://www.friendshipcentersb.org/",
   // },
   // {
   // title: "AutoVantage",
