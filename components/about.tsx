@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import SectionHeading from "./section-heading";
 import { useSectionInView } from "@/lib/hooks";
+import SectionDivider from "./section-divider";
 
 export default function About() {
   const { ref } = useSectionInView("About");
@@ -12,11 +13,12 @@ export default function About() {
     <motion.section
       ref={ref}
       id="about"
-      className="mb-28 max-w-[45rem] text-center leading-8 sm:mb-40 scroll-mt-28"
+      className="mb-28  text-center leading-8 sm:mb-40 scroll-mt-28 flex flex-col items-center"
       initial={{ opacity: 0, y: 100 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.175 }}
     >
+      <SectionDivider />
       <SectionHeading>About Me</SectionHeading>
       <p className="mb-3 text-neutral-300">
         I am a <span className="font-medium">software engineer</span> with a

@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en" className="!scroll-smooth">
       <GoogleTagManager />
       <body
-        className={`${inter.className} bg-slate-800  text-gray-950 relative pt-28 sm:pt-36`}
+        className={`${inter.className} bg-slate-800  text-gray-950 relative  `}
       >
         <noscript>
           <iframe

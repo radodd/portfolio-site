@@ -1,0 +1,57 @@
+@use "./queries.scss";
+@import "./queries.scss";
+
+.main {
+  margin-bottom: 100vh;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+
+  //   VERTICAL GRADIENT
+  -webkit-mask-image: linear-gradient(
+    to left,
+    transparent,
+    white 40%,
+    white 70%,
+    transparent
+  );
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+
+  mask-image: linear-gradient(
+    to left,
+    transparent,
+    white 40%,
+    white 70%,
+    transparent
+  );
+  mask-repeat: no-repeat;
+  mask-size: cover;
+}
+
+.sliderContainer {
+  position: absolute;
+  top: calc(100vh - 400px);
+}
+
+.slider {
+  position: relative;
+  white-space: nowrap;
+  display: flex;
+}
+
+.slider p {
+  margin: 0px;
+  color: white;
+  font-size: 18em;
+  font-weight: 400;
+}
+
+.slider p:nth-of-type(2) {
+  position: absolute;
+  left: 100%;
+}

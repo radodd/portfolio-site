@@ -10,18 +10,20 @@ import { projectsData } from "@/lib/data";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center px-4">
+    <main className="flex flex-col">
       <Intro />
-      <SectionDivider />
       <About />
-      <Projects />
+      {/* <Projects /> */}
       <Double projectsData={[projectsData[0], projectsData[1]]} />
-      <Double
+      {/* <Double
         projectsData={[projectsData[2], projectsData[3]]}
         reversed={true}
-      />
+      /> */}
 
-      <Skills />
+      <div className="flex justify-center mt-[15rem]">
+        <Skills />
+      </div>
+
       <Experience />
       <Contact />
     </main>
