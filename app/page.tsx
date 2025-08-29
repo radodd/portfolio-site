@@ -3,6 +3,7 @@ import Contact from "@/components/contact";
 import Double from "@/components/double";
 import Experience from "@/components/experience";
 import Intro from "@/components/intro";
+import Painter from "@/components/painter";
 import Projects from "@/components/projects";
 import SectionDivider from "@/components/section-divider";
 import Skills from "@/components/skills";
@@ -13,6 +14,7 @@ export default function Home() {
     <main className="flex flex-col">
       <Intro />
       <About />
+      <Painter />
       {/* <Projects /> */}
       <Double projectsData={[projectsData[0], projectsData[1]]} />
       {/* <Double
