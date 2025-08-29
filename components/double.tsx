@@ -25,9 +25,8 @@ const Double = ({ projectsData, reversed }: ProjectsDataTypes) => {
 
   const manageMouseMove = (e: any) => {
     const { clientX } = e;
-    console.log("clientX:", clientX);
+
     xPercent = (clientX / window.innerWidth) * 100;
-    console.log("xPercent:", xPercent);
 
     if (!requestAnimationFrameId) {
       requestAnimationFrameId = requestAnimationFrame(animate);

@@ -1,5 +1,9 @@
 import About from "@/components/about";
 import Contact from "@/components/contact";
+import Cursor from "@/components/cursor/cursor";
+import GradientCursor from "@/components/cursor/gradient-cursor";
+import Scene1 from "@/components/cursor/scene1";
+import Scene2 from "@/components/cursor/scene2";
 import Double from "@/components/double";
 import Experience from "@/components/experience";
 import Intro from "@/components/intro";
@@ -13,8 +17,12 @@ export default function Home() {
   return (
     <main className="flex flex-col">
       <Intro />
-      <About />
-      <Painter />
+      {/* <About /> */}
+      {/* <Cursor /> */}
+
+      {/* <Scene1 /> */}
+      <Scene2 />
+      {/* <Painter /> */}
       {/* <Projects /> */}
       <Double projectsData={[projectsData[0], projectsData[1]]} />
       {/* <Double

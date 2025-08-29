@@ -3,8 +3,7 @@
 import { useEffect, useRef } from "react";
 import SectionHeading from "./section-heading";
 import useWindow from "@/lib/useWindow";
-
-type Lerp = (x: number, y: number, a: number) => number;
+import { Lerp } from "@/lib/types";
 
 const Painter = () => {
   return (
@@ -29,21 +28,19 @@ const Painter = () => {
 
 const Scene = () => {
   const { dimension } = useWindow();
-  const canvas = useRef<HTMLCanvasElement | null>(null);
-  const prevPosition = useRef<{ x: number; y: number } | null>(null);
+  const canvas = useRef<HTMLCanvasElement>(null!);
+  const prevPosition = useRef<{ x: number; y: number } | null>(null!);
 
   useEffect(() => {
     if (dimension.width > 0) init();
   }, [dimension]);
 
   const init = () => {
-    if (canvas.current !== null) {
-      const ctx = canvas.current.getContext("2d");
-      if (ctx) {
-        ctx.fillStyle = "#1e293b";
-        ctx.fillRect(0, 0, dimension.width, dimension.height);
-        ctx.globalCompositeOperation = "destination-out";
-      }
+    const ctx = canvas.current.getContext("2d");
+    if (ctx) {
+      ctx.fillStyle = "#A53860";
+      ctx.fillRect(0, 0, dimension.width, dimension.height);
+      ctx.globalCompositeOperation = "destination-out";
     }
   };
   const lerp: Lerp = (x, y, a) => x * (1 - a) + y * a;
@@ -51,14 +48,13 @@ const Scene = () => {
     const { clientX, clientY, movementX, movementY } = e;
 
     const nbOfCircles = Math.max(Math.abs(movementX), Math.abs(movementY)) / 10;
-    console.log(nbOfCircles);
 
     if (prevPosition.current) {
       const { x, y } = prevPosition.current;
       for (let i = 0; i < nbOfCircles; i++) {
         const targetX = lerp(x, clientX, (1 / nbOfCircles) * i);
         const targetY = lerp(y, clientY, (1 / nbOfCircles) * i);
-        drawCircle(targetX, targetY, 20);
+        drawCircle(targetX, targetY, 30);
       }
     }
 
@@ -69,21 +65,18 @@ const Scene = () => {
   };
 
   const drawCircle = (x: number, y: number, radius: number) => {
-    if (canvas.current) {
-      const ctx = canvas.current.getContext("2d");
-      if (ctx) {
-        ctx.beginPath();
-        ctx.fillStyle = "red";
-        ctx.arc(x, y, radius, 0, 2 * Math.PI);
-        ctx.fill();
-      }
+    const ctx = canvas.current.getContext("2d");
+    if (ctx) {
+      ctx.beginPath();
+      (ctx.fillStyle = "white"), ctx.arc(x, y, radius, 0, 2 * Math.PI * -1);
+      ctx.fill();
     }
   };
 
   return (
     <div className="relative w-full h-full">
       {dimension.width === 0 && (
-        <div className="w-full h-full bg-background absolute "> </div>
+        <div className="w-full h-full bg-accent absolute "> </div>
       )}
       <canvas
         ref={canvas}
@@ -118,3 +111,65 @@ export default Painter;
         equitable healthcare access.
       </p> */
 }
+
+// useEffect(() => {
+//   if (dimension.width > 0) init();
+// }, [dimension]);
+
+// const init = () => {
+//   const ctx = canvas.current.getContext("2d");
+//   if (ctx) {
+//     ctx.fillStyle = "#A53860";
+//     ctx.fillRect(0, 0, dimension.width, dimension.height);
+//     ctx.globalCompositeOperation = "destination-out";
+//   }
+
+//   // Start the fading/trail effect
+//   const fadeInterval = setInterval(() => {
+//     fadeCanvas();
+//   }, 10);
+
+//   // Clean up interval when component unmounts
+//   return () => clearInterval(fadeInterval);
+// };
+
+// const fadeCanvas = () => {
+//   const ctx = canvas.current.getContext("2d");
+//   if (!ctx) return;
+
+//   // Switch to normal composite to overlay semi-transparent color
+//   ctx.globalCompositeOperation = "source-over";
+//   ctx.fillStyle = "rgba(165, 56, 96, 0.50)"; // slight opacity for fading effect
+//   ctx.fillRect(0, 0, dimension.width, dimension.height);
+
+//   // Reset to destination-out for erasing
+//   ctx.globalCompositeOperation = "destination-out";
+// };
+
+// const lerp: Lerp = (x, y, a) => x * (1 - a) + y * a;
+
+// const manageMouseMove: React.MouseEventHandler<HTMLCanvasElement> = (e) => {
+//   const { clientX, clientY, movementX, movementY } = e;
+
+//   const nbOfCircles = Math.max(Math.abs(movementX), Math.abs(movementY)) / 1;
+
+//   if (prevPosition.current) {
+//     const { x, y } = prevPosition.current;
+//     for (let i = 0; i < nbOfCircles; i++) {
+//       const targetX = lerp(x, clientX, (1 / nbOfCircles) * i);
+//       const targetY = lerp(y, clientY, (1 / nbOfCircles) * i);
+//       drawCircle(targetX, targetY, 350);
+//     }
+//   }
+
+//   prevPosition.current = { x: clientX, y: clientY };
+// };
+
+// const drawCircle = (x: number, y: number, radius: number) => {
+//   const ctx = canvas.current.getContext("2d");
+//   if (ctx) {
+//     ctx.beginPath();
+//     ctx.arc(x, y, radius, 0, 2 * Math.PI);
+//     ctx.fill();
+//   }
+// };
