@@ -49,7 +49,7 @@ const GradientCursor = ({ isHovered, distance }: GradientCursorProps) => {
   };
 
   //   Linear interpolation of circle size
-  const targetSize = isHovered ? Math.max(10, 300 - distance / 2) : 0;
+  const targetSize = isHovered ? Math.max(5, 300 - distance / 0.85) : 0;
   animatedSize.current = lerp(animatedSize.current, targetSize, 0.15);
 
   const animate = () => {

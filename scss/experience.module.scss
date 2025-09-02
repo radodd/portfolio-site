@@ -1,0 +1,25 @@
+@use "./queries.scss";
+@import "./queries.scss";
+
+.container {
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
+  gap: 35px;
+  &:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+}
+
+.textContainer {
+  h1 {
+    font-size: x-large;
+    color: whitesmoke;
+  }
+  > span:first-of-type {
+    color: map-get($map: $colors, $key: primary);
+  }
+  p {
+    color: map-get($map: $colors, $key: text-secondary);
+  }
+}

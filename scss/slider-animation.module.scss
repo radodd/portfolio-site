@@ -11,31 +11,35 @@
 .image {
   object-fit: cover;
 
-  //   VERTICAL GRADIENT
+  /* Combined horizontal and vertical gradients */
   -webkit-mask-image: linear-gradient(
-    to left,
-    transparent,
-    white 40%,
-    white 70%,
-    transparent
-  );
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: cover;
+      to left,
+      transparent,
+      white 40%,
+      white 70%,
+      transparent
+    ),
+    linear-gradient(to bottom, transparent, white 30%, white 70%, transparent);
+  -webkit-mask-repeat: no-repeat, no-repeat;
+  -webkit-mask-size: 100% 100%, 100% 100%;
+  -webkit-mask-composite: destination-in;
 
   mask-image: linear-gradient(
-    to left,
-    transparent,
-    white 40%,
-    white 70%,
-    transparent
-  );
-  mask-repeat: no-repeat;
-  mask-size: cover;
+      to left,
+      transparent,
+      white 40%,
+      white 70%,
+      transparent
+    ),
+    linear-gradient(to bottom, transparent, white 10%, white 70%, transparent);
+  mask-repeat: no-repeat, no-repeat;
+  mask-size: 100% 100%, 100% 100%;
+  mask-composite: intersect;
 }
 
 .sliderContainer {
   position: absolute;
-  top: calc(100vh - 400px);
+  top: calc(100vh - 210px);
 }
 
 .slider {
@@ -47,7 +51,7 @@
 .slider p {
   margin: 0px;
   color: white;
-  font-size: 18em;
+  font-size: 10em;
   font-weight: 400;
 }
 

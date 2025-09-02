@@ -4,6 +4,7 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./liftkit/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -17,7 +18,7 @@ module.exports = {
         primary: "#e3712e",
         secondary: "#56B7CB",
         tertiary: "#DF4894",
-        dark: "#434A42",
+        fifth: "#434A42",
         accent: {
           DEFAULT: "#A53860",
           dark: "#82284A",

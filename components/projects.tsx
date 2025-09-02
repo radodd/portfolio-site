@@ -9,6 +9,7 @@ import Project from "./project";
 import { useSectionInView } from "@/lib/hooks";
 
 import styles from "@/scss/projects.module.scss";
+import SectionDivider from "./section-divider";
 
 export default function Projects() {
   const { ref } = useSectionInView("Projects", 0.5);

@@ -3,8 +3,6 @@ import { MdMilitaryTech } from "react-icons/md";
 import { FaReact } from "react-icons/fa";
 import { LiaToothSolid } from "react-icons/lia";
 import { FaCode } from "react-icons/fa";
-import animosImg from "@/public/animos.png";
-import autovantageImg from "@/public/autovantage.png";
 import HTML from "@/public/HTML.png";
 import CSS from "@/public/CSS.png";
 import JS from "@/public/JS.png";
@@ -21,10 +19,6 @@ import Python from "@/public/Python.png";
 import Django from "@/public/Django.png";
 import FramerMotion from "@/public/FramerMotion.png";
 import TypeScript from "@/public/TypeScript.png";
-import TherapistSite from "@/public/TherapistSite.png";
-import FriendshipCenter from "@/public/FriendshipCenter.png";
-import test from "@/public/test.mp4";
-import recording from "@/public/recording.mp4";
 
 export const links = [
   {
@@ -55,36 +49,34 @@ export const links = [
 
 export const experiencesData = [
   {
-    title: "Freelance Web Development and Design",
-    location: "Remote",
-    description:
-      "Collaborated with a senior product designer, UX/UI designer, and fellow engineer to ideate, design, develop, and deploy a sophisticated website. Created a seamless communication workflow that allowed for real-time responses and proper prioritization of painpoints, edgecases, and issues that resulted in the generation of effective solutions.",
-    icon: React.createElement(FaCode),
-    date: "2023-Present",
+    company: "Chainlift / LiftKit",
+    role: "Freelance Developer",
+    companyDescription:
+      "LiftKit—a design system based on the golden ratio. At its core, LiftKit is powered by a set of formulas that drive a global scaling system, making it unique in how it scales design elements",
+    roleDescription:
+      "Showcase my work at Chainlift, where I contributed to developing the component library for LiftKit",
+    image1: "/case_study_gen_desktop.png",
+    image2: "/liftkit.png",
+    button1: {
+      label: "Checkout Chainlift.is",
+      href: "https://www.chainlift.io/",
+    },
+    button2: "",
   },
   {
-    title: "Dental Front Office",
-    location: "Santa Barbara, CA",
-    description:
-      "Supported administrative services for Spanish-speaking, Native American, and low-income patients.",
-    icon: React.createElement(LiaToothSolid),
-    date: "2022-2023",
-  },
-  {
-    title: "US Army Officer, Combat Engineer",
-    location: "Schofield Barracks, HI",
-    description:
-      "I led and executed combat engineering operations, specializing in mobility support, route clearance, and countermobility. I also was responsible for the forecasting, planning, and coordination of engineering training requirements and objectives.",
-    icon: React.createElement(MdMilitaryTech),
-    date: "2016-2021",
-  },
-  {
-    title: "Hack Reactor by Galvanize",
-    location: "Remote",
-    description:
-      "Studied the fundamentals of full-stack software engineering, covering Python and Django, HTML/CSS, databases, and collaboration in project development. Familiarized with data management and cloud-based development, including WebSockets, GitHub Copilot, and DevSecOps practices, culminating in a personal project that replicates professional software development processes",
-    icon: React.createElement(FaReact),
-    date: "2023",
+    company: "Madasa Collection",
+    role: "Freelance Web Developer",
+    companyDescription:
+      "A digital product studio that helps businesses launch to their full potential",
+    roleDescription:
+      "Directed the development process, working alongside a senior designer, coordinating with clients, and mentoring a fellow engineer",
+    image1: "/case_study_madasa_desktop.png",
+    image2: "/case_study_madasa_mobile.png",
+    button1: {
+      label: "Checkout Chainlift.is",
+      href: "https://www.chainlift.io/",
+    },
+    button2: "",
   },
 ] as const;
 
@@ -93,68 +85,60 @@ export const projectsData = [
     title: "Coaching and Consulting Website",
     description:
       "A personalized website for a private practice with an emphasis of mental health and wellness",
-    tags: ["Next.js", "TypeScript", "Tailwind", "Sass"],
-    imageUrl: "/mockup-gen2.png",
-    // video: test,
+    tags: [
+      { name: "Next.js", color: "white" },
+      { name: "TypeScript", color: "#56B7CB" },
+      { name: "Tailwind", color: "#56B7CB" },
+      { name: "Sass", color: "#DF4894" },
+    ],
+    imageUrl: "/case_study_gen_mobile.png",
     href: "https://genfulton.com",
   },
   {
     title: "MRC Rock & Sand",
     description:
       "An e-commerce platform that specializes in providing natural stone products for construction, landscaping, building facades, countertops, and retaining walls.",
-    tags: ["Next.js", "TypeScript", "Tailwind", "Sass"],
-    imageUrl: "/mockup-mrc2.png",
+    tags: [
+      { name: "Next.js", color: "white" },
+      { name: "TypeScript", color: "#56B7CB" },
+      { name: "Tailwind", color: "#56B7CB" },
+      { name: "Sass", color: "#DF4894" },
+    ],
+    imageUrl: "/case_study_mrc_desktop.png",
     href: "https://www.stonesuppliers.net/",
   },
   {
-    title: "Animos",
+    title: "Madasa Collective",
     description:
-      "A social media web application that connects users and their pets with other pet owns and allows users to schedule, promote, and publicize pet-friendly meet-ups at pet-friendly locations.",
-    tags: ["Python", "JavaScript", "React", "Redux", "FastAPI", "MongoDB"],
-    // imageUrl: animosImg.src,
-    imageUrl: "/animos.png",
-    href: "https://github.com/radodd/animos",
+      "The official website for my web development business, showcasing our design and development team as well as a portfolio of our work",
+    tags: [
+      { name: "Next.js", color: "white" },
+      { name: "TypeScript", color: "#56B7CB" },
+      { name: "Tailwind", color: "#56B7CB" },
+      { name: "Sass", color: "#DF4894" },
+    ],
+
+    imageUrl: "/case_study_madasa_mobile.png",
+    href: "https://www.madasacollective.com",
   },
   {
-    title: "Animos",
+    title: "Uber App",
     description:
-      "A social media web application that connects users and their pets with other pet owns and allows users to schedule, promote, and publicize pet-friendly meet-ups at pet-friendly locations.",
-    tags: ["Python", "JavaScript", "React", "Redux", "FastAPI", "MongoDB"],
-    // imageUrl: animosImg.src,
-    imageUrl: "/animos.png",
-    href: "https://github.com/radodd/animos",
+      "A React Native app that replicates the core features of Uber.",
+    tags: [
+      { name: "React Native", color: "#56B7CB" },
+      { name: "Expo", color: "white" },
+      {
+        name: "Nativewind",
+        color: "white",
+      },
+      { name: "Zustand", color: "#DF4894" },
+      { name: "TypeScript", color: "#56B7CB" },
+    ],
+
+    imageUrl: "/mockup_uber_mobile.png",
+    href: "https://github.com/radodd/uber/tree/main",
   },
-  // {
-  //   title: "Friendship Center Santa Barbara",
-  //   description:
-  //     "A non-profit organization offering adult day program services to elder clients. I provided insight on a effective UX/UI while maintaining the principles of accessability",
-  //   tags: ["SEO", "Google Analytics", "CMS"],
-  //   // imageUrl: FriendshipCenter.src,
-  //   imageUrl: "/mockup-mrc2.png",
-  //   href: "https://www.friendshipcentersb.org/",
-  // },
-  // {
-  // title: "AutoVantage",
-  // description:
-  //   "Auto shop management portal that allows users to track inventory, sales, and services or all vehicles.",
-  // tags: [
-  //   "Python",
-  //   "JavaScript",
-  //   "Django",
-  //   "Bootstrap",
-  //   "PostgreSQL",
-  //   "Insomnia",
-  // ],
-  // imageUrl: autovantageImg.src,
-  // href: "https://github.com/radodd/AutoVantage",
-  // },
-  // {
-  //   title: "Word Analytics",
-  //   description:
-  //     "A public web app for quick analytics on text. It shows word count, character count and social media post limits.",
-  //   tags: ["React", "Next.js", "SQL", "Tailwind", "Framer"],
-  //   imageUrl: wordanalyticsImg,
-  // },
 ] as const;
 
 export const skillsData = [
@@ -175,3 +159,38 @@ export const skillsData = [
   FramerMotion,
   TypeScript,
 ] as const;
+
+// export const experiencesData = [
+//   {
+//     title: "Freelance Web Development and Design",
+//     location: "Remote",
+//     description:
+//       "Collaborated with a senior product designer, UX/UI designer, and fellow engineer to ideate, design, develop, and deploy a sophisticated website. Created a seamless communication workflow that allowed for real-time responses and proper prioritization of painpoints, edgecases, and issues that resulted in the generation of effective solutions.",
+//     icon: React.createElement(FaCode),
+//     date: "2023-Present",
+//   },
+//   {
+//     title: "Dental Front Office",
+//     location: "Santa Barbara, CA",
+//     description:
+//       "Supported administrative services for Spanish-speaking, Native American, and low-income patients.",
+//     icon: React.createElement(LiaToothSolid),
+//     date: "2022-2023",
+//   },
+//   {
+//     title: "US Army Officer, Combat Engineer",
+//     location: "Schofield Barracks, HI",
+//     description:
+//       "I led and executed combat engineering operations, specializing in mobility support, route clearance, and countermobility. I also was responsible for the forecasting, planning, and coordination of engineering training requirements and objectives.",
+//     icon: React.createElement(MdMilitaryTech),
+//     date: "2016-2021",
+//   },
+//   {
+//     title: "Hack Reactor by Galvanize",
+//     location: "Remote",
+//     description:
+//       "Studied the fundamentals of full-stack software engineering, covering Python and Django, HTML/CSS, databases, and collaboration in project development. Familiarized with data management and cloud-based development, including WebSockets, GitHub Copilot, and DevSecOps practices, culminating in a personal project that replicates professional software development processes",
+//     icon: React.createElement(FaReact),
+//     date: "2023",
+//   },
+// ] as const;

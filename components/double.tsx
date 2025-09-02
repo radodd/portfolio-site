@@ -3,12 +3,18 @@
 import styles from "@/scss/double.module.scss";
 import Image from "next/image";
 import { useRef } from "react";
+import SectionDivider from "./section-divider";
+import SectionHeading from "./section-heading";
+import Link from "next/link";
 
 interface ProjectsDataTypes {
   projectsData: {
     title: string;
     description: string;
-    tags: readonly string[];
+    tags: readonly {
+      name: string;
+      color: string;
+    }[];
     imageUrl: string;
     href: string;
   }[];
@@ -59,36 +65,31 @@ const Double = ({ projectsData, reversed }: ProjectsDataTypes) => {
         manageMouseMove(e);
       }}
     >
-      <div ref={firstImage} className={styles.imageContainer}>
-        <div className={styles.stretchyContainer}>
-          <Image src={projectsData[0].imageUrl} fill={true} alt={"image"} />
-        </div>
+      {projectsData.map((project, i) => (
+        <div
+          key={i}
+          ref={i === 0 ? firstImage : secondImage}
+          className={styles.imageContainer}
+        >
+          <div className={styles.stretchyContainer}>
+            <Link href={project.href} target="_blank">
+              <Image src={project.imageUrl} fill={true} alt={"image"} />
+            </Link>
+          </div>
 
-        <div className={styles.body}>
-          <h3>{projectsData[0].title}</h3>
-          <p>{projectsData[0].description}</p>
-          <div className={styles.tagContainer}>
-            {projectsData[0].tags.map((i, index) => (
-              <span key={index}>{i}</span>
-            ))}
+          <div className={styles.body}>
+            <h3>{project.title}</h3>
+            <p>{project.description}</p>
+            <div className={styles.tagContainer}>
+              {project.tags.map((tag, i) => (
+                <span key={i} style={{ color: tag.color }}>
+                  {tag.name}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      <div ref={secondImage} className={styles.imageContainer}>
-        <div className={styles.stretchyContainer}>
-          <Image src={projectsData[1].imageUrl} fill={true} alt={"image"} />
-        </div>
-
-        <div className={styles.body}>
-          <h3>{projectsData[1].title}</h3>
-          <p>{projectsData[1].description}</p>
-          <div className={styles.tagContainer}>
-            {projectsData[1].tags.map((i, index) => (
-              <span key={index}>{i}</span>
-            ))}
-          </div>
-        </div>
-      </div>
+      ))}
     </div>
   );
 };

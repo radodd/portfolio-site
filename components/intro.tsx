@@ -11,10 +11,6 @@ import { FaGithubSquare } from "react-icons/fa";
 import { useInView } from "react-intersection-observer";
 import { useActiveSectionContext } from "@/context/active-section-context";
 import { useSectionInView } from "@/lib/hooks";
-// import guamflagImg from "@/public/guamflag.png";
-// import flag3Img from "@/public/flag3.png";
-import flagsqImg from "@/public/flagsq.png";
-// import CV.pdf from "@/public/CV.pdf";
 
 import styles from "@/scss/intro.module.scss";
 import SliderAnimation from "./slider-animation";
@@ -77,9 +73,9 @@ export default function Intro() {
           </span>
         </motion.h1>
       </div> */}
-      <div className=" mt-36">
+      <div>
         <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-2 px-4 text-lg font-medium"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 pb-6 px-4 text-lg font-medium"
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -100,28 +96,29 @@ export default function Intro() {
 
           <a
             className="group bg-secondary bg-opacity-80 px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:bg-secondary hover:scale-105 text-white active:scale-105 transition borderBlack"
-            href="/Ethan Flores - Software Engineer - Resume.pdf"
+            href="/Ethan Flores_Resume.pdf"
             download
+            target="_blank"
           >
             Download CV{" "}
             <HiDownload className="opacity-60 group-hover:translate-y-1.5 transition group-hover:text-white group-hover:opacity-100" />
           </a>
 
-          <a
+          <Link
             className="linkedin-btn bg-zinc-300 text-gray-700 px-7 py-3 flex items-center gap-2 rounded-full focus:scale-110 hover:bg-slate-50 hover:scale-[1.15] active:scale-105 transition borderBlack group-hover:opacity-100"
             href="https://www.linkedin.com/in/ethanf-flores"
             target="_blank"
           >
             <BsLinkedin />
-          </a>
+          </Link>
 
-          <a
+          <Link
             className="bg-zinc-300 text-gray-700 px-7 py-3 flex items-center gap-2 rounded-full focus:scale-110 hover:bg-slate-50 hover:scale-[1.15] active:scale-105 transition borderBlack  group-hover:opacity-100"
             href="https://www.github.com/radodd"
             target="_blank"
           >
             <FaGithubSquare />
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>

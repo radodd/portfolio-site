@@ -30,12 +30,9 @@ const Scene2 = () => {
     window.addEventListener("mousemove", manageMouseMove);
     return () => window.removeEventListener("mousemove", manageMouseMove);
   }, []);
-  console.log("DISTANCE:", distance);
+
   return (
-    <div
-      ref={headingRef}
-      className="h-full flex items-center justify-center border border-pink-400"
-    >
+    <div ref={headingRef} className="h-full flex items-center justify-center">
       <motion.section
         ref={ref}
         id="about"
@@ -48,7 +45,27 @@ const Scene2 = () => {
       >
         <SectionDivider />
         <SectionHeading>About Me</SectionHeading>
-        <p className="z-10 mb-3 text-neutral-300">
+        <p className="font-medium z-10 mb-3 text-neutral-300 text-2xl leading-relaxed">
+          I’m a{" "}
+          <span className="font-semibold text-white">software engineer</span>
+          with a non-traditional path, shaped by my time as a
+          <span className="font-semibold text-white"> U.S. Army Veteran</span>
+          and my roots on the island of
+          <span className="font-semibold text-white"> Guam</span>. Driven by
+          curiosity and a passion for building meaningful web experiences, I
+          bring dedication, adaptability, and a collaborative spirit to every
+          project.
+        </p>
+      </motion.section>
+      <GradientCursor isHovered={isHovered} distance={distance} />
+    </div>
+  );
+};
+
+export default Scene2;
+
+{
+  /* <p className="z-10 mb-3 text-neutral-300">
           I am a <span className="font-medium">software engineer</span> with a
           non-traditional background. I am naturally curious and proactive with
           an eagerness to learn. I pride myself on my work ethic and always
@@ -56,8 +73,10 @@ const Scene2 = () => {
           <span className="underline">Freelance Web Developer</span> I have had
           the opportunity to collaborate with non-profit organizations and with
           clients who are active in the healthcare sector.
-        </p>
-        <p className="z-10 mb-3 text-neutral-300">
+        </p> */
+}
+{
+  /* <p className="z-10 mb-3 text-neutral-300">
           I hold a B.S. in{" "}
           <span className="font-medium">
             Health Science, Pre-Physical Therapy,{" "}
@@ -65,9 +84,11 @@ const Scene2 = () => {
           I am a veteran of the{" "}
           <span className="font-medium">US Army Officer Corps</span> and Guam
           native.
-        </p>
+        </p> */
+}
 
-        <p className="z-10 text-neutral-300">
+{
+  /* <p className="z-10 text-neutral-300">
           Enrolling into the{" "}
           <span className="font-medium">Hack Reactor by Galvanize</span> coding
           bootcamp was the start of my career. As I continue to grow my skills I
@@ -78,11 +99,5 @@ const Scene2 = () => {
           <span className="font-medium">
             React, Redux, Next.js, Tailwind, TypeScript.
           </span>
-        </p>
-      </motion.section>
-      <GradientCursor isHovered={isHovered} distance={distance} />
-    </div>
-  );
-};
-
-export default Scene2;
+        </p> */
+}

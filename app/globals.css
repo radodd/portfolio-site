@@ -29,6 +29,8 @@ body {
 @tailwind components;
 @tailwind utilities;
 
+@import url("@/liftkit/lib-lk/css/index.css");
+
 html {
   --line-color: #e5e7eb;
 }

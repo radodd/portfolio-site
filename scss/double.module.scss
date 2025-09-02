@@ -4,7 +4,8 @@
 .double {
   display: flex;
   height: 45vw;
-  margin-top: 10vh;
+  margin-bottom: 15vh;
+  gap: 0.5rem;
   .imageContainer {
     &:nth-of-type(1) {
       width: 66.66%;
@@ -17,26 +18,31 @@
       position: relative;
 
       img {
+        border-radius: 20px;
+        overflow: hidden;
         object-fit: cover;
       }
     }
 
     .body {
-      font-size: 16px;
+      // font-size: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
       padding: 10px;
-      // border: red 2px solid;
 
       h3 {
         font-weight: 400;
         font-size: 2em;
         margin: 0px;
-        margin-bottom: 5px;
-        color: rgb(165, 165, 165);
+        // margin-bottom: 5px;
+        color: whitesmoke;
       }
 
       p {
         font-size: 1.5em;
         margin: 0px;
+        line-height: normal;
         // width: 30rem;
         &:nth-of-type(1) {
           color: rgb(165, 165, 165);
@@ -47,14 +53,16 @@
       }
       .tagContainer {
         display: flex;
+        flex-wrap: wrap;
         gap: 1em;
         span {
-          font-size: 1.5em;
+          font-size: 0.95em;
           margin: 0px;
-          color: white;
-          padding: 0.5em;
+          color: map-get($colors, tertiary);
+          padding-block: 0.5em;
+          padding-inline: 0.75em;
           border-radius: 9999px;
-          background-color: map-get($colors, btnColor);
+          background-color: #515260;
           width: fit-content;
         }
       }
