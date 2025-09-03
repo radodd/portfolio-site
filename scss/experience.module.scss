@@ -4,22 +4,76 @@
 .container {
   display: flex;
   flex-direction: row;
-  padding: 15px;
-  gap: 35px;
+  padding: 4em 4em 0;
+  gap: 32px;
   &:nth-child(even) {
     flex-direction: row-reverse;
   }
 }
 
 .textContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   h1 {
     font-size: x-large;
+    font-weight: 600;
     color: whitesmoke;
   }
   > span:first-of-type {
     color: map-get($map: $colors, $key: primary);
+    font-size: large;
   }
   p {
-    color: map-get($map: $colors, $key: text-secondary);
+    // color: map-get($map: $colors, $key: base);
+    color: whitesmoke;
+  }
+}
+
+.double {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  //   align-items: center;
+  flex-direction: column;
+  width: 60vw;
+  height: 45vw;
+
+  //   margin-bottom: 15vh;
+  gap: 0.5rem;
+
+  .imageContainer {
+    &:nth-of-type(1) {
+      height: 66.66%;
+    }
+    &:nth-of-type(2) {
+      height: 33.33%;
+    }
+    .stretchyContainer {
+      //   padding-bottom: 66.66%;
+      width: 100%;
+      height: 100%;
+      position: relative;
+
+      img,
+      video {
+        border-radius: 20px;
+        overflow: hidden;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  &:nth-child(even) {
+    .imageContainer {
+      &:nth-of-type(1) {
+        height: 33.33%;
+      }
+      &:nth-of-type(2) {
+        height: 66.66%;
+      }
+    }
   }
 }

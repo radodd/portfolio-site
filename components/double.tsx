@@ -2,7 +2,7 @@
 
 import styles from "@/scss/double.module.scss";
 import Image from "next/image";
-import { useRef } from "react";
+import { MouseEvent, useRef } from "react";
 import SectionDivider from "./section-divider";
 import SectionHeading from "./section-heading";
 import Link from "next/link";
@@ -29,7 +29,7 @@ const Double = ({ projectsData, reversed }: ProjectsDataTypes) => {
   let currentXPercent = reversed ? 100 : 0;
   let speed = 0.15;
 
-  const manageMouseMove = (e: any) => {
+  const manageMouseMove = (e: MouseEvent) => {
     const { clientX } = e;
 
     xPercent = (clientX / window.innerWidth) * 100;

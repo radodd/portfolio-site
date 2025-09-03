@@ -54,14 +54,17 @@ export const experiencesData = [
     companyDescription:
       "LiftKit—a design system based on the golden ratio. At its core, LiftKit is powered by a set of formulas that drive a global scaling system, making it unique in how it scales design elements",
     roleDescription:
-      "Showcase my work at Chainlift, where I contributed to developing the component library for LiftKit",
-    image1: "/case_study_gen_desktop.png",
-    image2: "/liftkit.png",
+      "I contributed to developing the component library for LiftKit—a design system based on the golden ratio. ",
+    image1: "/liftkit.mov",
+    image2: "/liftkit-docs.mov",
     button1: {
       label: "Checkout Chainlift.is",
       href: "https://www.chainlift.io/",
     },
-    button2: "",
+    button2: {
+      label: "Read LiftKit Docs",
+      href: "https://www.chainlift.io/liftkit",
+    },
   },
   {
     company: "Madasa Collection",
@@ -70,13 +73,16 @@ export const experiencesData = [
       "A digital product studio that helps businesses launch to their full potential",
     roleDescription:
       "Directed the development process, working alongside a senior designer, coordinating with clients, and mentoring a fellow engineer",
-    image1: "/case_study_madasa_desktop.png",
-    image2: "/case_study_madasa_mobile.png",
+    image1: "madasa.mov",
+    image2: "/madasa-team.mov",
     button1: {
-      label: "Checkout Chainlift.is",
-      href: "https://www.chainlift.io/",
+      label: "Checkout MadasaCollective.com",
+      href: "https://www.madasacollective.com/",
     },
-    button2: "",
+    button2: {
+      label: "View Business Proposal",
+      href: "https://www.canva.com/design/DAF-mBhPfaA/i8H6H6r_sPlcZJUq6ZRH8g/view?utm_content=DAF-mBhPfaA&utm_campaign=designshare&utm_medium=link&utm_source=editor",
+    },
   },
 ] as const;
 

@@ -13,7 +13,7 @@ import Projects from "@/components/projects";
 import SectionDivider from "@/components/section-divider";
 import SectionHeading from "@/components/section-heading";
 import Skills from "@/components/skills";
-import { projectsData } from "@/lib/data";
+import { experiencesData, projectsData } from "@/lib/data";
 
 export default function Home() {
   return (
@@ -36,12 +36,12 @@ export default function Home() {
         />
       </div>
 
-      <div className="flex justify-center mt-[15rem]">
+      {/* <div className="flex justify-center mt-[15rem]">
         <Skills />
-      </div>
+      </div> */}
 
       {/* <Experience /> */}
-      <Experience2 />
+      <Experience2 experiencesData={[experiencesData[0], experiencesData[1]]} />
       <Contact />
     </main>
   );
