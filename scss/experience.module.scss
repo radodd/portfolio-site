@@ -3,11 +3,16 @@
 
 .container {
   display: flex;
-  flex-direction: row;
-  padding: 4em 4em 0;
-  gap: 32px;
-  &:nth-child(even) {
-    flex-direction: row-reverse;
+  flex-direction: column;
+  padding: 1em 1em 0;
+  gap: 16px;
+  @include from-small-up {
+    padding: 4em 4em 0;
+    flex-direction: row;
+    gap: 32px;
+    &:nth-child(even) {
+      flex-direction: row-reverse;
+    }
   }
 }
 

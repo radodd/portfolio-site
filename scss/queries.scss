@@ -1,10 +1,16 @@
-$breakpoint-xs-width: 742px;
-$breakpoint-xs-width: 468px;
-$breakpoint-s-min-width: 320px;
-$breakpoint-s-width: 743px;
-$breakpoint-m-min-width: 744px;
-$breakpoint-m-width: 1279px;
+// $breakpoint-xs-width: 742px;
+// $breakpoint-xs-width: 468px;
+// $breakpoint-s-min-width: 320px;
+$breakpoint-s-width: 640px;
+$breakpoint-m-min-width: 768px;
+$breakpoint-m-width: 1024px;
 $breakpoint-l-min-width: 1280px;
+
+@mixin from-small-up {
+  @media (min-width: #{$breakpoint-s-width + 1}) {
+    @content;
+  }
+}
 
 @mixin extra-small-break {
   @media (max-width: #{$breakpoint-xs-width}) {

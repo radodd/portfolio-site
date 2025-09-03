@@ -4,16 +4,16 @@ import Cursor from "@/components/cursor/cursor";
 import GradientCursor from "@/components/cursor/gradient-cursor";
 import Scene1 from "@/components/cursor/scene1";
 import Scene2 from "@/components/cursor/scene2";
-import Double from "@/components/double";
 import Experience from "@/components/experience";
-import Experience2 from "@/components/experience2";
+
 import Intro from "@/components/intro";
 import Painter from "@/components/painter";
-import Projects from "@/components/projects";
+
 import SectionDivider from "@/components/section-divider";
 import SectionHeading from "@/components/section-heading";
 import Skills from "@/components/skills";
 import { experiencesData, projectsData } from "@/lib/data";
+import Projects from "@/components/projects";
 
 export default function Home() {
   return (
@@ -25,12 +25,10 @@ export default function Home() {
       {/* <Scene1 /> */}
       <Scene2 />
       {/* <Painter /> */}
-      {/* <Projects /> */}
+
       <div className="flex flex-col items-center">
-        <SectionDivider />
-        <SectionHeading>Completed Projects</SectionHeading>
-        <Double projectsData={[projectsData[0], projectsData[1]]} />
-        <Double
+        <Projects projectsData={[projectsData[0], projectsData[1]]} />
+        <Projects
           projectsData={[projectsData[2], projectsData[3]]}
           reversed={true}
         />
@@ -41,7 +39,7 @@ export default function Home() {
       </div> */}
 
       {/* <Experience /> */}
-      <Experience2 experiencesData={[experiencesData[0], experiencesData[1]]} />
+      <Experience experiencesData={[experiencesData[0], experiencesData[1]]} />
       <Contact />
     </main>
   );

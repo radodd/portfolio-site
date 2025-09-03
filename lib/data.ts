@@ -1,8 +1,3 @@
-import React from "react";
-import { MdMilitaryTech } from "react-icons/md";
-import { FaReact } from "react-icons/fa";
-import { LiaToothSolid } from "react-icons/lia";
-import { FaCode } from "react-icons/fa";
 import HTML from "@/public/HTML.png";
 import CSS from "@/public/CSS.png";
 import JS from "@/public/JS.png";
