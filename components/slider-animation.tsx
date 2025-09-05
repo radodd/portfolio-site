@@ -64,9 +64,11 @@ const SliderAnimation = () => {
           className={`${styles.slider} ${bebas_neue.className}`}
         >
           <p ref={firstText}>
-            Freelance Developer - Freelance Developer -&nbsp;
+            &nbsp;Freelance Developer - Freelance Developer -
           </p>
-          <p ref={secondText}>Freelance Developer - FreeLance Developer -</p>
+          <p ref={secondText}>
+            &nbsp;Freelance Developer - FreeLance Developer -
+          </p>
         </div>
       </div>
     </div>
