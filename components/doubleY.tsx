@@ -65,10 +65,13 @@ const DoubleY = ({ image1, image2 }: DoubleYProps) => {
           {/* <Image src={image1} alt="image" fill={true} /> */}
           <video
             autoPlay
+            playsInline
             muted
             loop
             width="100%"
+            // height={"100%"
             controls={false}
+            preload="auto"
             // onClick={redirect}
             // quality={95}
           >
@@ -84,6 +87,7 @@ const DoubleY = ({ image1, image2 }: DoubleYProps) => {
            */}
           <video
             autoPlay
+            playsInline
             muted
             loop
             width="100%"
