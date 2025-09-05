@@ -48,9 +48,8 @@
   align-self: center;
   flex-direction: column;
   width: 60vw;
-  height: 45vw;
+  height: 60vw;
   padding-bottom: 3rem;
-  //   margin-bottom: 15vh;
   gap: 0.5rem;
   @include from-small-up {
     flex: 1;
