@@ -1,0 +1,30 @@
+@use "./queries.scss";
+@import "./queries.scss";
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section {
+  z-index: 10;
+  scroll-margin-top: 7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  line-height: 2rem;
+
+  p {
+    z-index: 10;
+    font-weight: 500;
+    color: #d4d4d4;
+    font-size: 1.5rem;
+    line-height: 1.625;
+  }
+  span {
+    font-weight: 600;
+    color: white;
+  }
+}

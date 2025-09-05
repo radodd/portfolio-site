@@ -1,11 +1,17 @@
 "use client";
 
+import { Bebas_Neue } from "next/font/google";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
 
 import styles from "@/scss/slider-animation.module.scss";
+
+const bebas_neue = Bebas_Neue({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 const SliderAnimation = () => {
   const firstText = useRef(null);
@@ -53,9 +59,14 @@ const SliderAnimation = () => {
       />
 
       <div className={styles.sliderContainer}>
-        <div ref={slider} className={styles.slider}>
-          <p ref={firstText}>Freelance Developer -</p>
-          <p ref={secondText}>Freelance Developer -</p>
+        <div
+          ref={slider}
+          className={`${styles.slider} ${bebas_neue.className}`}
+        >
+          <p ref={firstText}>
+            Freelance Developer - Freelance Developer -&nbsp;
+          </p>
+          <p ref={secondText}>Freelance Developer - FreeLance Developer -</p>
         </div>
       </div>
     </div>

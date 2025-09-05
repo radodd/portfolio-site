@@ -4,10 +4,10 @@
 .container {
   display: flex;
   flex-direction: column;
-  padding: 1em 1em 0;
-  gap: 16px;
+  padding-inline: 1em;
+  gap: 3rem;
   @include from-small-up {
-    padding: 4em 4em 0;
+    padding-inline: 4em;
     flex-direction: row;
     gap: 32px;
     &:nth-child(even) {
@@ -22,31 +22,39 @@
   flex-direction: column;
   gap: 12px;
   h1 {
-    font-size: x-large;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 400;
     color: whitesmoke;
+    @include from-small-up {
+      font-size: 2.5rem;
+    }
   }
   > span:first-of-type {
     color: map-get($map: $colors, $key: primary);
     font-size: large;
   }
   p {
-    // color: map-get($map: $colors, $key: base);
-    color: whitesmoke;
+    color: rgb(165, 165, 165);
+    font-size: 1rem;
+    @include from-small-up {
+      font-size: 1.125rem;
+    }
   }
 }
 
 .double {
   flex: 1;
   display: flex;
-  justify-content: center;
-  //   align-items: center;
+  align-self: center;
   flex-direction: column;
   width: 60vw;
   height: 45vw;
-
+  padding-bottom: 3rem;
   //   margin-bottom: 15vh;
   gap: 0.5rem;
+  @include from-small-up {
+    flex: 1;
+  }
 
   .imageContainer {
     &:nth-of-type(1) {

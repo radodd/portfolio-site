@@ -1,27 +1,57 @@
 @use "./queries.scss";
 @import "./queries.scss";
 
-.imageWrapper {
-  position: relative;
-  display: inline-block;
-  border-radius: 1rem;
+// .imageWrapper {
+//   position: relative;
+//   display: inline-block;
+//   border-radius: 1rem;
+// }
+
+// .imageWrapper::before {
+//   content: "";
+//   inset: -20px;
+//   border: 3px solid palevioletred;
+//   border-radius: 1rem;
+//   background-image: url("/selfie2.png");
+//   background-size: cover;
+//   background-position: center;
+//   filter: blur(5px);
+//   position: absolute;
+//   z-index: 0;
+// }
+
+// .image {
+//   z-index: 1;
+
+//   position: relative;
+// }
+
+.sectionContainer {
+  // margin-bottom: 100rem;
+  // scroll-margin-top: 100rem;
+  @include from-small-up {
+    // margin-bottom: 30rem;
+    text-align: center;
+  }
 }
 
-.imageWrapper::before {
-  content: "";
-  inset: -20px;
-  border: 3px solid palevioletred;
-  border-radius: 1rem;
-  background-image: url("/selfie2.png");
-  background-size: cover;
-  background-position: center;
-  filter: blur(5px);
-  position: absolute;
-  z-index: 0;
+.sliderAnimationContainer {
+  max-height: 70rem;
+  margin-bottom: 5rem;
+
+  @include from-small-up {
+    max-height: 8rem;
+    margin-bottom: 70rem;
+  }
 }
 
-.image {
-  z-index: 1;
-
-  position: relative;
+.buttonsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  @include from-small-up {
+    flex-direction: row;
+    justify-content: center;
+  }
 }

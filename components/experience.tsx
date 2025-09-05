@@ -35,7 +35,6 @@ const Experience = ({ experiencesData }: ExperiencesDataTypes) => {
 
   return (
     <section ref={ref} id="experience" className="flex flex-col items-center">
-      <SectionDivider />
       <SectionHeading>Work Experience</SectionHeading>
       {experiencesData.map((exp, i) => (
         <div key={i} className={styles.container}>

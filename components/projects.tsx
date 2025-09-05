@@ -1,12 +1,12 @@
 "use client";
 
-import styles from "@/scss/double.module.scss";
 import Image from "next/image";
 import { MouseEvent, useEffect, useRef, useState } from "react";
-import SectionDivider from "./section-divider";
 import SectionHeading from "./section-heading";
 import Link from "next/link";
 import { useSectionInView } from "@/lib/hooks";
+
+import styles from "@/scss/projects.module.scss";
 
 interface ProjectsDataTypes {
   projectsData: {
@@ -86,8 +86,6 @@ const Projects = ({ projectsData, reversed }: ProjectsDataTypes) => {
         }
       }}
     >
-      <SectionDivider />
-      <SectionHeading>Completed Projects</SectionHeading>
       {projectsData.map((project, i) => (
         <div
           key={i}
@@ -101,7 +99,7 @@ const Projects = ({ projectsData, reversed }: ProjectsDataTypes) => {
           </div>
 
           <div className={styles.body}>
-            <h3>{project.title}</h3>
+            <h1>{project.title}</h1>
             <p>{project.description}</p>
             <div className={styles.tagContainer}>
               {project.tags.map((tag, i) => (

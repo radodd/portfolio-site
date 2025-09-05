@@ -4,8 +4,12 @@
 .main {
   margin-bottom: 100vh;
   height: 100vh;
+  width: 90vw;
   position: relative;
   overflow: hidden;
+  @include from-small-up {
+    width: 100vw;
+  }
 }
 
 .image {
@@ -39,7 +43,10 @@
 
 .sliderContainer {
   position: absolute;
-  top: calc(100vh - 210px);
+  top: calc(100vh - 150px);
+  @include from-small-up {
+    top: calc(100vh - 210px);
+  }
 }
 
 .slider {
@@ -51,8 +58,11 @@
 .slider p {
   margin: 0px;
   color: white;
-  font-size: 10em;
+  font-size: 3em;
   font-weight: 400;
+  @include from-small-up {
+    font-size: 10em;
+  }
 }
 
 .slider p:nth-of-type(2) {
