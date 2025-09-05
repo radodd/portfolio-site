@@ -37,7 +37,7 @@ export default function RootLayout({
 
         <BlobLayer />
         <ActiveSectionContextProvider>
-          <Header />
+          {/* <Header /> */}
           {children}
           <Analytics />
         </ActiveSectionContextProvider>

@@ -45,7 +45,7 @@ export const links = [
 export const experiencesData = [
   {
     company: "Chainlift / LiftKit",
-    role: "Freelance Developer",
+    role: "Front-End Engineer",
     companyDescription:
       "LiftKit—a design system based on the golden ratio. At its core, LiftKit is powered by a set of formulas that drive a global scaling system, making it unique in how it scales design elements",
     roleDescription:
@@ -63,7 +63,7 @@ export const experiencesData = [
   },
   {
     company: "Madasa Collection",
-    role: "Freelance Web Developer",
+    role: "Lead Web Developer",
     companyDescription:
       "A digital product studio that helps businesses launch to their full potential",
     roleDescription:

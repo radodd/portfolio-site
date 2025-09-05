@@ -4,18 +4,18 @@ import Intro from "@/components/intro";
 import { experiencesData, projectsData } from "@/lib/data";
 import Projects from "@/components/projects";
 import About from "@/components/cursor/about";
+import SectionHeading from "@/components/section-heading";
 
 import styles from "@/scss/home.module.scss";
-import SectionDivider from "@/components/section-divider";
-import SectionHeading from "@/components/section-heading";
+import AboutButtons from "@/components/about-buttons";
 
 export default function Home() {
   return (
     <main className={styles.container}>
       <Intro />
-      <SectionDivider />
+
       <About />
-      <SectionDivider />
+      <AboutButtons />
       <div className="flex flex-col items-center">
         <SectionHeading>Completed Projects</SectionHeading>
         <Projects projectsData={[projectsData[0], projectsData[1]]} />
@@ -28,7 +28,6 @@ export default function Home() {
       {/* <div className="flex justify-center mt-[15rem]">
         <Skills />
       </div> */}
-      <SectionDivider />
 
       <Experience experiencesData={[experiencesData[0], experiencesData[1]]} />
       <Contact />

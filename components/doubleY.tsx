@@ -9,14 +9,10 @@ interface DoubleYProps {
 const DoubleY = ({ image1, image2 }: DoubleYProps) => {
   const firstImage = useRef<HTMLDivElement>(null);
   const secondImage = useRef<HTMLDivElement>(null);
-  let yPercent = 100;
+  let yPercent = 0;
   let requestAnimationFrameId: number | null = null;
-  let currentYPercent = 100;
+  let currentYPercent = 0;
   let speed = 0.15;
-
-  console.log("FirstImage:", firstImage);
-  console.log("SecondImage:", secondImage);
-  console.log("Requested ID:", requestAnimationFrameId);
 
   const manageMouseMove = (e: MouseEvent) => {
     const { clientY } = e;
@@ -33,8 +29,6 @@ const DoubleY = ({ image1, image2 }: DoubleYProps) => {
   const animate = () => {
     const deltaYPercent = yPercent - currentYPercent;
     currentYPercent = currentYPercent + deltaYPercent * speed;
-
-    console.log("Delta Y Percent:", deltaYPercent);
 
     if (firstImage.current && secondImage.current) {
       firstImage.current.style.height = 66.66 - currentYPercent * 0.33 + "%";
@@ -56,24 +50,16 @@ const DoubleY = ({ image1, image2 }: DoubleYProps) => {
         manageMouseMove(e);
       }}
     >
-      <div
-        ref={firstImage}
-        className={styles.imageContainer}
-        // style={{ height: "66.66%" }}
-      >
+      <div ref={firstImage} className={styles.imageContainer}>
         <div className={styles.stretchyContainer}>
-          {/* <Image src={image1} alt="image" fill={true} /> */}
           <video
             autoPlay
             playsInline
             muted
             loop
             width="100%"
-            // height={"100%"
             controls={false}
             preload="auto"
-            // onClick={redirect}
-            // quality={95}
           >
             <source src={image1} type="video/mp4" />
             Your browser does not support the video tag.
@@ -83,18 +69,7 @@ const DoubleY = ({ image1, image2 }: DoubleYProps) => {
 
       <div ref={secondImage} className={styles.imageContainer}>
         <div className={styles.stretchyContainer}>
-          {/* <Image src={image2} alt="image" fill={true} />
-           */}
-          <video
-            autoPlay
-            playsInline
-            muted
-            loop
-            width="100%"
-            controls={false}
-
-            // quality={95}
-          >
+          <video autoPlay playsInline muted loop width="100%" controls={false}>
             <source src={image2} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
