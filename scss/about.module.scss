@@ -15,16 +15,146 @@
   align-items: center;
   text-align: center;
   line-height: 2rem;
+}
 
-  p {
-    z-index: 10;
-    font-weight: 500;
-    color: #d4d4d4;
-    font-size: 2rem;
-    line-height: 1.625;
+.originStory {
+  font-size: 2rem;
+  line-height: 1.6;
+  color: #fdfbf6;
+  text-align: center;
+  max-width: 25rem;
+  @include mid-break {
+    max-width: 45rem;
   }
-  span {
-    font-weight: 600;
-    color: white;
+  @include large-break {
+    max-width: 75rem;
+  }
+
+  .location {
+    animation-duration: 3s;
+    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+    animation-iteration-count: infinite;
+  }
+
+  // Sequential animation
+  .guam {
+    animation-name: highlightGuam;
+    animation-delay: none;
+  }
+  .hawaii {
+    animation-name: highlightHawaii;
+    animation-delay: 1s;
+  }
+  .socal {
+    animation-name: highlightSoCal;
+    animation-delay: 1.5s;
+    text-wrap: nowrap;
+  }
+  .raleigh {
+    animation-name: highlightRaleigh;
+    animation-delay: 2s;
+    text-wrap: nowrap;
+  }
+
+  .beautiful {
+    background: linear-gradient(
+      90deg,
+      #ffcc70,
+      #ff8177,
+      #b721ff,
+      #21d4fd,
+      #ffcc70
+    );
+    background-size: 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 6s linear infinite;
+  }
+}
+
+// Keyframes for highlight shifts
+@keyframes highlightGuam {
+  0% {
+    color: #fdfbf6;
+    text-shadow: none;
+  }
+  40% {
+    color: #ffea70;
+    text-shadow: 0 0 10px #ffea70;
+  }
+  60% {
+    color: #ffea70;
+    text-shadow: 0 0 10px #ffea70;
+  }
+  100% {
+    color: #fdfbf6;
+    text-shadow: none;
+  }
+}
+
+@keyframes highlightHawaii {
+  0% {
+    color: #fdfbf6;
+    text-shadow: none;
+  }
+  40% {
+    color: #ffae70;
+    text-shadow: 0 0 10px #ffae70;
+  }
+  60% {
+    color: #ffae70;
+    text-shadow: 0 0 10px #ffae70;
+  }
+  100% {
+    color: #fdfbf6;
+    text-shadow: none;
+  }
+}
+
+@keyframes highlightSoCal {
+  0% {
+    color: #fdfbf6;
+    text-shadow: none;
+  }
+  40% {
+    color: #ff7070;
+    text-shadow: 0 0 10px #ff7070;
+  }
+  60% {
+    color: #ff7070;
+    text-shadow: 0 0 10px #ff7070;
+  }
+  100% {
+    color: #fdfbf6;
+    text-shadow: none;
+  }
+}
+
+@keyframes highlightRaleigh {
+  0% {
+    color: #fdfbf6;
+    text-shadow: none;
+  }
+  40% {
+    color: #70ffa0;
+    text-shadow: 0 0 10px #70ffa0;
+  }
+  60% {
+    color: #70ffa0;
+    text-shadow: 0 0 10px #70ffa0;
+  }
+  100% {
+    color: #fdfbf6;
+    text-shadow: none;
+  }
+}
+
+// Gradient shimmer for “beautiful”
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
   }
 }

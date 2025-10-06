@@ -31,13 +31,13 @@ $breakpoint-l-min-width: 1280px;
 }
 
 @mixin mid-break {
-  @media (max-width: #{$breakpoint-m-width}) and (min-width: #{$breakpoint-m-min-width}) {
+  @media (min-width: #{$breakpoint-m-min-width}) and (max-width: #{$breakpoint-m-width}) {
     @content;
   }
 }
 
 @mixin large-break {
-  @media (min-width: #{$breakpoint-l-min-width}) {
+  @media (min-width: #{$breakpoint-m-width}) {
     @content;
   }
 }

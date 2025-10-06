@@ -66,9 +66,13 @@ const GradientCursor = ({ isHovered, distance }: GradientCursorProps) => {
   };
 
   useEffect(() => {
-    animate();
-    window.addEventListener("mousemove", manageMouseMove);
-    return () => window.removeEventListener("mousemove", manageMouseMove);
+    if (window.innerWidth <= 640) {
+      return;
+    } else {
+      animate();
+      window.addEventListener("mousemove", manageMouseMove);
+      return () => window.removeEventListener("mousemove", manageMouseMove);
+    }
   }, []);
 
   return (

@@ -44,10 +44,22 @@ const About = () => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <p>
-          Making the web a more
-          <span>&nbsp; beautiful &nbsp;</span>
-          place.
+        <p className={styles.originStory}>
+          Born on{" "}
+          <span className={`${styles.location} ${styles.guam}`}>Guam</span> →
+          served the US Army in{" "}
+          <span className={`${styles.location} ${styles.hawaii}`}>Hawaii</span>{" "}
+          → studied in{" "}
+          <span className={`${styles.location} ${styles.socal}`}>
+            Southern California
+          </span>{" "}
+          → finally settling in{" "}
+          <span className={`${styles.location} ${styles.raleigh}`}>
+            Raleigh, NC &nbsp;
+          </span>
+          where I make the web a more
+          <span className="beautiful">&nbsp;beautiful&nbsp;</span> place one{" "}
+          {"<div>"} at a time.
         </p>
       </motion.section>
       <GradientCursor isHovered={isHovered} distance={distance} />
