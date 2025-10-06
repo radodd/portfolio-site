@@ -1,0 +1,13 @@
+@use "./queries.scss";
+@import "./queries.scss";
+
+.container {
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+  @include from-small-up {
+    gap: 8rem;
+  }
+}

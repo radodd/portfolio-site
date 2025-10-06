@@ -8,6 +8,8 @@ import { format } from "path";
 import { sendEmail } from "@/actions/sendEmail";
 import SubmitBtn from "./submit-btn";
 
+import styles from "@/scss/contact.module.scss";
+
 export default function Contact() {
   const { ref } = useSectionInView("Contact");
 
@@ -15,7 +17,7 @@ export default function Contact() {
     <motion.section
       ref={ref}
       id="contact"
-      className="mb-20 sm:mb-28 w-[min(100%,38rem)] text-center"
+      className="my-20 sm:mb-28 w-[min(100%,38rem)] text-center self-center p-3"
       initial={{
         opacity: 0,
       }}
@@ -30,7 +32,7 @@ export default function Contact() {
       }}
     >
       <SectionHeading>Contact Me</SectionHeading>
-      <p className="text-gray-700 -mt-4">
+      <p className={styles.contact}>
         Please contact me directly at{" "}
         <a className="underline" href="mailto:ethan.flores.js@gmail.com">
           ethan.flores.js@gmail.com

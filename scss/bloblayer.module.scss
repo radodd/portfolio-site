@@ -1,0 +1,46 @@
+@use "./queries.scss";
+@import "./queries.scss";
+
+@keyframes float1 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  20% {
+    transform: translate(-5rem, 48rem) scale(0.96);
+  }
+  47% {
+    transform: translate(12rem, 42rem) scale(1.08);
+  }
+  73% {
+    transform: translate(-7rem, -12rem) scale(1.02);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes float2 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  20% {
+    transform: translate(-22rem, 45rem) scale(0.96);
+  }
+  47% {
+    transform: translate(12rem, 42rem) scale(1.08);
+  }
+  73% {
+    transform: translate(-7rem, -12rem) scale(1.02);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+.float {
+  animation: float1 15s cubic-bezier(0.65, 0.05, 0.36, 1) infinite;
+  animation-delay: -3s;
+}
+.floatSlow {
+  animation: float2 15s cubic-bezier(0.65, 0.05, 0.36, 1) infinite;
+}

@@ -1,0 +1,13 @@
+@use "./queries.scss";
+@import "./queries.scss";
+
+.divider {
+  background-color: rgb(229 231 235 / 0.5);
+  width: 0.25rem;
+  height: 4rem;
+  border-radius: 9999px;
+  margin-block: 4rem;
+  @include from-small-up {
+    margin-block: 8rem;
+  }
+}

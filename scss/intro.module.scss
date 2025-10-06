@@ -1,0 +1,32 @@
+@use "./queries.scss";
+@import "./queries.scss";
+
+.sectionContainer {
+  // margin-bottom: 100rem;
+  // scroll-margin-top: 100rem;
+  @include from-small-up {
+    // margin-bottom: 30rem;
+    text-align: center;
+  }
+}
+
+.sliderAnimationContainer {
+  // max-height: 100vh;
+  // margin-bottom: 5rem;
+
+  @include from-small-up {
+    max-height: 150vh;
+    // margin-bottom: 70rem;
+  }
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  @include from-small-up {
+    flex-direction: row;
+    justify-content: center;
+  }
+}

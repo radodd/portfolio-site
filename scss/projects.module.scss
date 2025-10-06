@@ -1,0 +1,110 @@
+@use "./queries.scss";
+@import "./queries.scss";
+
+.double {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-inline: 1rem;
+  gap: 2rem;
+  padding-bottom: 2rem;
+  &:last-child {
+    padding-bottom: 0;
+  }
+  @include from-small-up {
+    flex-direction: row;
+    padding-bottom: 0;
+    max-width: 100rem;
+    padding-inline: 4rem;
+    gap: 1rem;
+    > :first-child,
+    > :nth-child(2) {
+      height: 65vh;
+    }
+  }
+  .imageContainer {
+    width: 100%;
+    @include from-small-up {
+      &:nth-of-type(1) {
+        width: 66.66%;
+      }
+      &:nth-of-type(2) {
+        width: 33.33%;
+      }
+    }
+
+    .stretchyContainer {
+      padding-bottom: 66.66%;
+      position: relative;
+
+      img {
+        border-radius: 20px;
+        overflow: hidden;
+        object-fit: cover;
+      }
+    }
+
+    .body {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px;
+
+      h1 {
+        font-weight: 400;
+        color: whitesmoke;
+        font-size: 1.5rem;
+        @include from-small-up {
+          font-size: 2.5rem;
+        }
+      }
+
+      p {
+        margin: 0px;
+        line-height: normal;
+        font-size: 1em;
+        @include from-small-up {
+          font-size: 1.125rem;
+        }
+        &:nth-of-type(1) {
+          color: rgb(165, 165, 165);
+        }
+        &:nth-of-type(2) {
+          color: rgb(46, 46, 46);
+        }
+      }
+      .tagContainer {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1em;
+        opacity: 0.8;
+
+        span {
+          font-size: 0.95rem;
+          margin: 0px;
+          color: map-get($colors, tertiary);
+
+          padding-block: 0.4rem;
+          padding-inline: 0.75rem;
+          border-radius: 9999px;
+          background-color: #515260;
+          width: fit-content;
+        }
+      }
+    }
+  }
+
+  &:nth-child(even) {
+    .imageContainer {
+      @include from-small-up {
+        &:nth-of-type(1) {
+          width: 33.33%;
+        }
+        &:nth-of-type(2) {
+          width: 66.66%;
+        }
+      }
+    }
+  }
+}

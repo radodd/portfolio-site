@@ -1,0 +1,99 @@
+@use "./queries.scss";
+@import "./queries.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding-inline: 1em;
+  gap: 3rem;
+  @include from-small-up {
+    max-width: 100rem;
+    padding-inline: 4em;
+    flex-direction: row;
+    gap: 32px;
+    &:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+  }
+}
+
+.textContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: whitesmoke;
+    @include from-small-up {
+      font-size: 2.5rem;
+    }
+  }
+  > span:first-of-type {
+    color: map-get($map: $colors, $key: primary);
+    font-size: large;
+  }
+  p {
+    color: rgb(165, 165, 165);
+    font-size: 1rem;
+    @include from-small-up {
+      font-size: 1.125rem;
+    }
+  }
+}
+
+.double {
+  flex: 1;
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  width: 60vw;
+  height: 75vh;
+  padding-bottom: 3rem;
+  gap: 0.5rem;
+  @include from-small-up {
+  }
+
+  .imageContainer {
+    @include from-small-up {
+      &:nth-of-type(1) {
+        height: 66.66%;
+      }
+      &:nth-of-type(2) {
+        height: 33.33%;
+      }
+    }
+
+    .stretchyContainer {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      pointer-events: none;
+
+      video {
+        border-radius: 20px;
+        overflow: hidden;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        // &::-webkit-media-controls-enclosure {
+        //   display: none;
+        // }
+      }
+    }
+  }
+  @include from-small-up {
+    &:nth-child(even) {
+      .imageContainer {
+        &:nth-of-type(1) {
+          height: 33.33%;
+        }
+        &:nth-of-type(2) {
+          height: 66.66%;
+        }
+      }
+    }
+  }
+}
