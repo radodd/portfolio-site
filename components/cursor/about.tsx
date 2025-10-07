@@ -45,8 +45,8 @@ const About = () => {
         onMouseLeave={() => setIsHovered(false)}
       >
         <p className={styles.originStory}>
-          Born on{" "}
-          <span className={`${styles.location} ${styles.guam}`}>Guam</span> →
+          US Army Veteran turned Front End Engineer&nbsp;
+          {/* <span className={`${styles.location} ${styles.guam}`}>Guam</span> →
           served the US Army in{" "}
           <span className={`${styles.location} ${styles.hawaii}`}>Hawaii</span>{" "}
           → studied in{" "}
@@ -56,8 +56,8 @@ const About = () => {
           → finally settling in{" "}
           <span className={`${styles.location} ${styles.raleigh}`}>
             Raleigh, NC &nbsp;
-          </span>
-          where I make the web a more
+          </span> */}
+          striving to make the web a more
           <span className="beautiful">&nbsp;beautiful&nbsp;</span> place one{" "}
           {"<div>"} at a time.
         </p>
