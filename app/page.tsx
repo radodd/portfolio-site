@@ -8,6 +8,7 @@ import SectionHeading from "@/components/section-heading";
 
 import styles from "@/scss/home.module.scss";
 import AboutButtons from "@/components/about-buttons";
+import SectionDivider from "@/components/section-divider";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
       <div className="flex flex-col items-center">
         <SectionHeading>Completed Projects</SectionHeading>
         <Projects projectsData={[projectsData[0], projectsData[1]]} />
+        <SectionDivider />
         <Projects
           projectsData={[projectsData[2], projectsData[3]]}
           reversed={true}
