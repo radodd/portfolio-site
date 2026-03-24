@@ -1,0 +1,2017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System v4.0 — Ethan Flores</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ──────────────────────────────── */
+:root {
+  --bg:        #0d1020;
+  --surface:   #141830;
+  --surface2:  #1a2040;
+  --border:    rgba(255,255,255,0.07);
+  --border-md: rgba(255,255,255,0.12);
+  --orange:    #e86a20;
+  --orange-dk: #c45518;
+  --blue:      #5888c8;
+  --blue-lt:   #7aa4d8;
+  --pink:      #c83488;
+  --accent:    #8e1a58;
+  --accent-dk: #6e1248;
+  --tag-bg:    #161d3a;
+  --muted:     #7080a8;
+  --text:      #e8e8f5;
+  --text-dim:  #b0b8d0;
+  --text-dk:   #d0d4e8;
+  --cream:     #f0eee8;
+  --grad:      linear-gradient(90deg, #e86a20, #c83488, #5888c8);
+  --grad-long: linear-gradient(90deg, #e86a20, #c83488, #5888c8, #e86a20);
+
+  /* ── ELEVATION ── */
+  --shadow-0: none;
+  --shadow-1: 0 1px 3px rgba(0,0,0,0.35), 0 1px 2px rgba(0,0,0,0.25);
+  --shadow-2: 0 4px 12px rgba(0,0,0,0.45), 0 2px 4px rgba(0,0,0,0.30);
+  --shadow-3: 0 8px 24px rgba(0,0,0,0.55), 0 4px 8px rgba(0,0,0,0.35);
+  --shadow-4: 0 16px 40px rgba(0,0,0,0.65), 0 6px 12px rgba(0,0,0,0.40);
+  --shadow-5: 0 24px 64px rgba(0,0,0,0.75), 0 8px 20px rgba(0,0,0,0.50);
+
+  /* ── BRAND GLOWS ── */
+  --glow-orange-sm: 0 0 12px rgba(232,106,32,0.35);
+  --glow-orange-md: 0 0 24px rgba(232,106,32,0.40), 0 0 8px rgba(232,106,32,0.20);
+  --glow-orange-lg: 0 0 48px rgba(232,106,32,0.45), 0 0 20px rgba(232,106,32,0.25);
+  --glow-blue-sm:   0 0 12px rgba(88,136,200,0.35);
+  --glow-blue-md:   0 0 24px rgba(88,136,200,0.40), 0 0 8px rgba(88,136,200,0.20);
+  --glow-pink-sm:   0 0 12px rgba(200,52,136,0.35);
+  --glow-pink-md:   0 0 24px rgba(200,52,136,0.40), 0 0 8px rgba(200,52,136,0.20);
+  --glow-brand-md:  0 0 24px rgba(232,106,32,0.25), 0 0 40px rgba(200,52,136,0.15), 0 0 60px rgba(88,136,200,0.10);
+
+  /* ── GLASS ── */
+  --glass-bg:     rgba(255,255,255,0.07);
+  --glass-blur:   blur(16px);
+  --glass-border: rgba(255,255,255,0.12);
+  --glass-shadow: 0 4px 16px rgba(0,0,0,0.30);
+}
+
+/* ─── RESET & BASE ────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Switzer', sans-serif;
+  line-height:1.6;
+  min-height:100vh;
+}
+
+/* ─── LAYOUT ──────────────────────────────── */
+.page-wrap { display:flex; min-height:100vh; }
+.sidebar {
+  width:220px; flex-shrink:0; position:fixed;
+  top:0; left:0; bottom:0;
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  padding:32px 0; overflow-y:auto; z-index:100;
+}
+.sidebar-logo { padding:0 24px 28px; border-bottom:1px solid var(--border); margin-bottom:20px; }
+.sidebar-logo-title {
+  font-family:'Fraunces', serif;
+  font-size:1.4rem; letter-spacing:0.08em;
+  background:var(--grad); -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent; background-clip:text; line-height:1;
+}
+.sidebar-logo-sub { font-size:10px; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; margin-top:3px; }
+.sidebar-logo-ver {
+  display:inline-flex; align-items:center; gap:5px; margin-top:8px;
+  font-size:8px; font-weight:700; padding:2px 8px; border-radius:3px;
+  background:rgba(86,200,136,0.1); color:#56c888;
+  border:1px solid rgba(86,200,136,0.2); font-family:'DM Mono',monospace; letter-spacing:0.06em;
+}
+.sidebar-nav { padding:0 16px; }
+.sidebar-section-label {
+  font-size:9px; font-weight:600; letter-spacing:0.16em; text-transform:uppercase;
+  color:var(--muted); padding:0 8px; margin:16px 0 6px;
+}
+.sidebar-link {
+  display:flex; align-items:center; gap:8px; padding:7px 10px;
+  border-radius:6px; font-size:12px; font-weight:500;
+  color:var(--text-dim); text-decoration:none;
+  transition:all 0.15s; cursor:pointer;
+}
+.sidebar-link:hover { background:rgba(255,255,255,0.05); color:var(--text); }
+.sidebar-link.active { background:rgba(232,106,32,0.12); color:var(--orange); }
+.sidebar-num { font-size:9px; font-family:'DM Mono',monospace; color:var(--muted); min-width:16px; }
+.sidebar-new { font-size:7.5px; font-weight:700; padding:1px 5px; border-radius:2px; margin-left:auto;
+  background:rgba(86,200,136,0.1); color:#56c888; border:1px solid rgba(86,200,136,0.2); font-family:'DM Mono',monospace; }
+.main-content { margin-left:220px; flex:1; padding:48px 56px; max-width:1000px; }
+
+/* ─── COVER ───────────────────────────────── */
+.cover {
+  border-radius:16px; background:var(--surface);
+  border:1px solid var(--border); padding:56px 48px;
+  margin-bottom:64px; position:relative; overflow:hidden;
+}
+.cover::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--grad); }
+.cover-eyebrow { font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--orange); font-weight:600; margin-bottom:12px; }
+.cover-title {
+  font-family:'Fraunces', serif; font-size:5rem;
+  letter-spacing:0.06em; line-height:0.95; margin-bottom:20px;
+}
+.cover-title span:nth-child(1) { color:var(--orange); }
+.cover-title span:nth-child(2) { color:var(--text); }
+.cover-title span:nth-child(3) { color:var(--pink); }
+.cover-title span:nth-child(4) { color:var(--blue); }
+.cover-meta { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.cover-badge { font-size:11px; font-weight:600; padding:4px 12px; border-radius:999px; border:1px solid var(--border-md); color:var(--text-dim); }
+.cover-badge.hi { border-color:var(--orange); color:var(--orange); }
+.cover-badge.new { border-color:#56c888; color:#56c888; }
+.cover-stack { display:flex; gap:6px; flex-wrap:wrap; margin-top:16px; }
+.cover-chip { font-size:10px; font-weight:600; padding:3px 10px; border-radius:4px; background:var(--tag-bg); color:var(--muted); }
+
+/* ─── SECTION ─────────────────────────────── */
+.section { margin-bottom:72px; scroll-margin-top:40px; }
+.section-header { margin-bottom:32px; }
+.section-eyebrow { font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--orange); font-weight:600; margin-bottom:8px; }
+.section-title { font-size:2rem; font-weight:700; color:var(--text); margin-bottom:8px; }
+.section-desc { font-size:13px; color:var(--muted); max-width:560px; line-height:1.7; }
+.section-rule { width:48px; height:3px; border-radius:999px; background:var(--grad); margin-top:14px; }
+
+/* ─── PANELS ──────────────────────────────── */
+.panel { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px; margin-bottom:16px; position:relative; overflow:hidden; }
+.panel-label { font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); font-weight:600; margin-bottom:16px; }
+.panel-tag { position:absolute; top:14px; right:14px; font-size:9px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; padding:3px 9px; border-radius:999px; border:1px solid var(--border-md); color:var(--muted); }
+.panel-2col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media(max-width:700px){ .panel-2col { grid-template-columns:1fr; } }
+
+/* ─── S01 COLOR ────────────────────────────── */
+.swatch-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:12px; }
+.swatch-item { cursor:pointer; position:relative; }
+.swatch-chip { width:100%; height:60px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); margin-bottom:8px; transition:transform 0.15s; }
+.swatch-item:hover .swatch-chip { transform:scale(1.03); }
+.swatch-role { font-size:11px; font-weight:600; color:var(--text-dk); }
+.swatch-hex { font-size:10px; font-family:'DM Mono',monospace; color:var(--muted); }
+.swatch-use { font-size:9px; color:var(--muted); margin-top:2px; line-height:1.4; }
+.copy-flash { position:absolute; top:8px; left:50%; transform:translateX(-50%); background:rgba(255,255,255,0.12); color:#fff; font-size:9px; padding:2px 7px; border-radius:3px; pointer-events:none; opacity:0; transition:opacity 0.15s; white-space:nowrap; }
+.copy-flash.show { opacity:1; }
+.grad-swatch { height:60px; border-radius:8px; margin-bottom:8px; border:1px solid rgba(255,255,255,0.06); }
+
+/* ─── S02 TYPOGRAPHY ──────────────────────── */
+.typeface-block { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:28px 28px 24px; margin-bottom:14px; }
+.typeface-meta { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; }
+.typeface-name { font-size:11px; font-weight:600; color:var(--orange); letter-spacing:0.12em; text-transform:uppercase; }
+.typeface-role { font-size:10px; color:var(--muted); margin-top:2px; }
+.typeface-badges { display:flex; gap:4px; }
+.tbadge { font-size:9px; padding:2px 8px; border-radius:3px; background:var(--tag-bg); color:var(--blue); font-weight:600; }
+.typeface-alpha { font-size:11px; color:var(--muted); font-family:'DM Mono',monospace; margin-top:8px; line-height:1.8; }
+.type-scale-table { width:100%; border-collapse:collapse; }
+.type-scale-table th { font-size:9px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); padding:0 12px 10px; text-align:left; border-bottom:1px solid var(--border); }
+.type-scale-table td { padding:12px 12px; border-bottom:1px solid var(--border); font-size:12px; color:var(--text-dim); vertical-align:middle; }
+.type-scale-table tr:last-child td { border-bottom:none; }
+
+/* ─── S04 COMPONENTS ──────────────────────── */
+.comp-demo { background:var(--bg); border-radius:8px; padding:24px; display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:12px; }
+.comp-spec { font-size:11px; color:var(--muted); line-height:1.8; }
+.comp-spec strong { color:var(--text-dk); font-weight:600; }
+
+/* ── BUTTON: S3-F ── */
+.btn { font-family:'Switzer',sans-serif; font-size:13px; font-weight:600; padding:12px 28px; border-radius:9999px; border:none; cursor:pointer; transition:transform 0.15s,box-shadow 0.2s; letter-spacing:0.02em; position:relative; overflow:hidden; display:inline-flex; align-items:center; }
+.btn:hover { transform:scale(1.05); }
+.btn:focus { transform:scale(1.08); outline:none; }
+.btn:active { transform:scale(1.02); }
+
+.btn-primary {
+  background:linear-gradient(135deg,#e86a20 0%,#8e1a58 30%,#8e1a58 70%,#5888c8 100%);
+  color:#fff; transition:transform 0.15s,box-shadow 0.2s;
+}
+.btn-primary::before { content:''; position:absolute; inset:3px; border-radius:9999px; background:rgba(10,12,28,0.62); backdrop-filter:blur(2px); z-index:0; transition:opacity 0.35s ease; }
+.btn-primary::after { content:''; position:absolute; top:-20%; left:-80%; width:60%; height:140%; background:linear-gradient(105deg,transparent,rgba(255,255,255,0.30),transparent); transform:skewX(-15deg); z-index:2; transition:left 0.50s ease; }
+.btn-primary .btn-t { position:relative; z-index:1; }
+.btn-primary:hover::before { opacity:0; }
+.btn-primary:hover::after { left:140%; }
+.btn-primary:hover { box-shadow:0 10px 36px rgba(88,136,200,0.30); }
+
+/* ── BUTTON: L5 ── */
+.btn-liquid {
+  background:transparent; color:var(--orange);
+  border:1.5px solid rgba(232,106,32,0.35);
+  overflow:hidden; font-family:'Switzer',sans-serif; font-size:13px; font-weight:600;
+  padding:12px 28px; border-radius:9999px; cursor:pointer; letter-spacing:0.02em;
+  position:relative; display:inline-block; transition:border-color 0.15s,transform 0.15s;
+}
+.btn-liquid::before {
+  content:''; position:absolute; bottom:-105%; left:-5%; right:-5%; height:115%;
+  background:linear-gradient(180deg,rgba(232,106,32,0.9),var(--orange));
+  border-radius:60% 60% 0 0/30% 30% 0 0;
+  transition:bottom 0.42s cubic-bezier(0.34,1.56,0.64,1);
+}
+.btn-liquid:hover { border-color:var(--orange); transform:scale(1.05); }
+.btn-liquid:hover::before { bottom:0; border-radius:20% 20% 0 0/8% 8% 0 0; }
+.btn-liquid:hover .lt { color:#fff; }
+.btn-liquid:active { transform:scale(1.02); }
+.lt { position:relative; z-index:1; transition:color 0.15s; }
+
+/* ── BUTTON: S4-E ripple ── */
+.btn-secondary { background:rgba(88,136,200,0.8); color:#fff; }
+.btn-social { background:rgba(232,106,32,0.12); color:var(--orange); border:1px solid rgba(232,106,32,0.2); }
+.btn-outline { border:1px solid rgba(255,255,255,0.25); background:transparent; color:var(--text); padding:11px 27px; }
+.rp { position:absolute; border-radius:50%; pointer-events:none; transform:translate(-50%,-50%) scale(0); }
+@keyframes ripple-neon { to { transform:translate(-50%,-50%) scale(5); opacity:0; filter:blur(4px); } }
+
+/* ── NAV: G1 ── */
+.nav-demo { background:rgba(20,24,48,0.85); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.15); border-radius:9999px; padding:8px 20px; display:inline-flex; align-items:center; gap:4px; position:relative; }
+.nav-link { font-family:'Switzer',sans-serif; font-size:13px; font-weight:500; padding:6px 14px; border-radius:999px; cursor:pointer; transition:color 0.2s; color:var(--muted); position:relative; z-index:1; }
+.nav-link.active { color:var(--text); text-shadow:0 0 14px rgba(232,106,32,0.5); }
+.nav-pill { position:absolute; background:rgba(232,106,32,0.15); border:1px solid rgba(232,106,32,0.25); border-radius:999px; height:32px; transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1); z-index:0; top:50%; transform:translateY(-50%); box-shadow:0 0 16px rgba(232,106,32,0.25); }
+
+/* ── NAV: U1 ── */
+.nav-ul { display:inline-flex; align-items:center; border-bottom:1px solid rgba(255,255,255,0.08); }
+.ul-item { font-family:'Switzer',sans-serif; font-size:13px; font-weight:500; padding:8px 16px; cursor:pointer; color:var(--muted); transition:color 0.2s; position:relative; }
+.ul-item::after { content:''; position:absolute; bottom:-1px; left:16px; right:16px; height:2px; background:var(--orange); border-radius:2px; transform:scaleX(0); transform-origin:center; transition:transform 0.28s cubic-bezier(0.34,1.56,0.64,1); }
+.ul-item.on { color:var(--orange); }
+.ul-item.on::after { transform:scaleX(1); }
+
+/* ── TAGS: TG1 ── */
+.tag { display:inline-flex; align-items:center; padding:4px 12px; border-radius:6px; font-family:'Switzer',sans-serif; font-size:12px; font-weight:600; transition:all 0.18s; cursor:default; border:1px solid; }
+.tag-b { background:rgba(88,136,200,0.08); border-color:rgba(88,136,200,0.2); }
+.tag-b:hover { box-shadow:0 0 14px rgba(88,136,200,0.3); border-color:rgba(88,136,200,0.45); transform:scale(1.05); }
+.tag-o { background:rgba(232,106,32,0.08); border-color:rgba(232,106,32,0.2); }
+.tag-o:hover { box-shadow:0 0 14px rgba(232,106,32,0.3); border-color:rgba(232,106,32,0.45); transform:scale(1.05); }
+.tag-p { background:rgba(200,52,136,0.08); border-color:rgba(200,52,136,0.2); }
+.tag-p:hover { box-shadow:0 0 14px rgba(200,52,136,0.3); border-color:rgba(200,52,136,0.45); transform:scale(1.05); }
+.tag-t { background:rgba(176,184,208,0.06); border-color:rgba(176,184,208,0.15); }
+.tag-t:hover { box-shadow:0 0 10px rgba(176,184,208,0.2); border-color:rgba(176,184,208,0.3); transform:scale(1.05); }
+
+/* ── TAGS: TP1 ── */
+.pill-tag { display:inline-flex; align-items:center; padding:4px 12px; border-radius:999px; font-family:'Switzer',sans-serif; font-size:12px; font-weight:600; background:var(--surface2); border:1px solid var(--border-md); overflow:hidden; position:relative; transition:all 0.2s; cursor:default; }
+.pill-tag::after { content:''; position:absolute; top:0; left:-80%; width:60%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent); transform:skewX(-15deg); transition:left 0.45s ease; }
+.pill-tag:hover::after { left:130%; }
+.pill-tag:hover { border-color:rgba(255,255,255,0.22); transform:scale(1.05); }
+
+/* ── FORM: GB3 + AB3 ── */
+.form-field { position:relative; width:100%; }
+.form-field::before { content:''; position:absolute; inset:-1.5px; border-radius:9.5px; background:linear-gradient(90deg,#e86a20,#c83488,#5888c8); opacity:0; transform:scaleX(0.92); z-index:0; transition:opacity 0.20s,transform 0.32s cubic-bezier(0.34,1.56,0.64,1); }
+.form-field:focus-within::before { opacity:1; transform:scaleX(1); }
+.form-field .ab3-bar { position:absolute; left:0; top:50%; bottom:50%; width:3px; border-radius:8px 0 0 8px; background:var(--orange); opacity:0; z-index:2; }
+.form-field:focus-within .ab3-bar { top:6px; bottom:6px; opacity:1; transition:opacity 0.10s,top 0.35s cubic-bezier(0.34,1.56,0.64,1),bottom 0.35s cubic-bezier(0.34,1.56,0.64,1); }
+.form-inp { position:relative; z-index:1; width:100%; font-family:'Switzer',sans-serif; font-size:14px; height:56px; padding:0 16px 0 20px; border-radius:8px; background:var(--surface2); border:1px solid rgba(255,255,255,0.10); color:var(--text); outline:none; transition:background 0.20s; }
+.form-inp:focus { background:rgba(26,32,64,0.9); }
+.form-inp::placeholder { color:var(--muted); }
+.form-textarea { font-family:'Switzer',sans-serif; font-size:14px; width:100%; padding:14px 16px 14px 20px; border-radius:8px; background:var(--surface2); border:1px solid rgba(255,255,255,0.1); color:var(--text); outline:none; resize:vertical; min-height:100px; position:relative; z-index:1; transition:background 0.2s; }
+.form-textarea:focus { background:rgba(26,32,64,0.9); }
+.form-textarea::placeholder { color:var(--muted); }
+.form-stack { display:flex; flex-direction:column; gap:10px; max-width:420px; margin:0 auto; }
+
+/* ── PROJECT CARD: CO2 ── */
+.project-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; display:flex; cursor:pointer; position:relative; }
+.project-card::after { content:''; position:absolute; inset:0; border:2px solid transparent; border-radius:12px; transition:border-color 0.3s,box-shadow 0.3s; pointer-events:none; z-index:2; }
+.project-card:hover::after { border-color:rgba(232,106,32,0.40); box-shadow:inset 0 0 40px rgba(232,106,32,0.07),0 0 50px rgba(232,106,32,0.14); }
+.project-card-img { width:66.66%; background:linear-gradient(135deg,#141830 0%,#1a2040 50%,#161d3a 100%); min-height:180px; position:relative; overflow:hidden; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+.project-card-img-inner { font-family:'Fraunces',serif; font-size:3rem; letter-spacing:0.08em; font-weight:900; font-style:italic; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; opacity:0.4; }
+.project-card-info { width:33.33%; padding:20px; display:flex; flex-direction:column; gap:8px; }
+.project-card-title { font-size:14px; font-weight:700; color:whitesmoke; }
+.project-card-desc { font-size:11px; color:var(--muted); line-height:1.5; flex:1; }
+.project-card-tags { display:flex; gap:4px; flex-wrap:wrap; }
+.ct { font-family:'Switzer',sans-serif; font-size:10px; font-weight:600; padding:3px 8px; border-radius:4px; background:var(--tag-bg); }
+
+/* ── PROJECT CARD: MT2 ── */
+.min-card { background:transparent; border:1px solid var(--border); border-radius:8px; padding:22px 24px; cursor:pointer; transition:border-color 0.25s; position:relative; overflow:hidden; }
+.min-card::before { content:''; position:absolute; bottom:-100%; right:-100%; width:200%; height:200%; background:var(--surface); border-radius:50%; transform:scale(0); transition:transform 0.50s cubic-bezier(0.25,0.46,0.45,0.94); transform-origin:bottom right; z-index:0; }
+.min-card > * { position:relative; z-index:1; }
+.min-card:hover::before { transform:scale(1); }
+.min-card:hover { border-color:rgba(255,255,255,0.12); }
+.min-card .view-lnk { opacity:0; transition:opacity 0.35s 0.15s; }
+.min-card:hover .view-lnk { opacity:1; }
+.mc-num { font-size:9px; font-family:'DM Mono',monospace; color:var(--orange); margin-bottom:8px; letter-spacing:0.1em; }
+.mc-title { font-family:'Fraunces',serif; font-size:1.1rem; font-weight:700; color:var(--text); margin-bottom:6px; letter-spacing:-0.01em; }
+.mc-desc { font-size:11px; color:var(--muted); line-height:1.6; margin-bottom:12px; }
+.mc-bot { display:flex; align-items:center; justify-content:space-between; }
+.view-lnk { font-size:10px; font-weight:600; color:var(--orange); letter-spacing:0.06em; text-transform:uppercase; font-family:'DM Mono',monospace; }
+
+/* ── DIVIDERS ── */
+.divider-demo { display:flex; gap:40px; align-items:center; justify-content:center; padding:20px 0; }
+.dv0 { width:4px; height:64px; border-radius:999px; background:rgba(229,231,235,0.5); }
+.dv1 { width:3px; height:64px; border-radius:999px; background:var(--grad); box-shadow:0 0 12px rgba(232,106,32,0.3),0 0 28px rgba(200,52,136,0.15); }
+@keyframes breathe { 0%,100%{transform:scaleY(0.8) scaleX(0.85);opacity:0.4} 50%{transform:scaleY(1) scaleX(1);opacity:1} }
+.dv2 { width:3px; height:64px; border-radius:999px; background:var(--orange); animation:breathe 2.2s ease-in-out infinite; transform-origin:center; }
+
+/* ─── S05 LAYOUT ──────────────────────────── */
+.breakpoint-row { display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:6px; transition:background 0.1s; border-bottom:1px solid var(--border); }
+.breakpoint-row:last-child { border-bottom:none; }
+.breakpoint-row:hover { background:rgba(255,255,255,0.03); }
+.bp-size { font-family:'DM Mono',monospace; font-size:12px; color:var(--orange); min-width:60px; }
+.bp-bar-wrap { flex:1; height:6px; background:rgba(255,255,255,0.05); border-radius:999px; overflow:hidden; }
+.bp-bar { height:100%; border-radius:999px; background:var(--grad); }
+.bp-label { font-size:11px; color:var(--muted); min-width:120px; text-align:right; }
+.radius-row { display:flex; gap:10px; flex-wrap:wrap; }
+.radius-item { display:flex; flex-direction:column; align-items:center; gap:8px; }
+.radius-box { width:64px; height:64px; background:var(--surface2); border:1px solid var(--border-md); }
+.radius-name { font-size:10px; font-weight:600; color:var(--text-dk); }
+.radius-val { font-size:9px; font-family:'DM Mono',monospace; color:var(--muted); }
+
+/* ─── S06 ANIMATION ───────────────────────── */
+.anim-table { width:100%; border-collapse:collapse; }
+.anim-table th { font-size:9px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); padding:0 12px 10px; text-align:left; border-bottom:1px solid var(--border); }
+.anim-table td { padding:11px 12px; border-bottom:1px solid var(--border); font-size:11px; color:var(--text-dim); }
+.anim-table tr:last-child td { border-bottom:none; }
+.anim-table td:first-child { font-family:'DM Mono',monospace; color:var(--orange); font-size:11px; }
+.lib-row { display:flex; gap:12px; flex-wrap:wrap; margin-top:4px; }
+.lib-card { flex:1; min-width:180px; background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:16px; }
+.lib-name { font-size:13px; font-weight:700; color:var(--text); margin-bottom:2px; }
+.lib-ver { font-size:10px; font-family:'DM Mono',monospace; color:var(--muted); margin-bottom:8px; }
+.lib-use { font-size:11px; color:var(--muted); line-height:1.6; }
+.mp-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.mp-card { background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:16px; }
+.mp-title { font-size:12px; font-weight:700; color:var(--orange); margin-bottom:6px; }
+.mp-desc { font-size:11px; color:var(--muted); line-height:1.6; }
+
+/* ─── CHANGELOG ───────────────────────────── */
+.cl-entry { padding:14px 0; border-bottom:1px solid var(--border); }
+.cl-entry:last-child { border-bottom:none; }
+.cl-date { font-size:9px; font-family:'DM Mono',monospace; color:var(--muted); margin-bottom:4px; letter-spacing:0.08em; }
+.cl-title { font-size:12px; font-weight:600; color:var(--text-dk); margin-bottom:3px; }
+.cl-desc { font-size:11px; color:var(--muted); line-height:1.6; }
+.cl-chip { font-size:8px; font-weight:700; padding:1px 6px; border-radius:3px; font-family:'DM Mono',monospace; letter-spacing:0.06em; vertical-align:middle; margin-left:6px; }
+.cl-chip-new { background:rgba(86,200,136,0.1); color:#56c888; border:1px solid rgba(86,200,136,0.2); }
+.cl-chip-upd { background:rgba(232,106,32,0.1); color:var(--orange); border:1px solid rgba(232,106,32,0.2); }
+
+/* ─── SHIMMER DEMO ────────────────────────── */
+@keyframes shimmerAnim { 0%{background-position:100%} 100%{background-position:-100%} }
+.shimmer-text { font-family:'Fraunces',serif; font-style:italic; font-size:1.8rem; letter-spacing:0.08em; background:linear-gradient(90deg,var(--text),var(--orange),var(--pink),var(--blue),var(--text)); background-size:300%; background-position:100%; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; animation:shimmerAnim 3s linear infinite; }
+
+/* ─── BLOB ────────────────────────────────── */
+.blob-demo { position:relative; height:100px; border-radius:8px; overflow:hidden; background:var(--bg); }
+.blob { position:absolute; border-radius:50%; filter:blur(20px); opacity:0.35; }
+.blob-1 { width:100px; height:100px; background:var(--orange); top:-20px; left:20px; animation:float1 8s ease-in-out infinite; }
+.blob-2 { width:80px; height:80px; background:var(--pink); bottom:-20px; left:50%; animation:float2 10s ease-in-out infinite; }
+.blob-3 { width:90px; height:90px; background:var(--blue); top:0; right:10%; animation:float1 12s ease-in-out infinite reverse; }
+@keyframes float1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(12px,-14px) scale(1.05)} 66%{transform:translate(-8px,8px) scale(0.97)} }
+@keyframes float2 { 0%,100%{transform:translate(0,0) scale(1)} 40%{transform:translate(-14px,10px) scale(1.08)} 70%{transform:translate(10px,-8px) scale(0.95)} }
+
+/* ─── SCROLLBAR & MISC ────────────────────── */
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.1); border-radius:2px; }
+.gap-col { display:flex; flex-direction:column; gap:12px; }
+.grad-text-demo { font-family:'Fraunces',serif; font-size:2.2rem; letter-spacing:0.06em; background:linear-gradient(90deg,#ffcc70,#ff8177,#b721ff,#21d4fd,#ffcc70); background-size:200%; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; animation:maskShift 4s linear infinite; display:inline-block; }
+@keyframes maskShift { to { background-position:-200% 0; } }
+.scale-demo-btn { font-family:'Switzer',sans-serif; font-size:12px; font-weight:600; padding:9px 22px; border-radius:999px; background:var(--accent); color:#fff; border:none; cursor:pointer; transition:transform 0.15s; }
+.scale-demo-btn:hover { transform:scale(1.05); }
+.scale-demo-btn:focus { transform:scale(1.10); outline:none; }
+.scale-demo-btn:active { transform:scale(1.05); }
+.panel-2col-cards { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+/* ─── S07 DESIGN DEPTH ─────────────────────── */
+.depth-row { display:flex; align-items:flex-end; justify-content:center; gap:20px; padding:36px 24px 20px; background:var(--bg); border-radius:8px; flex-wrap:wrap; }
+.depth-item { display:flex; flex-direction:column; align-items:center; gap:10px; }
+.depth-box { border-radius:10px; background:var(--surface); border:1px solid var(--border); cursor:pointer; transition:transform 0.2s; }
+.depth-box:hover { transform:translateY(-4px); }
+.depth-lbl { font-size:8px; font-family:'DM Mono',monospace; color:var(--muted); text-align:center; }
+.depth-num { font-size:10px; font-weight:700; color:var(--text-dim); text-align:center; margin-bottom:1px; }
+
+.glass-scene-sm { position:relative; border-radius:10px; overflow:hidden; padding:24px; display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; min-height:100px; }
+.gs-bg { position:absolute; inset:0; background:linear-gradient(135deg,#060a1a,#0d1428); }
+.gs-blob { position:absolute; border-radius:50%; filter:blur(32px); opacity:0.5; pointer-events:none; }
+.gs-card { position:relative; z-index:1; border-radius:10px; padding:14px 18px; text-align:center;
+  background:rgba(255,255,255,0.07); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.12); box-shadow:0 4px 16px rgba(0,0,0,0.3); }
+.gs-name { font-size:11px; font-weight:600; color:var(--text); margin-bottom:2px; }
+.gs-val  { font-size:8px; font-family:'DM Mono',monospace; color:var(--muted); }
+
+.usage-row { display:flex; align-items:center; gap:12px; padding:8px 12px; background:var(--surface2); border-radius:6px; border:1px solid var(--border); }
+.usage-lvl { font-size:11px; font-weight:700; color:var(--orange); font-family:'DM Mono',monospace; min-width:28px; }
+.usage-div { width:1px; height:18px; background:var(--border); flex-shrink:0; }
+.usage-desc { font-size:11px; color:var(--text-dim); flex:1; }
+
+.glow-dot-sm { width:44px; height:44px; border-radius:50%; cursor:pointer; transition:transform 0.2s; }
+.glow-dot-sm:hover { transform:scale(1.18); }
+
+.border-strip { width:100%; height:52px; border-radius:7px; background:var(--surface2); display:flex; align-items:center; justify-content:center; }
+
+.depth-token-row { display:grid; grid-template-columns:200px 1fr; }
+.dtr-name { font-size:10px; font-family:'DM Mono',monospace; padding:9px 14px; border-bottom:1px solid var(--border); }
+.dtr-val  { font-size:10px; font-family:'DM Mono',monospace; color:var(--muted); padding:9px 14px; border-bottom:1px solid var(--border); }
+.dtr-name:last-of-type,.dtr-val:last-of-type { border-bottom:none; }
+
+.tooltip-demo-row { display:flex; align-items:flex-end; justify-content:center; gap:32px; padding:48px 24px 24px; background:var(--bg); border-radius:8px; flex-wrap:wrap; }
+.tt-wrap { position:relative; display:inline-block; }
+.tt-trigger { font-family:'Switzer',sans-serif; font-size:12px; font-weight:600; padding:8px 16px;
+  border-radius:8px; background:var(--surface); border:1px solid var(--border-md); color:var(--text-dim); cursor:default; }
+.tt-box { position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%);
+  white-space:nowrap; font-size:10px; padding:6px 10px; border-radius:6px;
+  pointer-events:none; font-weight:500; font-family:'DM Mono',monospace; }
+.tt-box::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; }
+.tt-dark { background:rgba(8,10,22,0.95); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.1);
+  box-shadow:var(--shadow-3); color:var(--text); }
+.tt-dark::after { border-top-color:rgba(8,10,22,0.95); }
+
+.ctx-card-sm { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden;
+  position:relative; cursor:pointer; box-shadow:var(--shadow-2); transition:box-shadow 0.3s,transform 0.25s; max-width:420px; margin:0 auto; }
+.ctx-card-sm::after { content:''; position:absolute; inset:0; border:2px solid transparent; border-radius:12px;
+  transition:border-color 0.3s,box-shadow 0.3s; pointer-events:none; z-index:2; }
+.ctx-card-sm:hover { box-shadow:var(--shadow-4); transform:translateY(-3px); }
+.ctx-card-sm:hover::after { border-color:rgba(232,106,32,0.4);
+  box-shadow:inset 0 0 40px rgba(232,106,32,0.07),0 0 50px rgba(232,106,32,0.14); }
+
+/* ─── S08 IMPLEMENTATION TOKENS ───────────────── */
+.code-panel { background:#080b18; border:1px solid var(--border-md); border-radius:12px; overflow:hidden; margin-bottom:14px; }
+.code-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px;
+  background:rgba(255,255,255,0.03); border-bottom:1px solid var(--border); }
+.code-filename { font-size:10px; font-weight:600; color:var(--text-dim); font-family:'DM Mono',monospace; display:flex; align-items:center; gap:8px; }
+.code-lang { font-size:8px; padding:2px 7px; border-radius:3px; font-family:'DM Mono',monospace; font-weight:700; letter-spacing:0.06em; }
+.lang-scss { background:rgba(200,52,136,0.15); color:var(--pink); border:1px solid rgba(200,52,136,0.25); }
+.lang-ts   { background:rgba(88,136,200,0.15); color:var(--blue); border:1px solid rgba(88,136,200,0.25); }
+.lang-css  { background:rgba(232,106,32,0.12); color:var(--orange); border:1px solid rgba(232,106,32,0.22); }
+.code-copy-btn { font-size:9px; font-weight:600; padding:4px 11px; border-radius:5px; cursor:pointer;
+  font-family:'DM Mono',monospace; letter-spacing:0.06em; border:1px solid var(--border-md);
+  background:rgba(255,255,255,0.05); color:var(--muted); transition:all 0.15s; }
+.code-copy-btn:hover { background:rgba(255,255,255,0.1); color:var(--text); }
+.code-copy-btn.copied { background:rgba(86,200,136,0.12); color:#56c888; border-color:rgba(86,200,136,0.25); }
+.code-body { padding:20px; overflow-x:auto; max-height:380px; overflow-y:auto; }
+.code-body::-webkit-scrollbar { width:3px; height:3px; }
+.code-body::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.08); border-radius:2px; }
+.code-body pre { font-family:'DM Mono',monospace; font-size:11px; line-height:1.75; white-space:pre; color:var(--text-dim); }
+.t-cm{color:#3d4a6a}.t-k{color:#7aa4d8}.t-v{color:#98c77a}.t-s{color:#e8a87c}
+.t-n{color:#c8a0e8}.t-o{color:#e86a20}.t-pb{color:#c83488}.t-bl{color:#5888c8}.t-gr{color:#56c888}
+.sp-grid { display:flex; flex-direction:column; gap:5px; padding:18px; background:#080b18; border-radius:8px; margin-bottom:14px; }
+.sp-row { display:flex; align-items:center; gap:12px; }
+.sp-name { font-size:9px; font-family:'DM Mono',monospace; color:var(--orange); min-width:56px; }
+.sp-px   { font-size:9px; font-family:'DM Mono',monospace; color:var(--muted); min-width:34px; }
+.sp-rem  { font-size:9px; font-family:'DM Mono',monospace; color:var(--muted); min-width:46px; }
+.sp-bar  { height:10px; border-radius:2px; background:rgba(232,106,32,0.22); border-right:2px solid rgba(232,106,32,0.65); flex-shrink:0; }
+.sp-use  { font-size:9px; color:var(--muted); margin-left:4px; }
+.usage-3col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:14px; }
+@media(max-width:900px){.usage-3col{grid-template-columns:1fr 1fr}}
+.usage-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; }
+.usage-card-title { font-size:9px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; font-family:'DM Mono',monospace; margin-bottom:8px; }
+.usage-card-desc { font-size:11px; color:var(--text-dim); line-height:1.7; margin-bottom:10px; }
+.usage-card-eg { font-size:9px; font-family:'DM Mono',monospace; color:var(--muted); line-height:2; }
+
+/* ─── S09 SECTION TEMPLATES ─────────────────── */
+.tmpl-wrap{background:var(--bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.tmpl-inner{padding:32px}
+.anat-table{width:100%;border-collapse:collapse;font-size:11px}
+.anat-table th{font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);padding:7px 12px;text-align:left;border-bottom:1px solid var(--border);font-family:'DM Mono',monospace}
+.anat-table td{padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.anat-table tr:last-child td{border-bottom:none}
+.anat-table tr:hover td{background:rgba(255,255,255,0.02)}
+.at-num{font-family:'DM Mono',monospace;color:var(--orange);font-weight:700;font-size:10px;min-width:24px}
+.at-name{font-weight:600;color:var(--text-dim);min-width:160px}
+.at-spec{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);flex:1}
+.tmpl-spec-chip{font-size:8px;font-weight:700;padding:2px 7px;border-radius:3px;
+  font-family:'DM Mono',monospace;letter-spacing:0.06em;white-space:nowrap;margin-left:8px;vertical-align:middle}
+.tsc-o{background:rgba(232,106,32,0.1);color:var(--orange);border:1px solid rgba(232,106,32,0.2)}
+.tsc-b{background:rgba(88,136,200,0.1);color:var(--blue);border:1px solid rgba(88,136,200,0.2)}
+.tsc-p{background:rgba(200,52,136,0.1);color:var(--pink);border:1px solid rgba(200,52,136,0.2)}
+.tsc-n{background:rgba(176,184,208,0.08);color:var(--muted);border:1px solid var(--border-md)}
+/* Mini hero preview */
+@keyframes hblob{0%,100%{transform:translate(0,0)}50%{transform:translate(14px,-18px)}}
+.mini-hero{min-height:320px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.mh-blob{position:absolute;border-radius:50%;filter:blur(50px);pointer-events:none}
+.mh-nav{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;position:relative;z-index:2}
+.mh-logo{font-family:'Fraunces',serif;font-size:0.9rem;font-weight:700;font-style:italic;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.mh-pill-nav{display:inline-flex;align-items:center;gap:2px;padding:4px 8px;border-radius:999px;position:relative;
+  background:rgba(20,24,48,0.8);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1)}
+.mh-nav-pill{position:absolute;top:50%;transform:translateY(-50%);border-radius:999px;height:24px;z-index:0;
+  background:rgba(232,106,32,0.12);border:1px solid rgba(232,106,32,0.3);
+  transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1)}
+.mh-link{font-size:11px;font-weight:500;padding:4px 10px;color:var(--muted);cursor:pointer;position:relative;z-index:1;user-select:none;transition:color 0.2s}
+.mh-link.on{color:var(--text)}
+.mh-link:hover{color:var(--text)}
+.mh-cta{font-family:'Switzer',sans-serif;font-size:10.5px;font-weight:600;padding:7px 15px;border-radius:9999px;background:var(--orange);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 12px rgba(232,106,32,0.35)}
+.mh-body{padding:28px 20px 20px;flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+.mh-eye{font-size:9px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;font-family:'DM Mono',monospace;display:flex;align-items:center;gap:7px}
+.mh-eye::before{content:'';width:16px;height:1px;background:var(--orange)}
+.mh-name{font-family:'Fraunces',serif;font-size:clamp(2.4rem,6vw,3.2rem);font-weight:900;font-style:italic;letter-spacing:-0.02em;line-height:0.9;margin-bottom:8px}
+.mh-grad{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.mh-role{font-family:'Fraunces',serif;font-size:1rem;font-weight:300;font-style:italic;color:var(--text-dim);margin-bottom:12px}
+.mh-desc{font-size:0.8125rem;color:var(--muted);line-height:1.7;margin-bottom:18px}
+.mh-btns{display:flex;gap:10px;margin-bottom:20px}
+.mh-btn-p{font-family:'Switzer',sans-serif;font-size:11.5px;font-weight:600;padding:10px 22px;border-radius:9999px;border:none;background:linear-gradient(135deg,#e86a20,#8e1a58,#5888c8);color:#fff;cursor:pointer;position:relative;overflow:hidden}
+.mh-btn-p::before{content:'';position:absolute;inset:2px;border-radius:9999px;background:rgba(10,12,28,0.62);transition:opacity 0.35s}
+.mh-btn-p::after{content:'';position:absolute;top:-20%;left:-80%;width:60%;height:140%;background:linear-gradient(105deg,transparent,rgba(255,255,255,0.3),transparent);transform:skewX(-15deg);transition:left 0.5s}
+.mh-btn-p span{position:relative;z-index:1}
+.mh-btn-p:hover::before{opacity:0}
+.mh-btn-p:hover::after{left:140%}
+.mh-btn-s{font-family:'Switzer',sans-serif;font-size:11.5px;font-weight:600;padding:9px 22px;border-radius:9999px;background:transparent;color:var(--orange);border:1.5px solid rgba(232,106,32,0.35);cursor:pointer;position:relative;overflow:hidden}
+.mh-btn-s::before{content:'';position:absolute;bottom:-105%;left:-5%;right:-5%;height:115%;background:var(--orange);border-radius:60% 60% 0 0/30% 30% 0 0;transition:bottom 0.42s cubic-bezier(0.34,1.56,0.64,1)}
+.mh-btn-s .lt{position:relative;z-index:1;transition:color 0.15s}
+.mh-btn-s:hover{border-color:var(--orange)}
+.mh-btn-s:hover::before{bottom:0;border-radius:20% 20% 0 0/8% 8% 0 0}
+.mh-btn-s:hover .lt{color:#fff}
+.mh-div{display:flex;justify-content:center;padding:4px 0 20px}
+.mh-d1{width:3px;height:44px;border-radius:999px;background:var(--grad);box-shadow:0 0 10px rgba(232,106,32,0.3)}
+/* section label strip */
+.sec-strip{background:var(--surface2);border-bottom:1px solid var(--border);padding:8px 20px;
+  display:flex;justify-content:space-between;align-items:center}
+.sec-strip-label{font-size:9px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--orange);font-family:'DM Mono',monospace}
+.sec-strip-chips{display:flex;gap:6px;flex-wrap:wrap}
+
+/* ─── S10 RESPONSIVE ────────────────────────── */
+.bp-table{width:100%;border-collapse:collapse}
+.bp-table th{font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);font-family:'DM Mono',monospace}
+.bp-table td{padding:9px 12px;border-bottom:1px solid var(--border);font-size:11px;vertical-align:top}
+.bp-table tr:last-child td{border-bottom:none}
+.bp-table tr:hover td{background:rgba(255,255,255,0.02)}
+.bpt-bp{font-family:'DM Mono',monospace;color:var(--orange);font-weight:700}
+.bpt-w{font-family:'DM Mono',monospace;color:var(--blue)}
+.bpt-desc{color:var(--text-dim)}
+.bpt-note{color:var(--muted);font-size:10px;font-family:'DM Mono',monospace}
+.change-table{width:100%;border-collapse:collapse}
+.change-table th{font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);padding:7px 12px;text-align:left;border-bottom:1px solid var(--border);font-family:'DM Mono',monospace}
+.change-table td{padding:8px 12px;border-bottom:1px solid var(--border);font-size:11px;vertical-align:top}
+.change-table tr:last-child td{border-bottom:none}
+.change-table tr:hover td{background:rgba(255,255,255,0.02)}
+.ct-el{font-weight:600;color:var(--text-dim);min-width:140px}
+.ct-desk{font-family:'DM Mono',monospace;color:var(--muted);font-size:10px}
+.ct-mob{font-family:'DM Mono',monospace;color:var(--orange);font-size:10px}
+.resp-sec-label{font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  font-family:'DM Mono',monospace;padding:8px 12px;border-bottom:1px solid var(--border)}
+
+/* ─── S11 SCROLL CHOREOGRAPHY ───────────────── */
+.principle-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.principle-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px}
+.pc-title{font-size:12px;font-weight:700;margin-bottom:6px}
+.pc-body{font-size:11px;color:var(--muted);line-height:1.7}
+.timing-table{width:100%;border-collapse:collapse}
+.timing-table th{font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);padding:7px 12px;text-align:left;border-bottom:1px solid var(--border);font-family:'DM Mono',monospace}
+.timing-table td{padding:8px 12px;border-bottom:1px solid var(--border);font-size:10px;vertical-align:top;font-family:'DM Mono',monospace}
+.timing-table tr:last-child td{border-bottom:none}
+.timing-table tr:hover td{background:rgba(255,255,255,0.02)}
+.tt-elem{color:var(--text-dim);font-family:'Switzer',sans-serif;font-size:11px;font-weight:500}
+.tt-dur{color:var(--orange)}.tt-ease{color:var(--blue)}.tt-delay{color:var(--muted)}
+.tt-note{color:var(--muted);font-family:'Switzer',sans-serif;font-size:10px}
+.timing-section-row{padding:7px 12px;border-bottom:1px solid var(--border);border-top:1px solid var(--border)}
+.timing-section-row:first-child{border-top:none}
+.anim-utils-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+@media(max-width:900px){.principle-grid,.anim-utils-grid{grid-template-columns:1fr}}
+.anim-util-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px}
+.auc-name{font-size:11px;font-weight:700;color:var(--text-dim);font-family:'DM Mono',monospace;margin-bottom:4px}
+.auc-sig{font-size:9px;color:var(--orange);font-family:'DM Mono',monospace;margin-bottom:6px}
+.auc-desc{font-size:10px;color:var(--muted);line-height:1.6}
+.nav-state-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
+.nav-state-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px}
+.nsc-title{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:6px}
+.nsc-body{font-size:10px;color:var(--muted);line-height:1.7;margin-bottom:8px}
+.nsc-vals{font-size:9px;color:var(--muted);font-family:'DM Mono',monospace;line-height:2}
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- ─── SIDEBAR ──────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-title">DESIGN<br>SYSTEM</div>
+      <div class="sidebar-logo-sub">Ethan Flores · v3.0</div>
+      <div class="sidebar-logo-ver">✓ Complete — Ready to Build</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Foundations</div>
+      <a class="sidebar-link active" href="#s01"><span class="sidebar-num">01</span> Color Palette</a>
+      <a class="sidebar-link" href="#s02"><span class="sidebar-num">02</span> Typography</a>
+      <a class="sidebar-link" href="#s03"><span class="sidebar-num">03</span> Font Colors</a>
+      <div class="sidebar-section-label">Building Blocks</div>
+      <a class="sidebar-link" href="#s04"><span class="sidebar-num">04</span> Components</a>
+      <a class="sidebar-link" href="#s05"><span class="sidebar-num">05</span> Layout & Spacing</a>
+      <a class="sidebar-link" href="#s06"><span class="sidebar-num">06</span> Animation & Motion</a>
+      <a class="sidebar-link" href="#s07"><span class="sidebar-num">07</span> Design Depth</a>
+      <a class="sidebar-link" href="#s08"><span class="sidebar-num">08</span> Implementation</a>
+      <div class="sidebar-section-label">Page System</div>
+      <a class="sidebar-link" href="#s09"><span class="sidebar-num">09</span> Section Templates <span class="sidebar-new">New</span></a>
+      <a class="sidebar-link" href="#s10"><span class="sidebar-num">10</span> Responsive Layouts <span class="sidebar-new">New</span></a>
+      <a class="sidebar-link" href="#s11"><span class="sidebar-num">11</span> Scroll Choreography <span class="sidebar-new">New</span></a>
+      <div class="sidebar-section-label">Reference</div>
+      <a class="sidebar-link" href="#changelog"><span class="sidebar-num">→</span> Changelog</a>
+    </nav>
+  </aside>
+
+  <!-- ─── MAIN ─────────────────────────── -->
+  <main class="main-content">
+
+    <!-- COVER -->
+    <div class="cover">
+      <div class="cover-eyebrow">Ethan Flores — Portfolio</div>
+      <div class="cover-title" style="font-family:'Fraunces',serif;font-style:italic">
+        <span>DE</span><span>SIGN</span><br>
+        <span>SYS</span><span>TEM</span>
+      </div>
+      <div class="cover-meta">
+        <span class="cover-badge hi">v4.0</span>
+        <span class="cover-badge">March 2026</span>
+        <span class="cover-badge">Deep Ember III</span>
+        <span class="cover-badge new">Complete · 11 Sections</span>
+      </div>
+      <div class="cover-stack">
+        <span class="cover-chip">Next.js</span>
+        <span class="cover-chip">Tailwind CSS</span>
+        <span class="cover-chip">SCSS</span>
+        <span class="cover-chip">Framer Motion</span>
+        <span class="cover-chip">GSAP</span>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════ S01 -->
+    <section class="section" id="s01">
+      <div class="section-header">
+        <div class="section-eyebrow">Section 01</div>
+        <div class="section-title">Color Palette</div>
+        <p class="section-desc">Core tokens built on the Deep Ember III base — indigo-black ground, amber-orange primary, cobalt blue secondary, violet-pink tertiary.</p>
+        <div class="section-rule"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-label">Core Brand Colors</div>
+        <div class="panel-tag">Primary tokens</div>
+        <div class="swatch-grid">
+          <div class="swatch-item" onclick="copyColor('#0d1020',this)"><div class="swatch-chip" style="background:#0d1020;border-color:rgba(255,255,255,0.15)"></div><div class="swatch-role">Background</div><div class="swatch-hex">#0d1020</div><div class="swatch-use">Page background — Indigo Black</div><div class="copy-flash">Copied</div></div>
+          <div class="swatch-item" onclick="copyColor('#e86a20',this)"><div class="swatch-chip" style="background:#e86a20"></div><div class="swatch-role">Primary</div><div class="swatch-hex">#e86a20</div><div class="swatch-use">Amber-orange — primary accent</div><div class="copy-flash">Copied</div></div>
+          <div class="swatch-item" onclick="copyColor('#5888c8',this)"><div class="swatch-chip" style="background:#5888c8"></div><div class="swatch-role">Secondary</div><div class="swatch-hex">#5888c8</div><div class="swatch-use">Cobalt blue — secondary elements</div><div class="copy-flash">Copied</div></div>
+          <div class="swatch-item" onclick="copyColor('#c83488',this)"><div class="swatch-chip" style="background:#c83488"></div><div class="swatch-role">Tertiary</div><div class="swatch-hex">#c83488</div><div class="swatch-use">Violet-pink — tags, highlights</div><div class="copy-flash">Copied</div></div>
+          <div class="swatch-item" onclick="copyColor('#8e1a58',this)"><div class="swatch-chip" style="background:#8e1a58"></div><div class="swatch-role">Accent</div><div class="swatch-hex">#8e1a58</div><div class="swatch-use">CTA buttons, primary actions</div><div class="copy-flash">Copied</div></div>
+          <div class="swatch-item" onclick="copyColor('#6e1248',this)"><div class="swatch-chip" style="background:#6e1248"></div><div class="swatch-role">Accent Dark</div><div class="swatch-hex">#6e1248</div><div class="swatch-use">Button hover state</div><div class="copy-flash">Copied</div></div>
+          <div class="swatch-item" onclick="copyColor('#161d3a',this)"><div class="swatch-chip" style="background:#161d3a"></div><div class="swatch-role">Tag Container</div><div class="swatch-hex">#161d3a</div><div class="swatch-use">Tag background in project cards</div><div class="copy-flash">Copied</div></div>
+          <div class="swatch-item" onclick="copyColor('#141830',this)"><div class="swatch-chip" style="background:#141830"></div><div class="swatch-role">Surface</div><div class="swatch-hex">#141830</div><div class="swatch-use">Elevated surfaces, panels</div><div class="copy-flash">Copied</div></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-label">Neutral & Text Colors</div>
+        <div class="swatch-grid">
+          <div class="swatch-item" onclick="copyColor('#e8e8f5',this)"><div class="swatch-chip" style="background:#e8e8f5"></div><div class="swatch-role">White Base</div><div class="swatch-hex">#e8e8f5</div><div class="swatch-use">Primary text on dark bg</div><div class="copy-flash">Copied</div></div>
+          <div class="swatch-item" onclick="copyColor('#1a1a2e',this)"><div class="swatch-chip" style="background:#1a1a2e;border-color:rgba(255,255,255,0.12)"></div><div class="swatch-role">Text Primary</div><div class="swatch-hex">#1a1a2e</div><div class="swatch-use">Primary body text (light mode)</div><div class="copy-flash">Copied</div></div>
+          <div class="swatch-item" onclick="copyColor('#3a3a5a',this)"><div class="swatch-chip" style="background:#3a3a5a"></div><div class="swatch-role">Text Secondary</div><div class="swatch-hex">#3a3a5a</div><div class="swatch-use">Subdued body text</div><div class="copy-flash">Copied</div></div>
+          <div class="swatch-item" onclick="copyColor('#7080a8',this)"><div class="swatch-chip" style="background:#7080a8"></div><div class="swatch-role">Muted Text</div><div class="swatch-hex">#7080a8</div><div class="swatch-use">Descriptions on dark backgrounds</div><div class="copy-flash">Copied</div></div>
+          <div class="swatch-item" onclick="copyColor('rgba(255,255,255,0.12)',this)"><div class="swatch-chip" style="background:rgba(255,255,255,0.12)"></div><div class="swatch-role">Line / Border</div><div class="swatch-hex">rgba(255,255,255,0.12)</div><div class="swatch-use">Dividers, section borders</div><div class="copy-flash">Copied</div></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-label">Gradients & Animation Colors</div>
+        <div class="gap-col">
+          <div><div class="grad-swatch" style="background:linear-gradient(90deg,#e86a20,#c83488,#5888c8)"></div><div class="swatch-role">Brand Gradient</div><div class="swatch-hex" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)">#e86a20 → #c83488 → #5888c8</div><div class="swatch-use" style="font-size:9px;color:var(--muted);margin-top:2px">Cover, decorative gradient, section rules</div></div>
+          <div><div class="grad-swatch" style="background:linear-gradient(90deg,#ffcc70,#ff8177,#b721ff,#21d4fd,#ffcc70)"></div><div class="swatch-role">Text Gradient (animated)</div><div class="swatch-hex" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)">#ffcc70 → #ff8177 → #b721ff → #21d4fd</div><div class="swatch-use" style="font-size:9px;color:var(--muted);margin-top:2px">Animated "beautiful" text in About section</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════ S02 -->
+    <section class="section" id="s02">
+      <div class="section-header">
+        <div class="section-eyebrow">Section 02</div>
+        <div class="section-title">Typography</div>
+        <p class="section-desc">Fraunces for all display and heading roles, Switzer for body and UI, DM Mono for system labels and technical callouts.</p>
+        <div class="section-rule"></div>
+      </div>
+      <div class="typeface-block">
+        <div class="typeface-meta">
+          <div><div class="typeface-name">Fraunces — Display Typeface</div><div class="typeface-role">Hero & Headings · Applied to: hero name, H1, H2, flipper animation</div></div>
+          <div class="typeface-badges"><span class="tbadge">300</span><span class="tbadge">400</span><span class="tbadge">700</span><span class="tbadge">900</span><span class="tbadge" style="color:var(--pink)">italic</span></div>
+        </div>
+        <div style="margin-bottom:12px">
+          <div style="font-family:'Fraunces',serif;font-size:3rem;font-weight:900;color:var(--text);line-height:1">The quick brown fox</div>
+          <div style="font-family:'Fraunces',serif;font-size:3rem;font-weight:900;font-style:italic;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-top:6px">jumps over the lazy dog</div>
+          <div style="font-family:'Fraunces',serif;font-size:1.1rem;font-weight:400;color:var(--text-dim);margin-top:10px">The quick brown fox jumps over the lazy dog</div>
+        </div>
+        <div class="typeface-alpha" style="font-family:'Fraunces',serif">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz · 0123456789 · !@#$%&*</div>
+      </div>
+      <div class="typeface-block">
+        <div class="typeface-meta">
+          <div><div class="typeface-name">Switzer — Body & UI Typeface</div><div class="typeface-role">Body, navigation, components · Applied to: &lt;body&gt;, all UI elements</div></div>
+          <div class="typeface-badges"><span class="tbadge" style="color:var(--blue)">300</span><span class="tbadge" style="color:var(--blue)">400</span><span class="tbadge" style="color:var(--blue)">500</span><span class="tbadge" style="color:var(--blue)">600</span><span class="tbadge" style="color:var(--blue)">700</span></div>
+        </div>
+        <div style="margin-bottom:12px">
+          <div style="font-family:'Switzer',sans-serif;font-size:1.8rem;font-weight:700;color:var(--text)">The quick brown fox jumps over the lazy dog</div>
+          <div style="font-family:'Switzer',sans-serif;font-size:1.1rem;font-weight:400;color:var(--text-dim);margin-top:8px">The quick brown fox jumps over the lazy dog</div>
+          <div style="font-family:'Switzer',sans-serif;font-size:0.9rem;font-weight:300;color:var(--muted);margin-top:6px">The quick brown fox jumps over the lazy dog</div>
+        </div>
+        <div class="typeface-alpha" style="font-family:'Switzer',sans-serif">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz · 0123456789 · !@#$%&*</div>
+      </div>
+      <div class="typeface-block">
+        <div class="typeface-meta">
+          <div><div class="typeface-name">DM Mono — Utility Typeface</div><div class="typeface-role">Labels, hex values, system callouts · Available via className</div></div>
+          <div class="typeface-badges"><span class="tbadge" style="color:var(--orange)">400</span><span class="tbadge" style="color:var(--orange)">500</span></div>
+        </div>
+        <div style="margin-bottom:12px">
+          <div style="font-family:'DM Mono',monospace;font-size:1.1rem;font-weight:500;color:var(--text)">v3.0 · March 2026 · #e86a20 · Next.js</div>
+          <div style="font-family:'DM Mono',monospace;font-size:0.85rem;font-weight:400;color:var(--muted);margin-top:6px">SECTION 01 · COLOR PALETTE · font-size: 10px</div>
+        </div>
+        <div class="typeface-alpha" style="font-family:'DM Mono',monospace">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz · 0123456789</div>
+      </div>
+      <div class="panel">
+        <div class="panel-label">Type Scale</div>
+        <table class="type-scale-table">
+          <thead><tr><th>Element</th><th>Size</th><th>Weight</th><th>Font</th><th>Preview</th></tr></thead>
+          <tbody>
+            <tr><td>Hero Name</td><td><code style="font-family:'DM Mono',monospace;font-size:10px;color:var(--orange)">~76px</code></td><td>900 italic</td><td style="color:var(--muted)">Fraunces</td><td><span style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:900;font-style:italic;color:var(--text)">Ethan Flores</span></td></tr>
+            <tr><td>H1 Section</td><td><code style="font-family:'DM Mono',monospace;font-size:10px;color:var(--orange)">48px</code></td><td>900</td><td style="color:var(--muted)">Fraunces</td><td><span style="font-family:'Fraunces',serif;font-size:1.6rem;font-weight:900;color:var(--text)">Work & Projects</span></td></tr>
+            <tr><td>H2 Heading</td><td><code style="font-family:'DM Mono',monospace;font-size:10px;color:var(--orange)">32px</code></td><td>700</td><td style="color:var(--muted)">Fraunces</td><td><span style="font-family:'Fraunces',serif;font-size:1.3rem;font-weight:700;color:var(--text)">Full-Stack Application</span></td></tr>
+            <tr><td>H3 / Role text</td><td><code style="font-family:'DM Mono',monospace;font-size:10px;color:var(--orange)">20px</code></td><td>600</td><td style="color:var(--muted)">Switzer</td><td><span style="font-family:'Switzer',sans-serif;font-size:1rem;font-weight:600;color:var(--text-dim)">Senior Engineer</span></td></tr>
+            <tr><td>Body Text</td><td><code style="font-family:'DM Mono',monospace;font-size:10px;color:var(--orange)">16px</code></td><td>400</td><td style="color:var(--muted)">Switzer</td><td><span style="font-family:'Switzer',sans-serif;font-size:0.85rem;font-weight:400;color:var(--muted)">Body paragraph text</span></td></tr>
+            <tr><td>Navigation</td><td><code style="font-family:'DM Mono',monospace;font-size:10px;color:var(--orange)">13px</code></td><td>500</td><td style="color:var(--muted)">Switzer</td><td><span style="font-family:'Switzer',sans-serif;font-size:0.8rem;font-weight:500;color:var(--text-dim)">About</span></td></tr>
+            <tr><td>Tag Labels</td><td><code style="font-family:'DM Mono',monospace;font-size:10px;color:var(--orange)">12px</code></td><td>600</td><td style="color:var(--muted)">Switzer</td><td><span style="font-family:'Switzer',sans-serif;font-size:0.7rem;font-weight:600;color:var(--blue)">React</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════ S03 -->
+    <section class="section" id="s03">
+      <div class="section-header">
+        <div class="section-eyebrow">Section 03</div>
+        <div class="section-title">Font Colors</div>
+        <p class="section-desc">Text color assignments by context. Dark theme with light text, creating hierarchy through opacity and color temperature.</p>
+        <div class="section-rule"></div>
+      </div>
+      <div class="panel-2col">
+        <div class="panel">
+          <div class="panel-label">Dark Background Context</div>
+          <div style="background:var(--bg);border-radius:8px;padding:8px 4px">
+            <div style="display:flex;align-items:center;gap:14px;padding:10px 8px;border-bottom:1px solid var(--border)"><div style="width:28px;height:28px;border-radius:50%;background:#e8e8f5;flex-shrink:0;border:0.5px solid rgba(255,255,255,0.1)"></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:#e8e8f5">White Base</div><div style="font-size:10px;color:var(--muted)">Hero text, about section body</div></div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--muted)">#e8e8f5</div></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:10px 8px;border-bottom:1px solid var(--border)"><div style="width:28px;height:28px;border-radius:50%;background:#e86a20;flex-shrink:0"></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:#e86a20">Primary Orange</div><div style="font-size:10px;color:var(--muted)">Role text, eyebrows, active states</div></div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--muted)">#e86a20</div></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:10px 8px;border-bottom:1px solid var(--border)"><div style="width:28px;height:28px;border-radius:50%;background:#7080a8;flex-shrink:0"></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:#7080a8">Muted Indigo</div><div style="font-size:10px;color:var(--muted)">Descriptions, contact text</div></div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--muted)">#7080a8</div></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:10px 8px"><div style="width:28px;height:28px;border-radius:50%;background:#5888c8;flex-shrink:0"></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:#5888c8">Cobalt Blue</div><div style="font-size:10px;color:var(--muted)">Tag text, accent labels</div></div><div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--muted)">#5888c8</div></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-label">Light Background Context</div>
+          <div style="background:#f0eff8;border-radius:8px;padding:8px 4px">
+            <div style="display:flex;align-items:center;gap:14px;padding:10px 8px;border-bottom:1px solid rgba(0,0,0,0.06)"><div style="width:28px;height:28px;border-radius:50%;background:#111827;flex-shrink:0"></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:#111827">Gray 950</div><div style="font-size:10px;color:#6b7280">Active nav link, body text</div></div><div style="font-size:10px;font-family:'DM Mono',monospace;color:#6b7280">#111827</div></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:10px 8px;border-bottom:1px solid rgba(0,0,0,0.06)"><div style="width:28px;height:28px;border-radius:50%;background:#6b7280;flex-shrink:0"></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:#6b7280">Gray 500</div><div style="font-size:10px;color:#6b7280">Inactive navigation links</div></div><div style="font-size:10px;font-family:'DM Mono',monospace;color:#6b7280">#6b7280</div></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:10px 8px;border-bottom:1px solid rgba(0,0,0,0.06)"><div style="width:28px;height:28px;border-radius:50%;background:#1a1a2e;flex-shrink:0"></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:#1a1a2e">Text Primary</div><div style="font-size:10px;color:#6b7280">SCSS: $colors.text-primary</div></div><div style="font-size:10px;font-family:'DM Mono',monospace;color:#6b7280">#1a1a2e</div></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:10px 8px"><div style="width:28px;height:28px;border-radius:50%;background:#3a3a5a;flex-shrink:0"></div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:#3a3a5a">Text Secondary</div><div style="font-size:10px;color:#6b7280">SCSS: $colors.text-secondary</div></div><div style="font-size:10px;font-family:'DM Mono',monospace;color:#6b7280">#3a3a5a</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-label">Animated / Gradient Text</div>
+        <div style="background:var(--bg);border-radius:8px;padding:20px 24px">
+          <div class="grad-text-demo">beautiful</div>
+          <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:8px">linear-gradient(90deg, #ffcc70, #ff8177, #b721ff, #21d4fd) · animation:maskShift</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════ S04 -->
+    <section class="section" id="s04">
+      <div class="section-header">
+        <div class="section-eyebrow">Section 04 — Updated in v3.0</div>
+        <div class="section-title">Components</div>
+        <p class="section-desc">All 14 component decisions locked. Each component shows the canonical implementation — no variants. See the Component Library for the full exploration archive.</p>
+        <div class="section-rule"></div>
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="panel">
+        <div class="panel-label">Buttons — Three-Button System</div>
+        <div class="panel-tag">S3-F · L5 · S4-E</div>
+        <div class="comp-demo">
+          <button class="btn btn-primary"><span class="btn-t">Contact Me</span></button>
+          <button class="btn-liquid"><span class="lt">View Work</span></button>
+          <button class="btn btn-secondary" id="rippleDemo">Click Me ✦</button>
+        </div>
+        <div class="comp-spec">
+          <strong>S3-F (Primary):</strong> Gradient edges always visible · dark glass core dissolves on hover · shimmer sweeps · scale(1.05) · blue glow shadow<br>
+          <strong>L5 (Secondary):</strong> Bubble arch rises from bottom · cubic-bezier(0.34,1.56,0.64,1) · 0.42s · text flips white · border → full orange<br>
+          <strong>S4-E (Ripple):</strong> Click anywhere on any button · neon bloom from cursor · rgba(255,255,255,0.35) · filter:blur · 0.8s ease-out · add to any button
+        </div>
+      </div>
+
+      <!-- NAVIGATION -->
+      <div class="panel">
+        <div class="panel-label">Navigation — G1 Glow Pill + U1 Underline</div>
+        <div class="panel-tag">Both kept</div>
+        <div class="comp-demo" style="flex-direction:column;gap:24px">
+          <div>
+            <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);margin-bottom:10px;letter-spacing:0.1em;text-transform:uppercase">G1 — Fixed header</div>
+            <div class="nav-demo" id="navDemo">
+              <div class="nav-pill" id="navPill"></div>
+              <div class="nav-link active" onclick="setNav(this)">About</div>
+              <div class="nav-link" onclick="setNav(this)">Experience</div>
+              <div class="nav-link" onclick="setNav(this)">Work</div>
+              <div class="nav-link" onclick="setNav(this)">Contact</div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);margin-bottom:10px;letter-spacing:0.1em;text-transform:uppercase">U1 — Alternate / section nav</div>
+            <div class="nav-ul">
+              <div class="ul-item on" onclick="setUL(this)">About</div>
+              <div class="ul-item" onclick="setUL(this)">Experience</div>
+              <div class="ul-item" onclick="setUL(this)">Work</div>
+              <div class="ul-item" onclick="setUL(this)">Contact</div>
+            </div>
+          </div>
+        </div>
+        <div class="comp-spec">
+          <strong>G1 Container:</strong> rgba(20,24,48,0.85) · backdrop-filter:blur(8px) · border rgba(255,255,255,0.15) · border-radius:9999px<br>
+          <strong>G1 Pill:</strong> spring cubic-bezier(0.34,1.56,0.64,1) · orange bg+border · glow shadow · active text-shadow<br>
+          <strong>U1:</strong> scaleX(0→1) from center · 0.28s spring · orange line 2px · active text → orange
+        </div>
+      </div>
+
+      <!-- TAGS -->
+      <div class="panel">
+        <div class="panel-label">Tags — TG1 Glow + TP1 Shimmer Pill</div>
+        <div class="panel-tag">Both kept</div>
+        <div class="comp-demo" style="flex-direction:column;gap:16px;align-items:flex-start">
+          <div>
+            <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);margin-bottom:10px;letter-spacing:0.1em;text-transform:uppercase">TG1 — Project cards</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <span class="tag tag-b" style="color:var(--blue)">React</span>
+              <span class="tag tag-o" style="color:var(--orange)">Next.js</span>
+              <span class="tag tag-p" style="color:var(--pink)">Tailwind</span>
+              <span class="tag tag-t" style="color:var(--text-dim)">TypeScript</span>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);margin-bottom:10px;letter-spacing:0.1em;text-transform:uppercase">TP1 — Filters & meta</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <span class="pill-tag" style="color:var(--text)">All Projects</span>
+              <span class="pill-tag" style="color:var(--blue)">Full-Stack</span>
+              <span class="pill-tag" style="color:var(--orange)">Frontend</span>
+              <span class="pill-tag" style="color:var(--pink)">Open Source</span>
+            </div>
+          </div>
+        </div>
+        <div class="comp-spec">
+          <strong>TG1:</strong> border-radius:6px · color-matched bg/border at 8%/20% opacity · per-color glow on hover · scale(1.05)<br>
+          <strong>TP1:</strong> border-radius:999px · surface2 bg · shimmer sweep sweeps on hover · border brightens · scale(1.05)
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="panel">
+        <div class="panel-label">Form Inputs — GB3 + AB3 Combined</div>
+        <div class="panel-tag">Contact</div>
+        <div class="comp-demo" style="flex-direction:column;align-items:stretch">
+          <div class="form-stack">
+            <div class="form-field"><div class="ab3-bar"></div><input class="form-inp" type="email" placeholder="Your email"></div>
+            <div class="form-field"><div class="ab3-bar"></div><input class="form-inp" type="text" placeholder="Subject"></div>
+            <div class="form-field" style="height:auto">
+              <div class="ab3-bar" style="bottom:6px;top:6px;border-radius:8px 0 0 8px"></div>
+              <textarea class="form-textarea" placeholder="Your message"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="comp-spec">
+          <strong>GB3 border:</strong> Gradient border springs in (scaleX 0.92→1 + opacity 0→1) · 0.32s cubic-bezier(0.34,1.56,0.64,1)<br>
+          <strong>AB3 bar:</strong> Orange 3px bar grows from vertical center · spring physics · fires simultaneously with border<br>
+          <strong>Height:</strong> 56px (h-14) · border-radius:8px · background deepens on focus
+        </div>
+      </div>
+
+      <!-- PROJECT CARDS -->
+      <div class="panel">
+        <div class="panel-label">Project Cards — CO2 + MT2</div>
+        <div class="panel-tag">Alternating layout</div>
+        <div class="comp-demo" style="gap:14px;align-items:flex-start;flex-wrap:wrap">
+          <div class="project-card" style="max-width:420px;flex:1">
+            <div class="project-card-img"><div class="project-card-img-inner">PROJECT</div></div>
+            <div class="project-card-info">
+              <div class="project-card-title">Portfolio Application</div>
+              <div class="project-card-desc">Full-stack application built with Next.js. Focused on performance and considered design.</div>
+              <div class="project-card-tags">
+                <span class="ct" style="color:var(--orange)">React</span>
+                <span class="ct" style="color:var(--blue)">Next.js</span>
+                <span class="ct" style="color:var(--pink)">TypeScript</span>
+              </div>
+            </div>
+          </div>
+          <div class="min-card" style="max-width:280px;flex:1">
+            <div class="mc-num">PROJECT 02</div>
+            <div class="mc-title">Open Source Library</div>
+            <div class="mc-desc">Animation sequencing utility for Framer Motion and GSAP pipelines.</div>
+            <div class="mc-bot">
+              <div style="display:flex;gap:4px"><span class="ct" style="color:var(--orange)">TypeScript</span><span class="ct" style="color:var(--blue)">GSAP</span></div>
+              <div class="view-lnk">View →</div>
+            </div>
+          </div>
+        </div>
+        <div class="comp-spec">
+          <strong>CO2 (image card):</strong> All content visible always · 2px border glows orange on hover · inset + outer glow shadow · nothing moves<br>
+          <strong>MT2 (minimal card):</strong> Circle expands from bottom-right corner on hover · "View →" fades in 150ms after fill begins · organic fluid feel<br>
+          <strong>Layout:</strong> CO2 on odd items · MT2 on even items (or projects without screenshots)
+        </div>
+      </div>
+
+      <!-- SECTION DIVIDER -->
+      <div class="panel">
+        <div class="panel-label">Section Dividers — D0 · D1 · D2</div>
+        <div class="panel-tag">Situational</div>
+        <div class="comp-demo" style="flex-direction:column;gap:8px;padding:20px 24px">
+          <div class="divider-demo">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+              <div class="dv0"></div>
+              <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--muted)">D0 — Default</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+              <div class="dv1"></div>
+              <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--muted)">D1 — Key transitions</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+              <div class="dv2"></div>
+              <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--muted)">D2 — Ambient</div>
+            </div>
+          </div>
+        </div>
+        <div class="comp-spec">
+          <strong>D0 (default):</strong> 4px · rgba(229,231,235,0.5) · neutral · between most sections<br>
+          <strong>D1 (key transitions):</strong> 3px · brand gradient · outer glow shadow · before hero, after about<br>
+          <strong>D2 (ambient):</strong> 3px · orange · scale+opacity breathes on 2.2s loop · between experience entries, contact section
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════ S05 -->
+    <section class="section" id="s05">
+      <div class="section-header">
+        <div class="section-eyebrow">Section 05</div>
+        <div class="section-title">Layout & Spacing</div>
+        <p class="section-desc">Responsive breakpoints, border radius tokens, and the grid system powering the portfolio layout.</p>
+        <div class="section-rule"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-label">Responsive Breakpoints</div>
+        <div style="padding:4px 0">
+          <div class="breakpoint-row"><div class="bp-size">394px</div><div class="bp-bar-wrap"><div class="bp-bar" style="width:30%"></div></div><div class="bp-label">Tailwind custom: mobile</div></div>
+          <div class="breakpoint-row"><div class="bp-size">640px</div><div class="bp-bar-wrap"><div class="bp-bar" style="width:48%"></div></div><div class="bp-label">SCSS: from-small-up</div></div>
+          <div class="breakpoint-row"><div class="bp-size">768px</div><div class="bp-bar-wrap"><div class="bp-bar" style="width:58%"></div></div><div class="bp-label">SCSS: $breakpoint-m-min-width</div></div>
+          <div class="breakpoint-row"><div class="bp-size">1024px</div><div class="bp-bar-wrap"><div class="bp-bar" style="width:78%"></div></div><div class="bp-label">SCSS: $breakpoint-m-width</div></div>
+          <div class="breakpoint-row"><div class="bp-size">1280px</div><div class="bp-bar-wrap"><div class="bp-bar" style="width:98%"></div></div><div class="bp-label">SCSS: $breakpoint-l-min-width</div></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-label">Border Radius System</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:16px">CSS custom property base: <code style="font-family:'DM Mono',monospace;font-size:10px;color:var(--orange)">--radius: 0.5rem</code></div>
+        <div class="radius-row">
+          <div class="radius-item"><div class="radius-box" style="border-radius:4px"></div><div class="radius-name">sm</div><div class="radius-val">4px</div></div>
+          <div class="radius-item"><div class="radius-box" style="border-radius:6px"></div><div class="radius-name">md</div><div class="radius-val">6px</div></div>
+          <div class="radius-item"><div class="radius-box" style="border-radius:8px"></div><div class="radius-name">lg</div><div class="radius-val">8px</div></div>
+          <div class="radius-item"><div class="radius-box" style="border-radius:12px"></div><div class="radius-name">xl</div><div class="radius-val">12px</div></div>
+          <div class="radius-item"><div class="radius-box" style="border-radius:9999px;width:64px;height:36px"></div><div class="radius-name">full</div><div class="radius-val">9999px</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════ S06 -->
+    <section class="section" id="s06">
+      <div class="section-header">
+        <div class="section-eyebrow">Section 06</div>
+        <div class="section-title">Animation & Motion</div>
+        <p class="section-desc">Three libraries in concert — Framer Motion for React transitions, GSAP with ScrollTrigger for scroll-based effects, CSS keyframes for continuous ambient animations.</p>
+        <div class="section-rule"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-label">Animation Libraries</div>
+        <div class="lib-row">
+          <div class="lib-card" style="border-top:2px solid var(--orange)"><div class="lib-name">Framer Motion</div><div class="lib-ver">^10.12.17</div><div class="lib-use">Component enter/exit transitions, spring-animated nav indicator, scroll-linked opacity and scale</div></div>
+          <div class="lib-card" style="border-top:2px solid var(--blue)"><div class="lib-name">GSAP</div><div class="lib-ver">^3.13.0</div><div class="lib-use">ScrollTrigger for parallax effects, slider animation with requestAnimationFrame</div></div>
+          <div class="lib-card" style="border-top:2px solid var(--pink)"><div class="lib-name">tailwindcss-animate</div><div class="lib-ver">^1.0.7</div><div class="lib-use">Utility animation classes via Tailwind config</div></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-label">CSS Keyframe Animations</div>
+        <table class="anim-table">
+          <thead><tr><th>Animation</th><th>Duration</th><th>Easing</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>maskShift</td><td>15s</td><td style="color:var(--muted)">cubic-bezier</td><td>Gradient text shimmer on "beautiful"</td></tr>
+            <tr><td>float1 / float2</td><td>8–12s</td><td style="color:var(--muted)">ease-in-out</td><td>Blob layer background floating</td></tr>
+            <tr><td>highlightGuam</td><td>sequential</td><td style="color:var(--muted)">linear</td><td>Location text color transitions</td></tr>
+            <tr><td>breathe</td><td>2.2s</td><td style="color:var(--muted)">ease-in-out</td><td>D2 divider breathing pulse</td></tr>
+            <tr><td>ripple-neon</td><td>0.8s</td><td style="color:var(--muted)">ease-out</td><td>S4-E button click bloom</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel-2col">
+        <div class="panel" style="margin-bottom:0">
+          <div class="panel-label">Gradient text shimmer</div>
+          <div style="background:var(--bg);border-radius:8px;padding:20px;text-align:center"><div class="shimmer-text">ETHAN FLORES</div></div>
+        </div>
+        <div class="panel" style="margin-bottom:0">
+          <div class="panel-label">Blob ambient float</div>
+          <div class="blob-demo"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
+        </div>
+      </div>
+      <div style="height:16px"></div>
+      <div class="panel">
+        <div class="panel-label">Motion Principles</div>
+        <div class="mp-grid">
+          <div class="mp-card"><div class="mp-title">Scroll-Driven</div><div class="mp-desc">Components animate based on scroll position using Framer Motion's useScroll and GSAP ScrollTrigger, creating a narrative flow.</div></div>
+          <div class="mp-card"><div class="mp-title">Spring Physics</div><div class="mp-desc">Interactive elements use spring animations for natural, physics-based movement — nav indicator, liquid buttons, form bar, card reveals.</div></div>
+          <div class="mp-card"><div class="mp-title">Continuous Ambient</div><div class="mp-desc">Background blobs, gradient text, and D2 divider run continuously via CSS keyframes, adding life without requiring interaction.</div></div>
+          <div class="mp-card"><div class="mp-title">Scale on Interact</div><div class="mp-desc">Buttons: hover → 1.05 · focus → 1.08 · active → 1.02. Tags: hover → 1.05. Tactile feedback without layout shift.<div style="margin-top:10px"><button class="scale-demo-btn">Hover me</button></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════ S07 -->
+    <section class="section" id="s07">
+      <div class="section-header">
+        <div class="section-eyebrow">Section 07 — Added in v3.1</div>
+        <div class="section-title">Design Depth</div>
+        <p class="section-desc">The layering system behind the portfolio's sense of physical space — elevation shadows, Glass Mid surfaces, brand-colored glows, border treatments, and inset shadows. All tokens are named and ready to implement. Unlike components, the full depth scale is the decision — each level has an assigned use case.</p>
+        <div class="section-rule"></div>
+      </div>
+
+      <!-- ELEVATION -->
+      <div class="panel">
+        <div class="panel-label">Elevation Scale — E0 → E5</div>
+        <div class="panel-tag">shadow tokens</div>
+        <div class="depth-row">
+          <div class="depth-item">
+            <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--muted)">--shadow-0</div>
+            <div class="depth-box" style="width:52px;height:52px;box-shadow:var(--shadow-0)"></div>
+            <div class="depth-num">E0</div><div class="depth-lbl">Flat</div>
+          </div>
+          <div class="depth-item">
+            <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--muted)">--shadow-1</div>
+            <div class="depth-box" style="width:56px;height:56px;box-shadow:var(--shadow-1)"></div>
+            <div class="depth-num">E1</div><div class="depth-lbl">Raised</div>
+          </div>
+          <div class="depth-item">
+            <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--muted)">--shadow-2</div>
+            <div class="depth-box" style="width:60px;height:60px;box-shadow:var(--shadow-2)"></div>
+            <div class="depth-num">E2</div><div class="depth-lbl">Card</div>
+          </div>
+          <div class="depth-item">
+            <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--muted)">--shadow-3</div>
+            <div class="depth-box" style="width:64px;height:64px;box-shadow:var(--shadow-3)"></div>
+            <div class="depth-num">E3</div><div class="depth-lbl">Dropdown</div>
+          </div>
+          <div class="depth-item">
+            <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--muted)">--shadow-4</div>
+            <div class="depth-box" style="width:68px;height:68px;box-shadow:var(--shadow-4)"></div>
+            <div class="depth-num">E4</div><div class="depth-lbl">Hover</div>
+          </div>
+          <div class="depth-item">
+            <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--muted)">--shadow-5</div>
+            <div class="depth-box" style="width:72px;height:72px;box-shadow:var(--shadow-5)"></div>
+            <div class="depth-num">E5</div><div class="depth-lbl">Modal</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:7px;margin-top:16px">
+          <div class="usage-row"><div class="usage-lvl">E0</div><div class="usage-div"></div><div class="usage-desc">Body content, inline elements, flat backgrounds</div></div>
+          <div class="usage-row"><div class="usage-lvl">E1</div><div class="usage-div"></div><div class="usage-desc">Tags, skill chips, small badges</div></div>
+          <div class="usage-row"><div class="usage-lvl">E2</div><div class="usage-div"></div><div class="usage-desc">Project cards (resting), about panels, experience entries</div></div>
+          <div class="usage-row"><div class="usage-lvl">E3</div><div class="usage-div"></div><div class="usage-desc">Navigation bar, tooltips, dropdowns, popovers</div></div>
+          <div class="usage-row"><div class="usage-lvl">E4</div><div class="usage-div"></div><div class="usage-desc">Project cards (hover lifted), focused panels</div></div>
+          <div class="usage-row"><div class="usage-lvl">E5</div><div class="usage-div"></div><div class="usage-desc">Modals, bottom sheets, command palette, full overlays</div></div>
+        </div>
+      </div>
+
+      <!-- GLASS -->
+      <div class="panel">
+        <div class="panel-label">Glass Surface — Mid (Locked)</div>
+        <div class="panel-tag">Glass Mid · blur(16px)</div>
+        <div class="glass-scene-sm" style="margin-bottom:4px">
+          <div class="gs-bg"></div>
+          <div class="gs-blob" style="width:120px;height:120px;background:var(--orange);top:-20px;left:0"></div>
+          <div class="gs-blob" style="width:100px;height:100px;background:var(--pink);bottom:-20px;right:10%"></div>
+          <div class="gs-blob" style="width:110px;height:110px;background:var(--blue);top:10%;right:-10px"></div>
+          <div class="gs-card"><div class="gs-name">Nav Bar</div><div class="gs-val">Glass Mid</div></div>
+          <div class="gs-card"><div class="gs-name">Modals</div><div class="gs-val">Glass Mid</div></div>
+          <div class="gs-card" style="background:rgba(232,106,32,0.08);border-color:rgba(232,106,32,0.2);box-shadow:0 0 16px rgba(232,106,32,0.15)"><div class="gs-name" style="color:var(--orange)">Active pill</div><div class="gs-val">Orange tint</div></div>
+        </div>
+        <div class="comp-spec">
+          <strong>Glass Mid:</strong> background rgba(255,255,255,0.07) · backdrop-filter:blur(16px) · border rgba(255,255,255,0.12) · shadow 0 4px 16px rgba(0,0,0,0.30)<br>
+          <strong>Safari:</strong> -webkit-backdrop-filter:blur(16px) required<br>
+          <strong>Fallback:</strong> background rgba(20,24,48,0.92) for no-blur environments<br>
+          <strong>Active tint:</strong> rgba(232,106,32,0.08) bg · rgba(232,106,32,0.20) border — nav pill, selected states
+        </div>
+      </div>
+
+      <!-- GLOWS -->
+      <div class="panel">
+        <div class="panel-label">Brand Glow Tokens</div>
+        <div class="comp-demo" style="gap:20px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div class="glow-dot-sm" style="background:var(--orange);box-shadow:var(--glow-orange-sm)"></div>
+            <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--muted)">orange-sm</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div class="glow-dot-sm" style="background:var(--orange);box-shadow:var(--glow-orange-md)"></div>
+            <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--muted)">orange-md</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div class="glow-dot-sm" style="background:var(--orange);box-shadow:var(--glow-orange-lg)"></div>
+            <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--muted)">orange-lg</div>
+          </div>
+          <div style="width:1px;height:32px;background:var(--border);align-self:center"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div class="glow-dot-sm" style="background:var(--blue);box-shadow:var(--glow-blue-sm)"></div>
+            <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--muted)">blue-sm</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div class="glow-dot-sm" style="background:var(--blue);box-shadow:var(--glow-blue-md)"></div>
+            <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--muted)">blue-md</div>
+          </div>
+          <div style="width:1px;height:32px;background:var(--border);align-self:center"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div class="glow-dot-sm" style="background:var(--pink);box-shadow:var(--glow-pink-sm)"></div>
+            <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--muted)">pink-sm</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div class="glow-dot-sm" style="background:var(--pink);box-shadow:var(--glow-pink-md)"></div>
+            <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--muted)">pink-md</div>
+          </div>
+          <div style="width:1px;height:32px;background:var(--border);align-self:center"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div class="glow-dot-sm" style="width:52px;height:52px;border-radius:8px;background:var(--surface);box-shadow:var(--glow-brand-md)"></div>
+            <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--muted)">brand-md</div>
+          </div>
+        </div>
+        <div class="comp-spec">
+          <strong>Usage:</strong> sm → resting buttons/tags · md → hover state · lg → active CTA, hero moments<br>
+          <strong>brand-md:</strong> stacked orange+pink+blue — used behind modal, hero divider D1
+        </div>
+        <!-- token table -->
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:14px">
+          <div class="depth-token-row">
+            <div class="dtr-name" style="color:var(--orange)">--glow-orange-sm</div><div class="dtr-val">0 0 12px rgba(232,106,32,0.35)</div>
+            <div class="dtr-name" style="color:var(--orange)">--glow-orange-md</div><div class="dtr-val">0 0 24px rgba(232,106,32,0.40), 0 0 8px rgba(232,106,32,0.20)</div>
+            <div class="dtr-name" style="color:var(--orange)">--glow-orange-lg</div><div class="dtr-val">0 0 48px rgba(232,106,32,0.45), 0 0 20px rgba(232,106,32,0.25)</div>
+            <div class="dtr-name" style="color:var(--blue)">--glow-blue-sm</div><div class="dtr-val">0 0 12px rgba(88,136,200,0.35)</div>
+            <div class="dtr-name" style="color:var(--blue)">--glow-blue-md</div><div class="dtr-val">0 0 24px rgba(88,136,200,0.40), 0 0 8px rgba(88,136,200,0.20)</div>
+            <div class="dtr-name" style="color:var(--pink)">--glow-pink-sm</div><div class="dtr-val">0 0 12px rgba(200,52,136,0.35)</div>
+            <div class="dtr-name" style="color:var(--pink)">--glow-pink-md</div><div class="dtr-val">0 0 24px rgba(200,52,136,0.40), 0 0 8px rgba(200,52,136,0.20)</div>
+            <div class="dtr-name" style="color:var(--text-dim);border-bottom:none">--glow-brand-md</div><div class="dtr-val" style="border-bottom:none">0 0 24px rgba(232,106,32,0.25), 0 0 40px rgba(200,52,136,0.15), 0 0 60px rgba(88,136,200,0.10)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BORDERS -->
+      <div class="panel">
+        <div class="panel-label">Border Treatments</div>
+        <div class="panel-2col">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div><div class="border-strip" style="border:1px solid rgba(255,255,255,0.07)"><span style="font-size:10px;color:var(--muted)">Subtle — rgba(255,255,255,0.07)</span></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:4px">Default card edge, sidebar</div></div>
+            <div><div class="border-strip" style="border:1px solid rgba(255,255,255,0.13)"><span style="font-size:10px;color:var(--text-dim)">Default — rgba(255,255,255,0.13)</span></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:4px">Form inputs, buttons, nav containers</div></div>
+            <div><div class="border-strip" style="border:1px solid rgba(255,255,255,0.22)"><span style="font-size:10px;color:var(--text)">Strong — rgba(255,255,255,0.22)</span></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:4px">Hovered panels, focused containers</div></div>
+            <div><div class="border-strip" style="border:1px solid rgba(232,106,32,0.35)"><span style="font-size:10px;color:var(--orange)">Brand orange — rgba(232,106,32,0.35)</span></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:4px">Liquid button outline, secondary states</div></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div><div class="border-strip" style="border:1px solid rgba(232,106,32,0.60)"><span style="font-size:10px;color:var(--orange)">Brand hi — rgba(232,106,32,0.60)</span></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:4px">Hover on outline button, nav active</div></div>
+            <div><div class="border-strip" style="border:1px solid rgba(232,106,32,0.40);box-shadow:0 0 16px rgba(232,106,32,0.2),inset 0 0 16px rgba(232,106,32,0.04)"><span style="font-size:10px;color:var(--orange)">Glow border — CO2 card hover</span></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:4px">Orange border + inset + outer glow</div></div>
+            <div style="position:relative">
+              <div style="position:absolute;inset:-1.5px;border-radius:9.5px;background:linear-gradient(90deg,#e86a20,#c83488,#5888c8);z-index:0;border-radius:9px"></div>
+              <div class="border-strip" style="position:relative;z-index:1;border:none;border-radius:7px;margin:1.5px"><span style="font-size:10px;color:var(--text-dim)">Gradient pseudo-border — GB3 focus</span></div>
+              <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:4px">::before inset -1.5px · springs in on :focus-within</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INSET + TOOLTIP -->
+      <div class="panel-2col">
+        <div class="panel" style="margin-bottom:0">
+          <div class="panel-label">Inset Shadows</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div><div class="border-strip" style="box-shadow:inset 0 1px 0 rgba(255,255,255,0.08);border:1px solid var(--border)"><span style="font-size:10px;color:var(--text-dim)">Top light catch</span></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:3px">Nav bar · raised panels — inset 0 1px 0 rgba(255,255,255,0.08)</div></div>
+            <div><div class="border-strip" style="box-shadow:inset 0 0 24px rgba(232,106,32,0.06),inset 0 1px 0 rgba(232,106,32,0.15);border:1px solid rgba(232,106,32,0.2)"><span style="font-size:10px;color:var(--orange)">Orange inner glow</span></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:3px">Focused form fields · active CTAs</div></div>
+            <div><div class="border-strip" style="box-shadow:inset 0 2px 8px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.06);border:1px solid var(--border)"><span style="font-size:10px;color:var(--muted)">Deep well</span></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:3px">Code blocks · textarea · recessed areas</div></div>
+            <div><div class="border-strip" style="box-shadow:inset 0 4px 14px rgba(0,0,0,0.6);border:1px solid rgba(0,0,0,0.2);background:rgba(10,12,28,0.8)"><span style="font-size:10px;color:var(--muted)">Pressed state</span></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:3px">Button :active · pairs with scale(1.02)</div></div>
+          </div>
+        </div>
+        <div class="panel" style="margin-bottom:0">
+          <div class="panel-label">Tooltip — Dark (Locked)</div>
+          <div class="tooltip-demo-row">
+            <div class="tt-wrap">
+              <div class="tt-box tt-dark">E3 · Glass Mid backdrop</div>
+              <div class="tt-trigger">Hover target</div>
+            </div>
+          </div>
+          <div class="comp-spec" style="margin-top:12px">
+            <strong>Background:</strong> rgba(8,10,22,0.95)<br>
+            <strong>Blur:</strong> backdrop-filter:blur(10px)<br>
+            <strong>Border:</strong> rgba(255,255,255,0.10)<br>
+            <strong>Shadow:</strong> --shadow-3<br>
+            <strong>Arrow:</strong> 5px border-top same bg color<br>
+            <strong>Font:</strong> DM Mono 10px · var(--text)
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT CARD in context -->
+      <div class="panel" style="margin-top:16px">
+        <div class="panel-label">Depth on project card — hover me</div>
+        <div class="comp-demo" style="background:linear-gradient(135deg,#080b18,#0d1020);border-radius:8px;padding:20px">
+          <div class="ctx-card-sm">
+            <div style="height:160px;background:linear-gradient(135deg,#141830,#1a2040);display:flex;align-items:center;justify-content:center;overflow:hidden">
+              <span style="font-family:'Fraunces',serif;font-size:2.4rem;font-weight:900;font-style:italic;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0.25">PROJECT</span>
+            </div>
+            <div style="padding:18px">
+              <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:5px">Portfolio Application</div>
+              <div style="font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:10px">Full-stack application built with Next.js.</div>
+              <div style="display:flex;gap:5px"><span style="font-size:9px;font-weight:600;padding:3px 8px;border-radius:4px;background:var(--tag-bg);color:var(--orange)">React</span><span style="font-size:9px;font-weight:600;padding:3px 8px;border-radius:4px;background:var(--tag-bg);color:var(--blue)">Next.js</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="comp-spec">
+          <strong>Resting:</strong> --shadow-2 · 1px solid rgba(255,255,255,0.07) border<br>
+          <strong>Hover:</strong> --shadow-4 · translateY(-3px) · 2px orange glow border via ::after · inset + outer glow
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════ S08 -->
+    <section class="section" id="s08">
+      <div class="section-header">
+        <div class="section-eyebrow">Section 08 — Added in v3.2</div>
+        <div class="section-title">Implementation Tokens</div>
+        <p class="section-desc">Every design decision translated into code — ready to drop into the project. Three files, three contexts. Copy each block directly.</p>
+        <div class="section-rule"></div>
+      </div>
+
+      <!-- SPACING SCALE -->
+      <div class="panel">
+        <div class="panel-label">Spacing Scale — 4px base grid</div>
+        <div class="sp-grid">
+          <div class="sp-row"><div class="sp-name">px</div><div class="sp-px">1px</div><div class="sp-rem">—</div><div class="sp-bar" style="width:2px"></div><div class="sp-use">hairline rules</div></div>
+          <div class="sp-row"><div class="sp-name">2xs</div><div class="sp-px">2px</div><div class="sp-rem">0.125rem</div><div class="sp-bar" style="width:4px"></div><div class="sp-use">badge padding, icon gap</div></div>
+          <div class="sp-row"><div class="sp-name">xs / 1</div><div class="sp-px">4px</div><div class="sp-rem">0.25rem</div><div class="sp-bar" style="width:8px"></div><div class="sp-use">tag gap, chip padding-y</div></div>
+          <div class="sp-row"><div class="sp-name">1.5</div><div class="sp-px">6px</div><div class="sp-rem">0.375rem</div><div class="sp-bar" style="width:12px"></div><div class="sp-use">inline icon spacing</div></div>
+          <div class="sp-row"><div class="sp-name">sm / 2</div><div class="sp-px">8px</div><div class="sp-rem">0.5rem</div><div class="sp-bar" style="width:16px"></div><div class="sp-use">nav link gap, meta spacing</div></div>
+          <div class="sp-row"><div class="sp-name">3</div><div class="sp-px">12px</div><div class="sp-rem">0.75rem</div><div class="sp-bar" style="width:24px"></div><div class="sp-use">tag padding-x, chip padding</div></div>
+          <div class="sp-row"><div class="sp-name">md / 4</div><div class="sp-px">16px</div><div class="sp-rem">1rem</div><div class="sp-bar" style="width:32px"></div><div class="sp-use">card padding, sidebar padding-x</div></div>
+          <div class="sp-row"><div class="sp-name">5</div><div class="sp-px">20px</div><div class="sp-rem">1.25rem</div><div class="sp-bar" style="width:40px"></div><div class="sp-use">section element gap</div></div>
+          <div class="sp-row"><div class="sp-name">lg / 6</div><div class="sp-px">24px</div><div class="sp-rem">1.5rem</div><div class="sp-bar" style="width:48px"></div><div class="sp-use">card body padding, form stack gap</div></div>
+          <div class="sp-row"><div class="sp-name">xl / 8</div><div class="sp-px">32px</div><div class="sp-rem">2rem</div><div class="sp-bar" style="width:64px"></div><div class="sp-use">section inner padding, hero padding</div></div>
+          <div class="sp-row"><div class="sp-name">10</div><div class="sp-px">40px</div><div class="sp-rem">2.5rem</div><div class="sp-bar" style="width:80px"></div><div class="sp-use">between major UI groups</div></div>
+          <div class="sp-row"><div class="sp-name">2xl / 12</div><div class="sp-px">48px</div><div class="sp-rem">3rem</div><div class="sp-bar" style="width:96px"></div><div class="sp-use">section top/bottom padding</div></div>
+          <div class="sp-row"><div class="sp-name">3xl / 16</div><div class="sp-px">64px</div><div class="sp-rem">4rem</div><div class="sp-bar" style="width:128px"></div><div class="sp-use">section separation, page margins</div></div>
+          <div class="sp-row"><div class="sp-name">20</div><div class="sp-px">80px</div><div class="sp-rem">5rem</div><div class="sp-bar" style="width:160px"></div><div class="sp-use">hero vertical padding</div></div>
+          <div class="sp-row"><div class="sp-name">4xl / 24</div><div class="sp-px">96px</div><div class="sp-rem">6rem</div><div class="sp-bar" style="width:192px"></div><div class="sp-use">hero section height buffer</div></div>
+          <div class="sp-row"><div class="sp-name">32</div><div class="sp-px">128px</div><div class="sp-rem">8rem</div><div class="sp-bar" style="width:224px"></div><div class="sp-use">max content separation</div></div>
+        </div>
+      </div>
+
+      <!-- SCSS TOKENS -->
+      <div class="code-panel">
+        <div class="code-header">
+          <div class="code-filename"><span class="code-lang lang-scss">SCSS</span> styles/_tokens.scss</div>
+          <button class="code-copy-btn" onclick="copyBlock('scss-blk',this)">Copy</button>
+        </div>
+        <div class="code-body"><pre id="scss-blk"><span class="t-cm">// Deep Ember III — Design Token Variables · v3.2</span>
+
+<span class="t-cm">// ── Colors ──────────────────────────────────────</span>
+<span class="t-o">$color-bg</span>:         <span class="t-s">#0d1020</span>;
+<span class="t-o">$color-surface</span>:    <span class="t-s">#141830</span>;
+<span class="t-o">$color-surface-2</span>:  <span class="t-s">#1a2040</span>;
+<span class="t-o">$color-tag-bg</span>:     <span class="t-s">#161d3a</span>;
+<span class="t-o">$color-primary</span>:    <span class="t-s">#e86a20</span>;  <span class="t-cm">// Amber Orange</span>
+<span class="t-o">$color-primary-dk</span>: <span class="t-s">#c45518</span>;
+<span class="t-o">$color-secondary</span>:  <span class="t-s">#5888c8</span>;  <span class="t-cm">// Cobalt Blue</span>
+<span class="t-o">$color-secondary-lt</span>:<span class="t-s">#7aa4d8</span>;
+<span class="t-o">$color-tertiary</span>:   <span class="t-s">#c83488</span>;  <span class="t-cm">// Violet Pink</span>
+<span class="t-o">$color-accent</span>:     <span class="t-s">#8e1a58</span>;
+<span class="t-o">$color-accent-dk</span>:  <span class="t-s">#6e1248</span>;
+<span class="t-o">$color-text</span>:       <span class="t-s">#e8e8f5</span>;
+<span class="t-o">$color-text-dim</span>:   <span class="t-s">#b0b8d0</span>;
+<span class="t-o">$color-text-dk</span>:    <span class="t-s">#d0d4e8</span>;
+<span class="t-o">$color-muted</span>:      <span class="t-s">#7080a8</span>;
+<span class="t-o">$color-cream</span>:      <span class="t-s">#f0eee8</span>;
+
+<span class="t-cm">// ── Borders ─────────────────────────────────────</span>
+<span class="t-o">$border-subtle</span>:    <span class="t-s">rgba(255,255,255,0.07)</span>;
+<span class="t-o">$border-default</span>:   <span class="t-s">rgba(255,255,255,0.13)</span>;
+<span class="t-o">$border-strong</span>:    <span class="t-s">rgba(255,255,255,0.22)</span>;
+<span class="t-o">$border-orange</span>:    <span class="t-s">rgba(232,106,32,0.35)</span>;
+<span class="t-o">$border-orange-hi</span>: <span class="t-s">rgba(232,106,32,0.60)</span>;
+
+<span class="t-cm">// ── Gradients ───────────────────────────────────</span>
+<span class="t-o">$grad-brand</span>:      <span class="t-s">linear-gradient(90deg, #e86a20, #c83488, #5888c8)</span>;
+<span class="t-o">$grad-brand-135</span>:  <span class="t-s">linear-gradient(135deg, #e86a20, #8e1a58, #5888c8)</span>;
+<span class="t-o">$grad-brand-long</span>: <span class="t-s">linear-gradient(90deg, #e86a20, #c83488, #5888c8, #e86a20)</span>;
+<span class="t-o">$grad-text</span>:       <span class="t-s">linear-gradient(90deg, #ffcc70, #ff8177, #b721ff, #21d4fd, #ffcc70)</span>;
+
+<span class="t-cm">// ── Typography ──────────────────────────────────</span>
+<span class="t-o">$font-display</span>: <span class="t-s">'Fraunces'</span>, serif;
+<span class="t-o">$font-body</span>:    <span class="t-s">'Switzer'</span>, sans-serif;
+<span class="t-o">$font-mono</span>:    <span class="t-s">'DM Mono'</span>, monospace;
+<span class="t-o">$fw-light</span>:300; <span class="t-o">$fw-regular</span>:400; <span class="t-o">$fw-medium</span>:500;
+<span class="t-o">$fw-semibold</span>:600; <span class="t-o">$fw-bold</span>:700; <span class="t-o">$fw-black</span>:900;
+<span class="t-o">$fs-hero</span>: <span class="t-s">clamp(3.5rem, 8vw, 4.75rem)</span>;
+<span class="t-o">$fs-h1</span>:   <span class="t-s">clamp(2rem, 5vw, 3rem)</span>;
+<span class="t-o">$fs-h2</span>:   <span class="t-s">2rem</span>;    <span class="t-o">$fs-h3</span>: <span class="t-s">1.25rem</span>;
+<span class="t-o">$fs-body</span>: <span class="t-s">1rem</span>;    <span class="t-o">$fs-sm</span>:  <span class="t-s">0.875rem</span>;
+<span class="t-o">$fs-nav</span>:  <span class="t-s">0.8125rem</span>; <span class="t-o">$fs-tag</span>: <span class="t-s">0.75rem</span>;
+<span class="t-o">$fs-label</span>:<span class="t-s">0.625rem</span>; <span class="t-o">$fs-micro</span>:<span class="t-s">0.5625rem</span>;
+
+<span class="t-cm">// ── Spacing ─────────────────────────────────────</span>
+<span class="t-o">$spacing-xs</span>: <span class="t-n">4px</span>;  <span class="t-o">$spacing-sm</span>: <span class="t-n">8px</span>;
+<span class="t-o">$spacing-md</span>: <span class="t-n">16px</span>; <span class="t-o">$spacing-lg</span>: <span class="t-n">24px</span>;
+<span class="t-o">$spacing-xl</span>: <span class="t-n">32px</span>; <span class="t-o">$spacing-2xl</span>: <span class="t-n">48px</span>;
+<span class="t-o">$spacing-3xl</span>: <span class="t-n">64px</span>; <span class="t-o">$spacing-4xl</span>: <span class="t-n">96px</span>;
+
+<span class="t-cm">// ── Border Radius ───────────────────────────────</span>
+<span class="t-o">$radius-sm</span>:<span class="t-n">4px</span>; <span class="t-o">$radius-md</span>:<span class="t-n">6px</span>; <span class="t-o">$radius-lg</span>:<span class="t-n">8px</span>;
+<span class="t-o">$radius-xl</span>:<span class="t-n">12px</span>; <span class="t-o">$radius-2xl</span>:<span class="t-n">16px</span>; <span class="t-o">$radius-full</span>:<span class="t-n">9999px</span>;
+
+<span class="t-cm">// ── Breakpoints ─────────────────────────────────</span>
+<span class="t-o">$bp-mobile</span>:<span class="t-n">394px</span>; <span class="t-o">$bp-sm</span>:<span class="t-n">640px</span>; <span class="t-o">$bp-md</span>:<span class="t-n">768px</span>;
+<span class="t-o">$bp-lg</span>:<span class="t-n">1024px</span>; <span class="t-o">$bp-xl</span>:<span class="t-n">1280px</span>;
+<span class="t-pb">@mixin</span> <span class="t-bl">from-sm</span> { <span class="t-pb">@media</span>(min-width:<span class="t-o">$bp-sm</span>){ <span class="t-pb">@content</span>; } }
+<span class="t-pb">@mixin</span> <span class="t-bl">from-md</span> { <span class="t-pb">@media</span>(min-width:<span class="t-o">$bp-md</span>){ <span class="t-pb">@content</span>; } }
+<span class="t-pb">@mixin</span> <span class="t-bl">from-lg</span> { <span class="t-pb">@media</span>(min-width:<span class="t-o">$bp-lg</span>){ <span class="t-pb">@content</span>; } }
+<span class="t-pb">@mixin</span> <span class="t-bl">from-xl</span> { <span class="t-pb">@media</span>(min-width:<span class="t-o">$bp-xl</span>){ <span class="t-pb">@content</span>; } }
+
+<span class="t-cm">// ── Elevation ───────────────────────────────────</span>
+<span class="t-o">$shadow-0</span>: none;
+<span class="t-o">$shadow-1</span>: <span class="t-s">0 1px 3px rgba(0,0,0,0.35), 0 1px 2px rgba(0,0,0,0.25)</span>;
+<span class="t-o">$shadow-2</span>: <span class="t-s">0 4px 12px rgba(0,0,0,0.45), 0 2px 4px rgba(0,0,0,0.30)</span>;
+<span class="t-o">$shadow-3</span>: <span class="t-s">0 8px 24px rgba(0,0,0,0.55), 0 4px 8px rgba(0,0,0,0.35)</span>;
+<span class="t-o">$shadow-4</span>: <span class="t-s">0 16px 40px rgba(0,0,0,0.65), 0 6px 12px rgba(0,0,0,0.40)</span>;
+<span class="t-o">$shadow-5</span>: <span class="t-s">0 24px 64px rgba(0,0,0,0.75), 0 8px 20px rgba(0,0,0,0.50)</span>;
+
+<span class="t-cm">// ── Glows ───────────────────────────────────────</span>
+<span class="t-o">$glow-orange-sm</span>: <span class="t-s">0 0 12px rgba(232,106,32,0.35)</span>;
+<span class="t-o">$glow-orange-md</span>: <span class="t-s">0 0 24px rgba(232,106,32,0.40), 0 0 8px rgba(232,106,32,0.20)</span>;
+<span class="t-o">$glow-orange-lg</span>: <span class="t-s">0 0 48px rgba(232,106,32,0.45), 0 0 20px rgba(232,106,32,0.25)</span>;
+<span class="t-o">$glow-blue-sm</span>:   <span class="t-s">0 0 12px rgba(88,136,200,0.35)</span>;
+<span class="t-o">$glow-blue-md</span>:   <span class="t-s">0 0 24px rgba(88,136,200,0.40), 0 0 8px rgba(88,136,200,0.20)</span>;
+<span class="t-o">$glow-pink-sm</span>:   <span class="t-s">0 0 12px rgba(200,52,136,0.35)</span>;
+<span class="t-o">$glow-pink-md</span>:   <span class="t-s">0 0 24px rgba(200,52,136,0.40), 0 0 8px rgba(200,52,136,0.20)</span>;
+<span class="t-o">$glow-brand-md</span>:  <span class="t-s">0 0 24px rgba(232,106,32,0.25), 0 0 40px rgba(200,52,136,0.15), 0 0 60px rgba(88,136,200,0.10)</span>;
+
+<span class="t-cm">// ── Glass ────────────────────────────────────────</span>
+<span class="t-o">$glass-bg</span>:     <span class="t-s">rgba(255,255,255,0.07)</span>;
+<span class="t-o">$glass-border</span>: <span class="t-s">rgba(255,255,255,0.12)</span>;
+<span class="t-o">$glass-blur</span>:   <span class="t-s">blur(16px)</span>;
+<span class="t-o">$glass-shadow</span>: <span class="t-s">0 4px 16px rgba(0,0,0,0.30)</span>;
+<span class="t-pb">@mixin</span> <span class="t-bl">glass-mid</span> {
+  background: <span class="t-o">$glass-bg</span>; backdrop-filter: <span class="t-o">$glass-blur</span>;
+  -webkit-backdrop-filter: <span class="t-o">$glass-blur</span>;
+  border: <span class="t-n">1px</span> solid <span class="t-o">$glass-border</span>; box-shadow: <span class="t-o">$glass-shadow</span>;
+}
+
+<span class="t-cm">// ── Animation ───────────────────────────────────</span>
+<span class="t-o">$ease-spring</span>:   <span class="t-s">cubic-bezier(0.34, 1.56, 0.64, 1)</span>;
+<span class="t-o">$ease-out-expo</span>: <span class="t-s">cubic-bezier(0.19, 1, 0.22, 1)</span>;
+<span class="t-o">$ease-in-out</span>:   <span class="t-s">cubic-bezier(0.25, 0.46, 0.45, 0.94)</span>;
+<span class="t-o">$dur-fast</span>:<span class="t-s">0.15s</span>; <span class="t-o">$dur-base</span>:<span class="t-s">0.28s</span>; <span class="t-o">$dur-spring</span>:<span class="t-s">0.42s</span>;
+<span class="t-o">$dur-slow</span>:<span class="t-s">0.50s</span>; <span class="t-o">$dur-ripple</span>:<span class="t-s">0.80s</span>;
+
+<span class="t-cm">// ── Z-Index ──────────────────────────────────────</span>
+<span class="t-o">$z-base</span>:<span class="t-n">0</span>; <span class="t-o">$z-raised</span>:<span class="t-n">10</span>; <span class="t-o">$z-dropdown</span>:<span class="t-n">100</span>;
+<span class="t-o">$z-sticky</span>:<span class="t-n">200</span>; <span class="t-o">$z-overlay</span>:<span class="t-n">300</span>; <span class="t-o">$z-modal</span>:<span class="t-n">400</span>; <span class="t-o">$z-toast</span>:<span class="t-n">500</span>;</pre></div>
+      </div>
+
+      <!-- TAILWIND CONFIG -->
+      <div class="code-panel">
+        <div class="code-header">
+          <div class="code-filename"><span class="code-lang lang-ts">TS</span> tailwind.config.ts</div>
+          <button class="code-copy-btn" onclick="copyBlock('tw-blk',this)">Copy</button>
+        </div>
+        <div class="code-body"><pre id="tw-blk"><span class="t-k">import</span> type { <span class="t-v">Config</span> } <span class="t-k">from</span> <span class="t-s">'tailwindcss'</span>
+
+<span class="t-k">const</span> <span class="t-v">config</span>: <span class="t-v">Config</span> = {
+  <span class="t-k">content</span>: [<span class="t-s">'./src/**/*.{js,ts,jsx,tsx,mdx}'</span>],
+  <span class="t-k">theme</span>: { <span class="t-k">extend</span>: {
+    <span class="t-k">colors</span>: { <span class="t-k">brand</span>: {
+      <span class="t-k">bg</span>:<span class="t-s">'#0d1020'</span>, <span class="t-k">surface</span>:<span class="t-s">'#141830'</span>, <span class="t-s">'surface-2'</span>:<span class="t-s">'#1a2040'</span>, <span class="t-s">'tag-bg'</span>:<span class="t-s">'#161d3a'</span>,
+      <span class="t-k">orange</span>:<span class="t-s">'#e86a20'</span>, <span class="t-s">'orange-dk'</span>:<span class="t-s">'#c45518'</span>,
+      <span class="t-k">blue</span>:<span class="t-s">'#5888c8'</span>, <span class="t-s">'blue-lt'</span>:<span class="t-s">'#7aa4d8'</span>,
+      <span class="t-k">pink</span>:<span class="t-s">'#c83488'</span>, <span class="t-k">accent</span>:<span class="t-s">'#8e1a58'</span>, <span class="t-s">'accent-dk'</span>:<span class="t-s">'#6e1248'</span>,
+      <span class="t-k">muted</span>:<span class="t-s">'#7080a8'</span>, <span class="t-k">text</span>:<span class="t-s">'#e8e8f5'</span>, <span class="t-s">'text-dim'</span>:<span class="t-s">'#b0b8d0'</span>, <span class="t-s">'text-dk'</span>:<span class="t-s">'#d0d4e8'</span>,
+    }},
+    <span class="t-k">fontFamily</span>: {
+      <span class="t-k">display</span>:[<span class="t-s">'Fraunces'</span>,<span class="t-s">'serif'</span>], <span class="t-k">body</span>:[<span class="t-s">'Switzer'</span>,<span class="t-s">'sans-serif'</span>], <span class="t-k">mono</span>:[<span class="t-s">'DM Mono'</span>,<span class="t-s">'monospace'</span>],
+    },
+    <span class="t-k">fontSize</span>: {
+      <span class="t-k">micro</span>:[<span class="t-s">'0.5625rem'</span>,{<span class="t-k">lineHeight</span>:<span class="t-s">'1.4'</span>}], <span class="t-k">label</span>:[<span class="t-s">'0.625rem'</span>,{<span class="t-k">lineHeight</span>:<span class="t-s">'1.4'</span>}],
+      <span class="t-k">tag</span>:[<span class="t-s">'0.75rem'</span>,{<span class="t-k">lineHeight</span>:<span class="t-s">'1.4'</span>}], <span class="t-k">nav</span>:[<span class="t-s">'0.8125rem'</span>,{<span class="t-k">lineHeight</span>:<span class="t-s">'1.5'</span>}],
+      <span class="t-k">hero</span>:[<span class="t-s">'clamp(3.5rem,8vw,4.75rem)'</span>,{<span class="t-k">lineHeight</span>:<span class="t-s">'0.93'</span>}],
+    },
+    <span class="t-k">spacing</span>: { <span class="t-s">'2xs'</span>:<span class="t-s">'2px'</span>, <span class="t-s">'xs'</span>:<span class="t-s">'4px'</span> },
+    <span class="t-k">borderRadius</span>: {
+      <span class="t-k">sm</span>:<span class="t-s">'4px'</span>, <span class="t-k">md</span>:<span class="t-s">'6px'</span>, <span class="t-k">lg</span>:<span class="t-s">'8px'</span>, <span class="t-k">xl</span>:<span class="t-s">'12px'</span>, <span class="t-s">'2xl'</span>:<span class="t-s">'16px'</span>, <span class="t-k">full</span>:<span class="t-s">'9999px'</span>,
+    },
+    <span class="t-k">screens</span>: {
+      <span class="t-k">mobile</span>:<span class="t-s">'394px'</span>, <span class="t-k">sm</span>:<span class="t-s">'640px'</span>, <span class="t-k">md</span>:<span class="t-s">'768px'</span>, <span class="t-k">lg</span>:<span class="t-s">'1024px'</span>, <span class="t-k">xl</span>:<span class="t-s">'1280px'</span>,
+    },
+    <span class="t-k">boxShadow</span>: {
+      <span class="t-s">'e1'</span>:<span class="t-s">'0 1px 3px rgba(0,0,0,0.35), 0 1px 2px rgba(0,0,0,0.25)'</span>,
+      <span class="t-s">'e2'</span>:<span class="t-s">'0 4px 12px rgba(0,0,0,0.45), 0 2px 4px rgba(0,0,0,0.30)'</span>,
+      <span class="t-s">'e3'</span>:<span class="t-s">'0 8px 24px rgba(0,0,0,0.55), 0 4px 8px rgba(0,0,0,0.35)'</span>,
+      <span class="t-s">'e4'</span>:<span class="t-s">'0 16px 40px rgba(0,0,0,0.65), 0 6px 12px rgba(0,0,0,0.40)'</span>,
+      <span class="t-s">'e5'</span>:<span class="t-s">'0 24px 64px rgba(0,0,0,0.75), 0 8px 20px rgba(0,0,0,0.50)'</span>,
+      <span class="t-s">'glow-orange-sm'</span>:<span class="t-s">'0 0 12px rgba(232,106,32,0.35)'</span>,
+      <span class="t-s">'glow-orange-md'</span>:<span class="t-s">'0 0 24px rgba(232,106,32,0.40), 0 0 8px rgba(232,106,32,0.20)'</span>,
+      <span class="t-s">'glow-blue-md'</span>:  <span class="t-s">'0 0 24px rgba(88,136,200,0.40), 0 0 8px rgba(88,136,200,0.20)'</span>,
+      <span class="t-s">'glow-pink-md'</span>:  <span class="t-s">'0 0 24px rgba(200,52,136,0.40), 0 0 8px rgba(200,52,136,0.20)'</span>,
+      <span class="t-s">'card-hover'</span>:   <span class="t-s">'0 16px 40px rgba(0,0,0,0.65), 0 6px 12px rgba(0,0,0,0.40), 0 0 50px rgba(232,106,32,0.14)'</span>,
+    },
+    <span class="t-k">backgroundImage</span>: {
+      <span class="t-s">'grad-brand'</span>:    <span class="t-s">'linear-gradient(90deg, #e86a20, #c83488, #5888c8)'</span>,
+      <span class="t-s">'grad-brand-135'</span>:<span class="t-s">'linear-gradient(135deg, #e86a20, #8e1a58, #5888c8)'</span>,
+      <span class="t-s">'grad-text'</span>:     <span class="t-s">'linear-gradient(90deg, #ffcc70, #ff8177, #b721ff, #21d4fd, #ffcc70)'</span>,
+    },
+    <span class="t-k">transitionTimingFunction</span>: {
+      <span class="t-k">spring</span>:   <span class="t-s">'cubic-bezier(0.34, 1.56, 0.64, 1)'</span>,
+      <span class="t-s">'out-expo'</span>:<span class="t-s">'cubic-bezier(0.19, 1, 0.22, 1)'</span>,
+    },
+    <span class="t-k">keyframes</span>: {
+      <span class="t-k">breathe</span>: { <span class="t-s">'0%,100%'</span>:{transform:<span class="t-s">'scaleY(0.8) scaleX(0.85)'</span>,opacity:<span class="t-s">'0.4'</span>}, <span class="t-s">'50%'</span>:{transform:<span class="t-s">'scaleY(1)'</span>,opacity:<span class="t-s">'1'</span>} },
+      <span class="t-s">'mask-shift'</span>: { <span class="t-k">to</span>: { backgroundPosition:<span class="t-s">'-200% 0'</span> } },
+      <span class="t-s">'ripple-neon'</span>: { <span class="t-k">to</span>: { transform:<span class="t-s">'translate(-50%,-50%) scale(5)'</span>, opacity:<span class="t-s">'0'</span>, filter:<span class="t-s">'blur(4px)'</span> } },
+    },
+    <span class="t-k">animation</span>: {
+      <span class="t-k">breathe</span>:<span class="t-s">'breathe 2.2s ease-in-out infinite'</span>,
+      <span class="t-s">'mask-shift'</span>:<span class="t-s">'mask-shift 4s linear infinite'</span>,
+      <span class="t-s">'ripple-neon'</span>:<span class="t-s">'ripple-neon 0.8s ease-out forwards'</span>,
+    },
+  }},
+  <span class="t-k">plugins</span>: [],
+}
+<span class="t-k">export default</span> <span class="t-v">config</span></pre></div>
+      </div>
+
+      <!-- CSS VARS -->
+      <div class="code-panel">
+        <div class="code-header">
+          <div class="code-filename"><span class="code-lang lang-css">CSS</span> app/globals.css</div>
+          <button class="code-copy-btn" onclick="copyBlock('css-blk',this)">Copy</button>
+        </div>
+        <div class="code-body"><pre id="css-blk"><span class="t-pb">@tailwind</span> base;
+<span class="t-pb">@tailwind</span> components;
+<span class="t-pb">@tailwind</span> utilities;
+
+<span class="t-cm">/* Fonts */</span>
+<span class="t-pb">@import</span> <span class="t-s">url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,700;1,9..144,900&family=DM+Mono:wght@400;500&display=swap')</span>;
+<span class="t-pb">@import</span> <span class="t-s">url('https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700&display=swap')</span>;
+
+<span class="t-k">:root</span> {
+  <span class="t-cm">/* Colors */</span>
+  --bg:#0d1020; --surface:#141830; --surface-2:#1a2040; --tag-bg:#161d3a;
+  --orange:#e86a20; --orange-dk:#c45518;
+  --blue:#5888c8; --blue-lt:#7aa4d8;
+  --pink:#c83488; --accent:#8e1a58; --accent-dk:#6e1248;
+  --muted:#7080a8; --text:#e8e8f5; --text-dim:#b0b8d0; --text-dk:#d0d4e8; --cream:#f0eee8;
+  <span class="t-cm">/* Borders */</span>
+  --border:rgba(255,255,255,0.07); --border-md:rgba(255,255,255,0.13); --border-hi:rgba(255,255,255,0.22);
+  <span class="t-cm">/* Gradients */</span>
+  --grad:linear-gradient(90deg,#e86a20,#c83488,#5888c8);
+  --grad-long:linear-gradient(90deg,#e86a20,#c83488,#5888c8,#e86a20);
+  --grad-135:linear-gradient(135deg,#e86a20,#8e1a58,#5888c8);
+  <span class="t-cm">/* Elevation */</span>
+  --shadow-0:none;
+  --shadow-1:0 1px 3px rgba(0,0,0,0.35),0 1px 2px rgba(0,0,0,0.25);
+  --shadow-2:0 4px 12px rgba(0,0,0,0.45),0 2px 4px rgba(0,0,0,0.30);
+  --shadow-3:0 8px 24px rgba(0,0,0,0.55),0 4px 8px rgba(0,0,0,0.35);
+  --shadow-4:0 16px 40px rgba(0,0,0,0.65),0 6px 12px rgba(0,0,0,0.40);
+  --shadow-5:0 24px 64px rgba(0,0,0,0.75),0 8px 20px rgba(0,0,0,0.50);
+  <span class="t-cm">/* Glows */</span>
+  --glow-orange-sm:0 0 12px rgba(232,106,32,0.35);
+  --glow-orange-md:0 0 24px rgba(232,106,32,0.40),0 0 8px rgba(232,106,32,0.20);
+  --glow-orange-lg:0 0 48px rgba(232,106,32,0.45),0 0 20px rgba(232,106,32,0.25);
+  --glow-blue-sm:0 0 12px rgba(88,136,200,0.35);
+  --glow-blue-md:0 0 24px rgba(88,136,200,0.40),0 0 8px rgba(88,136,200,0.20);
+  --glow-pink-sm:0 0 12px rgba(200,52,136,0.35);
+  --glow-pink-md:0 0 24px rgba(200,52,136,0.40),0 0 8px rgba(200,52,136,0.20);
+  --glow-brand-md:0 0 24px rgba(232,106,32,0.25),0 0 40px rgba(200,52,136,0.15),0 0 60px rgba(88,136,200,0.10);
+  <span class="t-cm">/* Glass Mid */</span>
+  --glass-bg:rgba(255,255,255,0.07); --glass-border:rgba(255,255,255,0.12);
+  --glass-blur:blur(16px); --glass-shadow:0 4px 16px rgba(0,0,0,0.30);
+  <span class="t-cm">/* Easings */</span>
+  --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
+  --ease-out-expo:cubic-bezier(0.19,1,0.22,1);
+  --ease-in-out:cubic-bezier(0.25,0.46,0.45,0.94);
+  <span class="t-cm">/* Radius */</span>
+  --radius:0.5rem; --radius-sm:4px; --radius-md:6px; --radius-lg:8px;
+  --radius-xl:12px; --radius-2xl:16px; --radius-full:9999px;
+}
+
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg); color:var(--text);
+  font-family:'Switzer',sans-serif; line-height:1.6;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+}
+.text-gradient {
+  background:var(--grad); -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent; background-clip:text;
+}
+.glass {
+  background:var(--glass-bg); backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border); box-shadow:var(--glass-shadow);
+}
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.10); border-radius:2px; }</pre></div>
+      </div>
+
+      <!-- USAGE GUIDE -->
+      <div class="panel">
+        <div class="panel-label">When to use each file</div>
+        <div class="usage-3col">
+          <div class="usage-card" style="border-top:2px solid var(--pink)">
+            <div class="usage-card-title" style="color:var(--pink)">_tokens.scss</div>
+            <div class="usage-card-desc">Complex component styles, calculations, mixins.</div>
+            <div class="usage-card-eg">@use 'tokens' as t;<br>box-shadow: t.$shadow-3;<br>@include t.glass-mid;<br>@include t.from-lg { … }</div>
+          </div>
+          <div class="usage-card" style="border-top:2px solid var(--blue)">
+            <div class="usage-card-title" style="color:var(--blue)">tailwind.config.ts</div>
+            <div class="usage-card-desc">All JSX className-based styling. Covers ~90% of markup.</div>
+            <div class="usage-card-eg">bg-brand-surface<br>shadow-e2 hover:shadow-e4<br>font-display rounded-xl<br>animate-breathe ease-spring</div>
+          </div>
+          <div class="usage-card" style="border-top:2px solid var(--orange)">
+            <div class="usage-card-title" style="color:var(--orange)">globals.css vars</div>
+            <div class="usage-card-desc">Framer Motion inline styles, JS, anywhere className can't reach.</div>
+            <div class="usage-card-eg">style={{ color:'var(--orange)' }}<br>style={{ boxShadow:'var(--shadow-4)' }}<br>style={{ transition:'0.28s var(--ease-spring)' }}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════ S09 -->
+    <section class="section" id="s09">
+      <div class="section-header">
+        <div class="section-eyebrow">Section 09 — Added in v4.0</div>
+        <div class="section-title">Section Templates</div>
+        <p class="section-desc">All five portfolio sections fully assembled — every component placed, every spacing token applied. These are the blueprints to build from directly.</p>
+        <div class="section-rule"></div>
+      </div>
+
+      <!-- S01 HERO -->
+      <div class="panel" style="padding:0;overflow:hidden;margin-bottom:16px">
+        <div class="sec-strip">
+          <div class="sec-strip-label">01 · Hero — Full viewport</div>
+          <div class="sec-strip-chips">
+            <span class="tmpl-spec-chip tsc-n">min-h-screen</span>
+            <span class="tmpl-spec-chip tsc-o">S3-F + L5 buttons</span>
+            <span class="tmpl-spec-chip tsc-b">G1 glow pill nav</span>
+            <span class="tmpl-spec-chip tsc-p">D1 divider base</span>
+          </div>
+        </div>
+        <!-- live hero preview -->
+        <div class="mini-hero" style="background:var(--bg);position:relative">
+          <div class="mh-blob" style="width:320px;height:320px;background:rgba(232,106,32,0.08);top:-80px;left:-60px;animation:hblob 14s ease-in-out infinite"></div>
+          <div class="mh-blob" style="width:260px;height:260px;background:rgba(200,52,136,0.06);top:10%;right:-80px;animation:hblob 18s ease-in-out infinite reverse"></div>
+          <div class="mh-blob" style="width:220px;height:220px;background:rgba(88,136,200,0.07);bottom:-40px;left:30%;animation:hblob 20s ease-in-out infinite"></div>
+          <nav class="mh-nav">
+            <div class="mh-logo">Ethan Flores</div>
+            <div class="mh-pill-nav" id="mhNav">
+              <div class="mh-nav-pill" id="mhPill"></div>
+              <div class="mh-link on" onclick="setMhNav(this)">About</div>
+              <div class="mh-link" onclick="setMhNav(this)">Experience</div>
+              <div class="mh-link" onclick="setMhNav(this)">Work</div>
+              <div class="mh-link" onclick="setMhNav(this)">Contact</div>
+            </div>
+            <button class="mh-cta">Hire Me</button>
+          </nav>
+          <div class="mh-body">
+            <div class="mh-eye">Software Engineer — Knightdale, NC</div>
+            <div class="mh-name">Ethan<br><span class="mh-grad">Flores.</span></div>
+            <div class="mh-role">Building things that matter.</div>
+            <div class="mh-desc">I design and build <strong style="color:var(--text-dim)">fast, considered products</strong> — full-stack applications people actually enjoy using.</div>
+            <div class="mh-btns">
+              <button class="mh-btn-p"><span>Get In Touch</span></button>
+              <button class="mh-btn-s"><span class="lt">View My Work</span></button>
+            </div>
+          </div>
+          <div class="mh-div"><div class="mh-d1"></div></div>
+        </div>
+        <table class="anat-table" style="margin:0">
+          <thead><tr><th>#</th><th>Element</th><th>Spec</th><th>Token / Component</th></tr></thead>
+          <tbody>
+            <tr><td class="at-num">1</td><td class="at-name">Nav bar</td><td class="at-spec">Glass Mid · E3 · G1 spring pill · S3-F CTA · position: sticky top-0</td><td><span class="tmpl-spec-chip tsc-b">G1</span></td></tr>
+            <tr><td class="at-num">2</td><td class="at-name">Blob background</td><td class="at-spec">3 blobs · blur(80px) · orange/pink/blue · float-1/float-2 CSS keyframes · always-on</td><td><span class="tmpl-spec-chip tsc-n">CSS anim</span></td></tr>
+            <tr><td class="at-num">3</td><td class="at-name">Eyebrow</td><td class="at-spec">DM Mono · $fs-label · orange · ::before 24px line · letter-spacing 0.22em</td><td><span class="tmpl-spec-chip tsc-n">$fs-label</span></td></tr>
+            <tr><td class="at-num">4</td><td class="at-name">Hero name</td><td class="at-spec">Fraunces 900 italic · clamp(3.8rem,8vw,5.5rem) · line-height 0.9 · line 2 = gradient text</td><td><span class="tmpl-spec-chip tsc-o">$fs-hero</span></td></tr>
+            <tr><td class="at-num">5</td><td class="at-name">Role line</td><td class="at-spec">Fraunces 300 italic · clamp(1.4rem,3vw,2rem) · var(--text-dim)</td><td><span class="tmpl-spec-chip tsc-n">$fw-light</span></td></tr>
+            <tr><td class="at-num">6</td><td class="at-name">CTA buttons</td><td class="at-spec">S3-F primary + L5 liquid secondary · flex-row gap-3 · flex-col w-full on mobile</td><td><span class="tmpl-spec-chip tsc-o">S3-F · L5</span></td></tr>
+            <tr><td class="at-num">7</td><td class="at-name">D1 divider</td><td class="at-spec">Brand gradient 3px · outer glow · signals transition to About section</td><td><span class="tmpl-spec-chip tsc-p">D1</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- S02 ABOUT -->
+      <div class="panel" style="padding:0;overflow:hidden;margin-bottom:16px">
+        <div class="sec-strip">
+          <div class="sec-strip-label">02 · About — Two column</div>
+          <div class="sec-strip-chips">
+            <span class="tmpl-spec-chip tsc-n">grid 1fr 1.15fr</span>
+            <span class="tmpl-spec-chip tsc-o">TG1 glow tags</span>
+            <span class="tmpl-spec-chip tsc-b">Animated gradient text</span>
+          </div>
+        </div>
+        <table class="anat-table">
+          <thead><tr><th>#</th><th>Element</th><th>Spec</th><th>Token / Component</th></tr></thead>
+          <tbody>
+            <tr><td class="at-num">1</td><td class="at-name">Grid</td><td class="at-spec">grid-template-columns: 1fr 1.15fr · gap: $spacing-4xl (80px) · align-items: start · max-width: 1080px</td><td><span class="tmpl-spec-chip tsc-n">CSS Grid</span></td></tr>
+            <tr><td class="at-num">2</td><td class="at-name">Animated word</td><td class="at-spec">"beautiful" — maskShift gradient animation · 4s linear · #ffcc70→#ff8177→#b721ff→#21d4fd</td><td><span class="tmpl-spec-chip tsc-b">maskShift</span></td></tr>
+            <tr><td class="at-num">3</td><td class="at-name">Location indicator</td><td class="at-spec">Orange pulsing dot (glow-orange-sm) + DM Mono label · border-top $border-subtle</td><td><span class="tmpl-spec-chip tsc-o">glow-orange-sm</span></td></tr>
+            <tr><td class="at-num">4</td><td class="at-name">Skill tags</td><td class="at-spec">TG1 per-color glow tags · 4 groups: Frontend / Backend / Design / Tooling · flex-wrap</td><td><span class="tmpl-spec-chip tsc-o">TG1</span></td></tr>
+            <tr><td class="at-num">5</td><td class="at-name">Stat blocks</td><td class="at-spec">2×2 grid · surface bg · Fraunces 900 italic gradient number · Switzer 400 label · E1 shadow</td><td><span class="tmpl-spec-chip tsc-n">--shadow-1</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- S03 WORK -->
+      <div class="panel" style="padding:0;overflow:hidden;margin-bottom:16px">
+        <div class="sec-strip">
+          <div class="sec-strip-label">03 · Work — Project grid</div>
+          <div class="sec-strip-chips">
+            <span class="tmpl-spec-chip tsc-n">grid 1fr 1fr</span>
+            <span class="tmpl-spec-chip tsc-o">CO2 + MT2 cards</span>
+            <span class="tmpl-spec-chip tsc-p">TP1 filter pills</span>
+          </div>
+        </div>
+        <table class="anat-table">
+          <thead><tr><th>#</th><th>Element</th><th>Spec</th><th>Token / Component</th></tr></thead>
+          <tbody>
+            <tr><td class="at-num">1</td><td class="at-name">Filter pills</td><td class="at-spec">TP1 shimmer pills · active: orange border + tinted bg · filter logic in React state</td><td><span class="tmpl-spec-chip tsc-p">TP1</span></td></tr>
+            <tr><td class="at-num">2</td><td class="at-name">Card grid</td><td class="at-spec">grid-template-columns: 1fr 1fr · gap: $spacing-xl (20px) · CO2 odd, MT2 even</td><td><span class="tmpl-spec-chip tsc-n">CSS Grid</span></td></tr>
+            <tr><td class="at-num">3</td><td class="at-name">CO2 image card</td><td class="at-spec">E2 resting → E4 hover · translateY(-3px) · orange glow border on ::after pseudo · tags use TG1</td><td><span class="tmpl-spec-chip tsc-o">CO2</span></td></tr>
+            <tr><td class="at-num">4</td><td class="at-name">MT2 minimal card</td><td class="at-spec">Corner flood fill from bottom-right · 0.5s ease · "View →" fades in 150ms after fill</td><td><span class="tmpl-spec-chip tsc-o">MT2</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- S04 EXPERIENCE -->
+      <div class="panel" style="padding:0;overflow:hidden;margin-bottom:16px">
+        <div class="sec-strip">
+          <div class="sec-strip-label">04 · Experience — Sidebar layout</div>
+          <div class="sec-strip-chips">
+            <span class="tmpl-spec-chip tsc-n">grid 200px 1fr</span>
+            <span class="tmpl-spec-chip tsc-o">Sidebar nav switching</span>
+            <span class="tmpl-spec-chip tsc-p">D2 dividers</span>
+          </div>
+        </div>
+        <table class="anat-table">
+          <thead><tr><th>#</th><th>Element</th><th>Spec</th><th>Token / Component</th></tr></thead>
+          <tbody>
+            <tr><td class="at-num">1</td><td class="at-name">Layout grid</td><td class="at-spec">grid-template-columns: 200px 1fr · gap: $spacing-3xl (64px) · align-items: start</td><td><span class="tmpl-spec-chip tsc-n">CSS Grid</span></td></tr>
+            <tr><td class="at-num">2</td><td class="at-name">Sidebar nav</td><td class="at-spec">Active: orange border-left 2px + tinted bg + orange text · hover: bg rgba(255,255,255,0.04)</td><td><span class="tmpl-spec-chip tsc-o">G1 pattern</span></td></tr>
+            <tr><td class="at-num">3</td><td class="at-name">Entry transition</td><td class="at-spec">Framer AnimatePresence mode="wait" · fade up 16px in · fade up -8px out · 0.3s</td><td><span class="tmpl-spec-chip tsc-b">AnimatePresence</span></td></tr>
+            <tr><td class="at-num">4</td><td class="at-name">Entry structure</td><td class="at-spec">Eyebrow (dates) → Fraunces 700 italic role → company → gradient rule 36px → prose → arrow bullets</td><td><span class="tmpl-spec-chip tsc-n">Consistent</span></td></tr>
+            <tr><td class="at-num">5</td><td class="at-name">D2 dividers</td><td class="at-spec">Between stacked entries · breathing orange 3px · 2.2s ease-in-out infinite</td><td><span class="tmpl-spec-chip tsc-p">D2</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- S05 CONTACT -->
+      <div class="panel" style="padding:0;overflow:hidden;margin-bottom:0">
+        <div class="sec-strip">
+          <div class="sec-strip-label">05 · Contact — Centered</div>
+          <div class="sec-strip-chips">
+            <span class="tmpl-spec-chip tsc-n">max-w-600 center</span>
+            <span class="tmpl-spec-chip tsc-o">GB3 + AB3 form</span>
+            <span class="tmpl-spec-chip tsc-p">S3-F submit</span>
+          </div>
+        </div>
+        <table class="anat-table">
+          <thead><tr><th>#</th><th>Element</th><th>Spec</th><th>Token / Component</th></tr></thead>
+          <tbody>
+            <tr><td class="at-num">1</td><td class="at-name">D2 at top</td><td class="at-spec">Breathing orange divider · signals transition from Experience → Contact</td><td><span class="tmpl-spec-chip tsc-p">D2</span></td></tr>
+            <tr><td class="at-num">2</td><td class="at-name">Blob background</td><td class="at-spec">opacity: 0.08 · orange bottom-left · blue top-right · blur(80px)</td><td><span class="tmpl-spec-chip tsc-n">CSS position:absolute</span></td></tr>
+            <tr><td class="at-num">3</td><td class="at-name">Form inputs</td><td class="at-spec">GB3 gradient border springs in + AB3 bar grows from center · both fire on :focus-within</td><td><span class="tmpl-spec-chip tsc-o">GB3 + AB3</span></td></tr>
+            <tr><td class="at-num">4</td><td class="at-name">Submit button</td><td class="at-spec">S3-F full-width · gradient 135deg · shimmer sweeps on hover · h-14 (56px)</td><td><span class="tmpl-spec-chip tsc-o">S3-F</span></td></tr>
+            <tr><td class="at-num">5</td><td class="at-name">Social links</td><td class="at-spec">Surface bg · border-md · orange tint + border on hover · translateY(-2px) · E1</td><td><span class="tmpl-spec-chip tsc-n">--shadow-1</span></td></tr>
+            <tr><td class="at-num">6</td><td class="at-name">Footer</td><td class="at-spec">flex row: copyright DM Mono left · 80px gradient rule right · border-top $border-subtle</td><td><span class="tmpl-spec-chip tsc-p">D0 border</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════ S10 -->
+    <section class="section" id="s10">
+      <div class="section-header">
+        <div class="section-eyebrow">Section 10 — Added in v4.0</div>
+        <div class="section-title">Responsive Layouts</div>
+        <p class="section-desc">Mobile-first breakpoint rules for all five sections. Default styles target mobile (≤639px). Each breakpoint progressively enhances — never hides content, only reorganises it.</p>
+        <div class="section-rule"></div>
+      </div>
+
+      <!-- Breakpoint system -->
+      <div class="panel">
+        <div class="panel-label">Breakpoint System</div>
+        <table class="bp-table">
+          <thead><tr><th>Name</th><th>Width</th><th>Description</th><th>Var</th></tr></thead>
+          <tbody>
+            <tr><td class="bpt-bp">default</td><td class="bpt-w">0–639px</td><td class="bpt-desc">Mobile · single column · stacked · hamburger nav</td><td class="bpt-note">base styles</td></tr>
+            <tr><td class="bpt-bp">sm:</td><td class="bpt-w">640px+</td><td class="bpt-desc">Large mobile · 2-col grids unlock</td><td class="bpt-note">$bp-sm</td></tr>
+            <tr><td class="bpt-bp">md:</td><td class="bpt-w">768px+</td><td class="bpt-desc">Tablet · side-by-side layouts, inline nav bar</td><td class="bpt-note">$bp-md</td></tr>
+            <tr><td class="bpt-bp">lg:</td><td class="bpt-w">1024px+</td><td class="bpt-desc">Desktop · full layout, all columns, full type scale</td><td class="bpt-note">$bp-lg</td></tr>
+            <tr><td class="bpt-bp">xl:</td><td class="bpt-w">1280px+</td><td class="bpt-desc">Wide desktop · constrained max-width, generous padding</td><td class="bpt-note">$bp-xl</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Global changes -->
+      <div class="panel">
+        <div class="panel-label">Global layout changes — mobile vs desktop</div>
+        <table class="change-table">
+          <thead><tr><th>Property</th><th>Mobile (default)</th><th>Desktop (lg:)</th></tr></thead>
+          <tbody>
+            <tr><td class="ct-el">Section padding-x</td><td class="ct-desk">20px · px-5</td><td class="ct-mob">64px · px-16</td></tr>
+            <tr><td class="ct-el">Section padding-y</td><td class="ct-desk">52px · py-13</td><td class="ct-mob">100px · py-24</td></tr>
+            <tr><td class="ct-el">Navigation</td><td class="ct-desk">Logo + hamburger → slide-out sheet</td><td class="ct-mob">G1 glass pill inline</td></tr>
+            <tr><td class="ct-el">Hero type size</td><td class="ct-desk">clamp(2.8rem, 12vw, 3.5rem)</td><td class="ct-mob">clamp(3.8rem, 8vw, 5.5rem)</td></tr>
+            <tr><td class="ct-el">Card grid</td><td class="ct-desk">1 column stacked</td><td class="ct-mob">2 columns</td></tr>
+            <tr><td class="ct-el">About grid</td><td class="ct-desk">1 column stacked</td><td class="ct-mob">1fr 1.15fr</td></tr>
+            <tr><td class="ct-el">Experience layout</td><td class="ct-desk">Horizontal scrolling tabs</td><td class="ct-mob">Sidebar nav left + entry right</td></tr>
+            <tr><td class="ct-el">Button layout</td><td class="ct-desk">flex-col w-full</td><td class="ct-mob">flex-row auto width</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Per-section tables -->
+      <div class="panel" style="padding:0;overflow:hidden">
+        <div class="resp-sec-label" style="background:rgba(232,106,32,0.04);color:var(--orange)">Hero · mobile changes</div>
+        <table class="change-table">
+          <thead><tr><th>Element</th><th>Desktop</th><th>Mobile</th></tr></thead>
+          <tbody>
+            <tr><td class="ct-el">Navigation</td><td class="ct-desk">G1 glass pill inline</td><td class="ct-mob">Logo + hamburger · slide-out overlay sheet</td></tr>
+            <tr><td class="ct-el">Buttons</td><td class="ct-desk">flex-row gap-3</td><td class="ct-mob">flex-col w-full gap-2</td></tr>
+            <tr><td class="ct-el">Blobs</td><td class="ct-desk">600/500/400px · opacity 0.08</td><td class="ct-mob">280/220px · opacity 0.12</td></tr>
+            <tr><td class="ct-el">Min-height</td><td class="ct-desk">100vh</td><td class="ct-mob">min-h-[680px]</td></tr>
+          </tbody>
+        </table>
+        <div class="resp-sec-label" style="background:rgba(88,136,200,0.04);color:var(--blue)">About · mobile changes</div>
+        <table class="change-table">
+          <thead><tr><th>Element</th><th>Desktop</th><th>Mobile</th></tr></thead>
+          <tbody>
+            <tr><td class="ct-el">Grid</td><td class="ct-desk">grid-cols [1fr 1.15fr] gap-20</td><td class="ct-mob">Single column · skills move below bio</td></tr>
+            <tr><td class="ct-el">Heading size</td><td class="ct-desk">clamp(2rem, 4vw, 3rem)</td><td class="ct-mob">2.2rem fixed</td></tr>
+          </tbody>
+        </table>
+        <div class="resp-sec-label" style="background:rgba(200,52,136,0.04);color:var(--pink)">Work · mobile changes</div>
+        <table class="change-table">
+          <thead><tr><th>Element</th><th>Desktop</th><th>Mobile</th></tr></thead>
+          <tbody>
+            <tr><td class="ct-el">Filter pills</td><td class="ct-desk">flex-wrap gap-2</td><td class="ct-mob">flex no-wrap overflow-x-auto · hide scrollbar</td></tr>
+            <tr><td class="ct-el">Card grid</td><td class="ct-desk">grid-cols-2 gap-5</td><td class="ct-mob">flex-col gap-3 · single column</td></tr>
+            <tr><td class="ct-el">Card hover</td><td class="ct-desk">translateY(-3px) + glow border</td><td class="ct-mob">Tap highlight only · no transform</td></tr>
+          </tbody>
+        </table>
+        <div class="resp-sec-label" style="background:rgba(232,106,32,0.04);color:var(--orange)">Experience · mobile changes</div>
+        <table class="change-table">
+          <thead><tr><th>Element</th><th>Desktop</th><th>Mobile</th></tr></thead>
+          <tbody>
+            <tr><td class="ct-el">Layout</td><td class="ct-desk">grid-cols [200px 1fr] gap-16</td><td class="ct-mob">Single column · tabs above entry</td></tr>
+            <tr><td class="ct-el">Navigation</td><td class="ct-desk">Vertical sidebar list</td><td class="ct-mob">Horizontal scrolling tabs · overflow-x-auto</td></tr>
+            <tr><td class="ct-el">D2 dividers</td><td class="ct-desk">Between right-column entries</td><td class="ct-mob">Below each entry · left-aligned</td></tr>
+          </tbody>
+        </table>
+        <div class="resp-sec-label" style="background:rgba(88,136,200,0.04);color:var(--blue)">Contact · mobile changes</div>
+        <table class="change-table">
+          <thead><tr><th>Element</th><th>Desktop</th><th>Mobile</th></tr></thead>
+          <tbody>
+            <tr><td class="ct-el">Social links</td><td class="ct-desk">flex-row 4-across</td><td class="ct-mob">grid-cols-2 2×2</td></tr>
+            <tr><td class="ct-el">Input height</td><td class="ct-desk">56px · h-14</td><td class="ct-mob">52px · h-13</td></tr>
+            <tr><td class="ct-el">GB3 + AB3</td><td class="ct-desk">:focus-within</td><td class="ct-mob">Same — works on touch tap, no changes</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════ S11 -->
+    <section class="section" id="s11">
+      <div class="section-header">
+        <div class="section-eyebrow">Section 11 — Added in v4.0</div>
+        <div class="section-title">Scroll Choreography</div>
+        <p class="section-desc">Every scroll-triggered animation mapped — timing, easing, delay, trigger threshold. Four governing principles, a complete timing table, and copy-ready implementation utilities.</p>
+        <div class="section-rule"></div>
+      </div>
+
+      <!-- Principles -->
+      <div class="panel">
+        <div class="panel-label">Four Motion Principles</div>
+        <div class="principle-grid">
+          <div class="principle-card" style="border-top:2px solid var(--orange)">
+            <div class="pc-title" style="color:var(--orange)">1. Entrance only</div>
+            <div class="pc-body">Elements animate in on scroll-enter. They do not animate out on exit. Everything stays where it landed — reverse-scroll animations feel unfinished.</div>
+          </div>
+          <div class="principle-card" style="border-top:2px solid var(--blue)">
+            <div class="pc-title" style="color:var(--blue)">2. Stagger over simultaneous</div>
+            <div class="pc-body">Multiple elements (cards, tags, bullets) stagger at 80–120ms. Simultaneous entrances flatten depth. Stagger implies sequence and hierarchy.</div>
+          </div>
+          <div class="principle-card" style="border-top:2px solid var(--pink)">
+            <div class="pc-title" style="color:var(--pink)">3. Up-and-fade is the default</div>
+            <div class="pc-body">Every element: opacity 0→1 · translateY(24px→0). Only hero name and section headings get custom treatment. Consistency creates cohesion.</div>
+          </div>
+          <div class="principle-card" style="border-top:2px solid #56c888">
+            <div class="pc-title" style="color:#56c888">4. Ambient runs always</div>
+            <div class="pc-body">Blob float, gradient shimmer, D2 breathe — CSS keyframes, always-on, never scroll-tied. They are the baseline energy. Scroll animations layer on top.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timing table -->
+      <div class="panel" style="padding:0;overflow:hidden">
+        <div class="panel-label" style="padding:14px 16px 0">Complete Timing Map</div>
+        <div style="padding:0 16px 14px;font-size:11px;color:var(--muted)">once:true on all · useInView · hero fires on page load</div>
+        <table class="timing-table">
+          <thead><tr><th>Element</th><th>Duration</th><th>Easing</th><th>Delay</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td colspan="5" class="timing-section-row" style="background:rgba(232,106,32,0.04);color:var(--orange)">HERO — page load</td></tr>
+            <tr><td class="tt-elem">Nav bar</td><td class="tt-dur">0.60s</td><td class="tt-ease">ease-out-expo</td><td class="tt-delay">0ms</td><td class="tt-note">translateY(-100%)→0 · opacity 0→1</td></tr>
+            <tr><td class="tt-elem">Eyebrow</td><td class="tt-dur">0.55s</td><td class="tt-ease">ease-out</td><td class="tt-delay">200ms</td><td class="tt-note">Fade up 16px</td></tr>
+            <tr><td class="tt-elem">Name line 1</td><td class="tt-dur">0.75s</td><td class="tt-ease">ease-out-expo</td><td class="tt-delay">320ms</td><td class="tt-note">Fade up 32px · heavy Fraunces deserves travel</td></tr>
+            <tr><td class="tt-elem">Name line 2 (gradient)</td><td class="tt-dur">0.75s</td><td class="tt-ease">ease-out-expo</td><td class="tt-delay">440ms</td><td class="tt-note">+120ms stagger from line 1</td></tr>
+            <tr><td class="tt-elem">Role line</td><td class="tt-dur">0.55s</td><td class="tt-ease">ease-out</td><td class="tt-delay">560ms</td><td class="tt-note">Fade up 16px · lighter weight</td></tr>
+            <tr><td class="tt-elem">Description</td><td class="tt-dur">0.50s</td><td class="tt-ease">ease-out</td><td class="tt-delay">660ms</td><td class="tt-note">Fade up 12px</td></tr>
+            <tr><td class="tt-elem">Buttons</td><td class="tt-dur">0.45s</td><td class="tt-ease">spring</td><td class="tt-delay">760ms</td><td class="tt-note">Spring overshoot — signals interactivity</td></tr>
+            <tr><td class="tt-elem">Scroll indicator</td><td class="tt-dur">0.40s</td><td class="tt-ease">ease-out</td><td class="tt-delay">1000ms</td><td class="tt-note">opacity 0→0.6 only · last element</td></tr>
+            <tr><td colspan="5" class="timing-section-row" style="background:rgba(88,136,200,0.04);color:var(--blue)">ABOUT — threshold 0.15</td></tr>
+            <tr><td class="tt-elem">Eyebrow + heading</td><td class="tt-dur">0.65s</td><td class="tt-ease">ease-out-expo</td><td class="tt-delay">0ms</td><td class="tt-note">Fade up 24px · leads section</td></tr>
+            <tr><td class="tt-elem">Gradient rule</td><td class="tt-dur">0.50s</td><td class="tt-ease">ease-out</td><td class="tt-delay">120ms</td><td class="tt-note">scaleX(0→1) from left</td></tr>
+            <tr><td class="tt-elem">Body paragraphs</td><td class="tt-dur">0.55s</td><td class="tt-ease">ease-out</td><td class="tt-delay">80ms stagger</td><td class="tt-note">Fade up 16px per paragraph</td></tr>
+            <tr><td class="tt-elem">Skill tag groups</td><td class="tt-dur">0.45s</td><td class="tt-ease">spring</td><td class="tt-delay">80ms per group</td><td class="tt-note">scale(0.88→1) + fade · 40ms stagger within group</td></tr>
+            <tr><td class="tt-elem">Stat blocks</td><td class="tt-dur">0.50s</td><td class="tt-ease">spring</td><td class="tt-delay">60ms per block</td><td class="tt-note">scale(0.95→1) + fade up · 2×2 grid stagger</td></tr>
+            <tr><td colspan="5" class="timing-section-row" style="background:rgba(200,52,136,0.04);color:var(--pink)">WORK — threshold 0.10</td></tr>
+            <tr><td class="tt-elem">Section heading</td><td class="tt-dur">0.65s</td><td class="tt-ease">ease-out-expo</td><td class="tt-delay">0ms</td><td class="tt-note">Fade up 24px</td></tr>
+            <tr><td class="tt-elem">Filter pills</td><td class="tt-dur">0.40s</td><td class="tt-ease">spring</td><td class="tt-delay">40ms per pill</td><td class="tt-note">Fade up 8px · fast spring · feels interactive</td></tr>
+            <tr><td class="tt-elem">Project cards</td><td class="tt-dur">0.55s</td><td class="tt-ease">ease-out</td><td class="tt-delay">120ms per card</td><td class="tt-note">Reading order: top-left → top-right → bottom-left → bottom-right</td></tr>
+            <tr><td colspan="5" class="timing-section-row" style="background:rgba(232,106,32,0.04);color:var(--orange)">EXPERIENCE — threshold 0.15</td></tr>
+            <tr><td class="tt-elem">Sidebar nav items</td><td class="tt-dur">0.45s</td><td class="tt-ease">ease-out</td><td class="tt-delay">60ms per item</td><td class="tt-note">translateX(-8px→0) · subtle x-axis travel</td></tr>
+            <tr><td class="tt-elem">Entry on tab change</td><td class="tt-dur">0.30s</td><td class="tt-ease">ease-in-out</td><td class="tt-delay">0ms</td><td class="tt-note">AnimatePresence mode="wait" · fade+y in · fade+y out</td></tr>
+            <tr><td class="tt-elem">Bullet items</td><td class="tt-dur">0.40s</td><td class="tt-ease">ease-out</td><td class="tt-delay">60ms per item</td><td class="tt-note">translateX(-8px→0) · mirrors sidebar pattern</td></tr>
+            <tr><td colspan="5" class="timing-section-row" style="background:rgba(88,136,200,0.04);color:var(--blue)">CONTACT — threshold 0.20</td></tr>
+            <tr><td class="tt-elem">D2 divider</td><td class="tt-dur">0.70s</td><td class="tt-ease">spring</td><td class="tt-delay">0ms</td><td class="tt-note">scaleY(0→1) · announces section before content</td></tr>
+            <tr><td class="tt-elem">Heading</td><td class="tt-dur">0.65s</td><td class="tt-ease">ease-out-expo</td><td class="tt-delay">200ms</td><td class="tt-note">Waits for divider to land</td></tr>
+            <tr><td class="tt-elem">Form fields</td><td class="tt-dur">0.45s</td><td class="tt-ease">ease-out</td><td class="tt-delay">80ms per field</td><td class="tt-note">Fade up 12px · button staggered last</td></tr>
+            <tr><td class="tt-elem">Social links</td><td class="tt-dur">0.40s</td><td class="tt-ease">spring</td><td class="tt-delay">60ms per link</td><td class="tt-note">scale(0.95→1) + fade · small spring overshoot</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Nav scroll states -->
+      <div class="panel">
+        <div class="panel-label">Nav Scroll States</div>
+        <div class="nav-state-grid">
+          <div class="nav-state-card" style="border-top:2px solid var(--orange)">
+            <div class="nsc-title" style="color:var(--orange)">State 1 · At top</div>
+            <div class="nsc-body">Hero visible. Nav floats, transparent.</div>
+            <div class="nsc-vals">bg: rgba(20,24,48,0.70)<br>blur: 16px<br>shadow: --shadow-3</div>
+          </div>
+          <div class="nav-state-card" style="border-top:2px solid var(--blue)">
+            <div class="nsc-title" style="color:var(--blue)">State 2 · Scrolled</div>
+            <div class="nsc-body">Past hero. Glass intensifies.</div>
+            <div class="nsc-vals">bg: rgba(13,16,32,0.88)<br>blur: 20px<br>shadow: --shadow-4</div>
+          </div>
+          <div class="nav-state-card" style="border-top:2px solid var(--pink)">
+            <div class="nsc-title" style="color:var(--pink)">State 3 · Hidden</div>
+            <div class="nsc-body">Scrolling down fast. Nav hides.</div>
+            <div class="nsc-vals">transform: translateY(-100%)<br>transition: 0.3s ease-in<br>Instant reappear on up-scroll</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Animation utilities -->
+      <div class="panel">
+        <div class="panel-label">lib/animations.ts — shared variant utilities</div>
+        <div class="anim-utils-grid">
+          <div class="anim-util-card"><div class="auc-name">fadeUp(y, duration, ease)</div><div class="auc-sig">y=24 · dur=0.55 · ease=EASE_IN_OUT</div><div class="auc-desc">Default entrance. Used on every section element. Vary y for visual weight — 32px for Fraunces headings, 12px for body text.</div></div>
+          <div class="anim-util-card"><div class="auc-name">fadeIn(duration)</div><div class="auc-sig">dur=0.45</div><div class="auc-desc">Opacity only. Used for scroll indicator, subtle UI elements where translate would be distracting.</div></div>
+          <div class="anim-util-card"><div class="auc-name">scaleUp()</div><div class="auc-sig">scale 0.92→1 · SPRING_SOFT</div><div class="auc-desc">Stat blocks, social links. Spring overshoot suggests the element is interactive or important.</div></div>
+          <div class="anim-util-card"><div class="auc-name">slideFromLeft()</div><div class="auc-sig">x -8→0 · 0.45s ease-out</div><div class="auc-desc">Experience sidebar items + bullet points. Subtle x-axis travel mirrors the sidebar-navigation pattern.</div></div>
+          <div class="anim-util-card"><div class="auc-name">scaleRule()</div><div class="auc-sig">scaleX 0→1 · originX:0 · ease-out-expo</div><div class="auc-desc">Section gradient rule bars. Draws in from the left edge — feels like underlining the heading.</div></div>
+          <div class="anim-util-card"><div class="auc-name">stagger(children, delay)</div><div class="auc-sig">children=0.08 · delay=0</div><div class="auc-desc">Container variant. Wraps any list to stagger children automatically. Adjust children to 0.04 for fast items (pills) or 0.12 for slow (cards).</div></div>
+        </div>
+        <div class="comp-spec" style="margin-top:4px">
+          <strong>Import:</strong> import &#123; fadeUp, stagger, scaleUp, slideFromLeft, scaleRule, VIEW_ONCE_15 &#125; from '@/lib/animations'<br>
+          <strong>Easings:</strong> EASE_OUT_EXPO = [0.19,1,0.22,1] · EASE_IN_OUT = [0.25,0.46,0.45,0.94] · SPRING_SOFT = &#123;type:'spring',stiffness:200,damping:20&#125;<br>
+          <strong>useInView presets:</strong> VIEW_ONCE_10 / VIEW_ONCE_15 / VIEW_ONCE_20 — once:true, amount:0.10/0.15/0.20
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════ CHANGELOG -->
+    <section class="section" id="changelog">
+      <div class="section-header">
+        <div class="section-eyebrow">Changelog</div>
+        <div class="section-title">Version History</div>
+        <p class="section-desc">A record of all design decisions and updates. For full variant exploration, see the Component Library.</p>
+        <div class="section-rule"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-label">Updates</div>
+        <div class="cl-entry">
+          <div class="cl-date">March 2026</div>
+          <div class="cl-title">v4.0 — Complete · Section Templates, Responsive Layouts & Scroll Choreography <span class="cl-chip cl-chip-new">New</span></div>
+          <div class="cl-desc">Three final sections merged to complete the design system. S09 Section Templates: all five portfolio sections (Hero, About, Work, Experience, Contact) with full anatomy tables covering every element, token, and component ID. S10 Responsive Layouts: mobile-first breakpoint system, global layout change table, and per-section change rules for all five sections. S11 Scroll Choreography: four motion principles, complete timing map (durations, easings, delays, thresholds for every animated element), nav scroll states (top/scrolled/hidden hook), and a lib/animations.ts utility reference with all six variant factories and useInView presets. Design system is now complete — ready to build.</div>
+        </div>
+        <div class="cl-entry">
+          <div class="cl-date">March 2026</div>
+          <div class="cl-title">v3.2 — Implementation Tokens Added <span class="cl-chip cl-chip-upd">Updated</span></div>
+          <div class="cl-desc">Spacing scale added (4px base grid, 16 named steps, xs–4xl aliases). All design tokens translated into three implementation files: _tokens.scss (SCSS variables + mixins including glass-mid and breakpoint mixins), tailwind.config.ts (full theme extension with brand colors, fonts, shadows, glows, radius, animations, easings), and globals.css (CSS custom properties + .text-gradient and .glass utility classes). Usage guide documents when to reach for each file.</div>
+        </div>
+        <div class="cl-entry">
+          <div class="cl-date">March 2026</div>
+          <div class="cl-title">v3.1 — Design Depth System Added <span class="cl-chip cl-chip-upd">Updated</span></div>
+          <div class="cl-desc">Full depth system merged into design system. Elevation scale: 6 levels (E0 flat → E5 modal) with usage map per component. Glass surface: Glass Mid locked (rgba(255,255,255,0.07) · blur(16px)) for nav and modals. Brand glow tokens: 8 named values across orange/blue/pink at sm/md/lg. Border treatments: 7 canonical styles from subtle to gradient pseudo-border. Inset shadows: 4 types (top light catch, orange inner glow, deep well, pressed state). Tooltip: Dark variant locked. Depth exploration archive available in Design Depth document.</div>
+        </div>
+        <div class="cl-entry">
+          <div class="cl-date">March 2026</div>
+          <div class="cl-title">v3.0 — Component System Locked <span class="cl-chip cl-chip-upd">Updated</span></div>
+          <div class="cl-desc">All 14 component decisions finalized after multi-round exploration. Buttons: S3-F (shimmer primary), L5 (liquid secondary), S4-E (neon ripple). Navigation: G1 glow pill + U1 underline. Tags: TG1 glow + TP1 shimmer pill. Form: GB3 gradient border + AB3 center-grow bar. Cards: CO2 cinematic + MT2 minimal flood. Dividers: D0 / D1 / D2 situational. Component Library document created as exploration archive.</div>
+        </div>
+        <div class="cl-entry">
+          <div class="cl-date">March 2026</div>
+          <div class="cl-title">v2.0 — Typography & Color System Updated <span class="cl-chip cl-chip-upd">Updated</span></div>
+          <div class="cl-desc">Typography replaced: Quicksand → Switzer (body), Bebas Neue → Fraunces (display), Inter → DM Mono (utility). Color palette updated to Deep Ember III: background #0d1020, primary #e86a20, secondary #5888c8, tertiary #c83488, accent #8e1a58.</div>
+        </div>
+        <div class="cl-entry">
+          <div class="cl-date">March 2026</div>
+          <div class="cl-title">v1.0 — Design System Initialized</div>
+          <div class="cl-desc">Initial design system created. Established color token structure, SCSS token map, Tailwind config, responsive breakpoints, and animation library selections.</div>
+        </div>
+      </div>
+    </section>
+
+    <div style="padding-bottom:48px;font-size:10px;color:var(--muted);text-align:center;letter-spacing:0.1em;text-transform:uppercase">
+      Design System v4.0 · Deep Ember III · Ethan Flores · March 2026 · Complete
+    </div>
+
+  </main>
+</div>
+
+<script>
+/* ── COPY CODE BLOCKS ── */
+function copyBlock(id, btn) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.innerText).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+/* ── MINI HERO NAV ── */
+function setMhNav(el) {
+  const nav  = document.getElementById('mhNav');
+  const pill = document.getElementById('mhPill');
+  if (!nav || !pill) return;
+  nav.querySelectorAll('.mh-link').forEach(n => n.classList.remove('on'));
+  el.classList.add('on');
+  const nr = nav.getBoundingClientRect();
+  const er = el.getBoundingClientRect();
+  pill.style.left  = (er.left - nr.left) + 'px';
+  pill.style.width = er.width + 'px';
+}
+
+/* ── NAV PILL ── */
+function setNav(el) {
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  el.classList.add('active');
+  const pill = document.getElementById('navPill');
+  const nav  = document.getElementById('navDemo');
+  const nr = nav.getBoundingClientRect();
+  const er = el.getBoundingClientRect();
+  pill.style.left  = (er.left - nr.left) + 'px';
+  pill.style.width = er.width + 'px';
+}
+window.addEventListener('load', () => {
+  const active = document.querySelector('.nav-link.active');
+  if (active) setNav(active);
+  // mini hero nav init
+  const mhOn = document.querySelector('.mh-link.on');
+  if (mhOn) setMhNav(mhOn);
+});
+
+/* ── UNDERLINE NAV ── */
+function setUL(el) {
+  el.closest('.nav-ul').querySelectorAll('.ul-item').forEach(n => n.classList.remove('on'));
+  el.classList.add('on');
+}
+
+/* ── S4-E RIPPLE ── */
+document.getElementById('rippleDemo').addEventListener('click', function(e) {
+  const rect = this.getBoundingClientRect();
+  const r = document.createElement('span');
+  r.className = 'rp';
+  r.style.cssText = `left:${e.clientX-rect.left}px;top:${e.clientY-rect.top}px;width:16px;height:16px;margin-left:-8px;margin-top:-8px;background:rgba(255,255,255,0.35);filter:blur(3px);animation:ripple-neon 0.8s ease-out forwards`;
+  this.appendChild(r);
+  setTimeout(() => r.remove(), 900);
+});
+
+/* ── COPY SWATCHES ── */
+function copyColor(hex, el) {
+  navigator.clipboard.writeText(hex).catch(() => {});
+  const flash = el.querySelector('.copy-flash');
+  if (!flash) return;
+  flash.classList.add('show');
+  setTimeout(() => flash.classList.remove('show'), 1200);
+}
+
+/* ── SIDEBAR ACTIVE ── */
+const sections = document.querySelectorAll('.section');
+const links    = document.querySelectorAll('.sidebar-link');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    }
+  });
+}, { threshold:0.3 });
+sections.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>
