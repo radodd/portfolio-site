@@ -1,18 +1,28 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
-import { Quicksand } from "next/font/google";
+import { Fraunces, DM_Mono } from "next/font/google";
 import Header from "@/components/header";
 import ActiveSectionContextProvider from "@/context/active-section-context";
 import GoogleTagManager from "./google-tag-manager";
 import { Analytics } from "@vercel/analytics/react";
 import BlobLayer from "@/components/blob-layer";
 
-const inter = Inter({ subsets: ["latin"] });
-const quicksand = Quicksand({ subsets: ["latin"] });
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  axes: ["opsz"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const dmMono = DM_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono",
+  display: "swap",
+});
 
 export const metadata = {
-  title: "Ethan | Personal Portfolio",
-  description: "Ethan is a full-stack developer.",
+  title: "Ethan Flores | Front-End Engineer",
+  description: "Army veteran turned front-end engineer — building beautiful, performant web experiences.",
 };
 
 export default function RootLayout({
@@ -21,11 +31,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="!scroll-smooth">
+    <html lang="en" className={`!scroll-smooth ${fraunces.variable} ${dmMono.variable}`}>
       <GoogleTagManager />
-      <body
-        className={`${quicksand.className} bg-slate-800  text-gray-950 relative  `}
-      >
+      <body className="bg-background text-ds-text relative">
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-K9SLWTD2"
@@ -37,7 +45,7 @@ export default function RootLayout({
 
         <BlobLayer />
         <ActiveSectionContextProvider>
-          {/* <Header /> */}
+          <Header />
           {children}
           <Analytics />
         </ActiveSectionContextProvider>

@@ -5,77 +5,35 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./liftkit/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
       colors: {
-        background: "#1e293b",
-        primary: "#e3712e",
-        secondary: "#56B7CB",
-        tertiary: "#DF4894",
-        fifth: "#434A42",
+        // Design System v4 palette
+        background: "#0d1020",
+        surface:    "#141830",
+        surface2:   "#1a2040",
+        primary:    "#e86a20",  // orange
+        secondary:  "#5888c8",  // blue
+        tertiary:   "#c83488",  // pink
         accent: {
-          DEFAULT: "#A53860",
-          dark: "#82284A",
+          DEFAULT: "#8e1a58",
+          dark:    "#6e1248",
         },
-
-        // background: 'hsl(var(--background))',
-        // primary: {
-        // 	DEFAULT: 'hsl(var(--primary))',
-        // 	foreground: 'hsl(var(--primary-foreground))'
-        // },
-        // secondary: {
-        // 	DEFAULT: 'hsl(var(--secondary))',
-        // 	foreground: 'hsl(var(--secondary-foreground))'
-        // },
-        // tertiary: '#DF4894',
-        // fifth: '#434A42',
-        // accent: {
-        // 	DEFAULT: 'hsl(var(--accent))',
-        // 	dark: '#82284A',
-        // 	foreground: 'hsl(var(--accent-foreground))'
-        // },
-        // foreground: 'hsl(var(--foreground))',
-        // card: {
-        // 	DEFAULT: 'hsl(var(--card))',
-        // 	foreground: 'hsl(var(--card-foreground))'
-        // },
-        // popover: {
-        // 	DEFAULT: 'hsl(var(--popover))',
-        // 	foreground: 'hsl(var(--popover-foreground))'
-        // },
-        // muted: {
-        // 	DEFAULT: 'hsl(var(--muted))',
-        // 	foreground: 'hsl(var(--muted-foreground))'
-        // },
-        // destructive: {
-        // 	DEFAULT: 'hsl(var(--destructive))',
-        // 	foreground: 'hsl(var(--destructive-foreground))'
-        // },
-        // border: 'hsl(var(--border))',
-        // input: 'hsl(var(--input))',
-        // ring: 'hsl(var(--ring))',
-        // chart: {
-        // 	'1': 'hsl(var(--chart-1))',
-        // 	'2': 'hsl(var(--chart-2))',
-        // 	'3': 'hsl(var(--chart-3))',
-        // 	'4': 'hsl(var(--chart-4))',
-        // 	'5': 'hsl(var(--chart-5))'
-        // }
+        muted:    "#7080a8",
+        "ds-text": "#e8e8f5",
+      },
+      fontFamily: {
+        display: ["var(--font-display)", "serif"],
+        mono:    ["var(--font-mono)", "monospace"],
+      },
+      backgroundImage: {
+        "ds-grad": "linear-gradient(90deg, #e86a20, #c83488, #5888c8)",
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":  "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       screens: {
         mobile: "394px",
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
       },
     },
   },
