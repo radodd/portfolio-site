@@ -354,54 +354,6 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
           </div>
         </RevealWrapper>
 
-        {/* ── COLOR PALETTE ────────────────────────────────────── */}
-        <RevealWrapper className={styles.section}>
-          <div className={styles.sectionEye}>Color System</div>
-          <h2 className={styles.sectionTitle} style={{ marginBottom: 8 }}>Palette & Design Rationale</h2>
-          <div className={styles.sectionRule} style={{ marginBottom: 24 }} />
-
-          {detail.colorPalettes ? (
-            detail.colorPalettes.map((palette, i) => (
-              <div key={i} style={{ marginBottom: i < detail.colorPalettes!.length - 1 ? 48 : 0 }}>
-                {palette.label && (
-                  <div className={styles.sectionEye} style={{ marginBottom: 12 }}>
-                    {palette.label}
-                  </div>
-                )}
-                <p className={styles.prose}>{palette.rationale}</p>
-                <div className={styles.swatchGrid}>
-                  {palette.swatches.map((swatch) => (
-                    <div key={swatch.hex} className={styles.swatchCard}>
-                      <div className={styles.swatchColor} style={{ backgroundColor: swatch.hex }} />
-                      <div className={styles.swatchInfo}>
-                        <div className={styles.swatchName}>{swatch.name}</div>
-                        <div className={styles.swatchRole}>{swatch.role}</div>
-                        <div className={styles.swatchHex}>{swatch.hex}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))
-          ) : (
-            <>
-              <p className={styles.prose}>{detail.colorPalette.rationale}</p>
-              <div className={styles.swatchGrid}>
-                {detail.colorPalette.swatches.map((swatch) => (
-                  <div key={swatch.hex} className={styles.swatchCard}>
-                    <div className={styles.swatchColor} style={{ backgroundColor: swatch.hex }} />
-                    <div className={styles.swatchInfo}>
-                      <div className={styles.swatchName}>{swatch.name}</div>
-                      <div className={styles.swatchRole}>{swatch.role}</div>
-                      <div className={styles.swatchHex}>{swatch.hex}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
-        </RevealWrapper>
-
         {/* ── ANIMATION SHOWCASE / BACKEND ─────────────────────── */}
         <RevealWrapper className={styles.section}>
           <div className={styles.sectionEye}>{detail.slug === "american-youth-dance-theater" ? "Backend" : "Motion Design"}</div>
@@ -522,6 +474,54 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
                 <div className={styles.animationFrame}>
                   <AydtSchemaConstellationDemo />
                 </div>
+              </div>
+            </>
+          )}
+        </RevealWrapper>
+
+        {/* ── COLOR PALETTE ────────────────────────────────────── */}
+        <RevealWrapper className={styles.section}>
+          <div className={styles.sectionEye}>Color System</div>
+          <h2 className={styles.sectionTitle} style={{ marginBottom: 8 }}>Palette & Design Rationale</h2>
+          <div className={styles.sectionRule} style={{ marginBottom: 24 }} />
+
+          {detail.colorPalettes ? (
+            detail.colorPalettes.map((palette, i) => (
+              <div key={i} style={{ marginBottom: i < detail.colorPalettes!.length - 1 ? 48 : 0 }}>
+                {palette.label && (
+                  <div className={styles.sectionEye} style={{ marginBottom: 12 }}>
+                    {palette.label}
+                  </div>
+                )}
+                <p className={styles.prose}>{palette.rationale}</p>
+                <div className={styles.swatchGrid}>
+                  {palette.swatches.map((swatch) => (
+                    <div key={swatch.hex} className={styles.swatchCard}>
+                      <div className={styles.swatchColor} style={{ backgroundColor: swatch.hex }} />
+                      <div className={styles.swatchInfo}>
+                        <div className={styles.swatchName}>{swatch.name}</div>
+                        <div className={styles.swatchRole}>{swatch.role}</div>
+                        <div className={styles.swatchHex}>{swatch.hex}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))
+          ) : (
+            <>
+              <p className={styles.prose}>{detail.colorPalette.rationale}</p>
+              <div className={styles.swatchGrid}>
+                {detail.colorPalette.swatches.map((swatch) => (
+                  <div key={swatch.hex} className={styles.swatchCard}>
+                    <div className={styles.swatchColor} style={{ backgroundColor: swatch.hex }} />
+                    <div className={styles.swatchInfo}>
+                      <div className={styles.swatchName}>{swatch.name}</div>
+                      <div className={styles.swatchRole}>{swatch.role}</div>
+                      <div className={styles.swatchHex}>{swatch.hex}</div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </>
           )}
