@@ -14,8 +14,6 @@ export default function Header() {
   const { activeSection, setActiveSection, setTimeOfLastClick } =
     useActiveSectionContext();
 
-  if (pathname.startsWith("/projects/")) return null;
-
   const navRef = useRef<HTMLDivElement>(null);
   const [pillStyle, setPillStyle] = useState({ left: 0, width: 0 });
 
@@ -29,6 +27,8 @@ export default function Header() {
       });
     }
   }, [activeSection]);
+
+  if (pathname.startsWith("/projects/")) return null;
 
   return (
     <motion.header

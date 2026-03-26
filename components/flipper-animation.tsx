@@ -42,7 +42,7 @@ const FlipperAnimation = () => {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [lines.length]);
+  }, []);
 
   useEffect(() => {
     if (sliderRef.current) {
