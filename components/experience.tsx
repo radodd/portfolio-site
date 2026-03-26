@@ -1,15 +1,14 @@
 "use client";
 
-import DoubleY from "./doubleY";
-import SectionHeading from "./section-heading";
-import SectionDivider from "./section-divider";
 import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
 import { FaBookOpen } from "react-icons/fa";
+import { motion } from "framer-motion";
+import { useSectionInView } from "@/lib/hooks";
+import SectionHeading from "./section-heading";
+import DoubleY from "./doubleY";
 
 import styles from "@/scss/experience.module.scss";
-import { useActiveSectionContext } from "@/context/active-section-context";
-import { useSectionInView } from "@/lib/hooks";
 
 interface ExperiencesDataTypes {
   experiencesData: {
@@ -19,52 +18,60 @@ interface ExperiencesDataTypes {
     roleDescription: string;
     image1: string;
     image2: string;
-    button1: {
-      label: string;
-      href: string;
-    };
-    button2: {
-      label: string;
-      href: string;
-    };
+    button1: { label: string; href: string };
+    button2: { label: string; href: string };
   }[];
 }
 
 const Experience = ({ experiencesData }: ExperiencesDataTypes) => {
-  const { ref } = useSectionInView("Experience", 0.5);
+  const { ref } = useSectionInView("Experience", 0.3);
 
   return (
-    <section ref={ref} id="experience" className="flex flex-col items-center">
-      <SectionHeading>Work Experience</SectionHeading>
+    <section
+      ref={ref}
+      id="experience"
+      className="flex flex-col items-center gap-20 w-full"
+    >
+      <SectionHeading eyebrow="Career">Work Experience</SectionHeading>
+
       {experiencesData.map((exp, i) => (
-        <div key={i} className={styles.container}>
+        <motion.div
+          key={i}
+          className={styles.container}
+          initial={{ opacity: 0, y: 48 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true }}
+        >
           <div className={styles.textContainer}>
-            <h1>{exp.company}</h1>
-            <span>{exp.role}</span>
-            <p>{exp.companyDescription}</p>
-            <p>{exp.roleDescription}</p>
-            <div className="flex gap-4 flex-wrap">
+            <p className={styles.role}>{exp.role}</p>
+            <h3 className={styles.company}>{exp.company}</h3>
+            <div className={styles.rule} />
+            <p className={styles.desc}>{exp.companyDescription}</p>
+            <p className={styles.desc}>{exp.roleDescription}</p>
+
+            <div className={styles.btnRow}>
               <Link
                 href={exp.button1.href}
                 target="_blank"
-                className="group w-fit bg-accent text-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:bg-accent-dark hover:scale-105 active:scale-105 transition"
+                className={styles.btnPrimary}
               >
-                {exp.button1.label}
-                <BsArrowRight className="opacity-80 group-hover:translate-x-2 transition" />
+                <span>{exp.button1.label}</span>
+                <BsArrowRight className="opacity-80 group-hover:translate-x-1 transition" />
               </Link>
               <Link
                 href={exp.button2.href}
                 target="_blank"
-                className="group w-fit bg-transparent border border-accent text-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:bg-accent-dark hover:border-accent-dark hover:scale-105 active:scale-105 transition"
+                className={styles.btnOutline}
               >
-                {exp.button2.label}
-                <FaBookOpen className="opacity-80 group-hover:scale-110 transition" />
+                <span>{exp.button2.label}</span>
+                <FaBookOpen className="opacity-80" />
               </Link>
             </div>
           </div>
 
           <DoubleY image1={exp.image1} image2={exp.image2} />
-        </div>
+        </motion.div>
       ))}
     </section>
   );

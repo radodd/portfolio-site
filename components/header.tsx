@@ -1,66 +1,63 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
-import { links } from "@/lib/data";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import clsx from "clsx";
+import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
+import { links } from "@/lib/data";
 import { useActiveSectionContext } from "@/context/active-section-context";
-
 import styles from "@/scss/header.module.scss";
+import clsx from "clsx";
 
 export default function Header() {
+  const pathname = usePathname();
   const { activeSection, setActiveSection, setTimeOfLastClick } =
     useActiveSectionContext();
 
+  if (pathname.startsWith("/projects/")) return null;
+
+  const navRef = useRef<HTMLDivElement>(null);
+  const [pillStyle, setPillStyle] = useState({ left: 0, width: 0 });
+
+  useEffect(() => {
+    if (!navRef.current) return;
+    const activeEl = navRef.current.querySelector(`.${styles.active}`) as HTMLElement | null;
+    if (activeEl) {
+      setPillStyle({
+        left: activeEl.offsetLeft,
+        width: activeEl.offsetWidth,
+      });
+    }
+  }, [activeSection]);
+
   return (
-    <header className="z-[999] relative w-full">
-      <motion.div
-        className={styles.headerBackground}
-        initial={{ y: -100, x: "-50", opacity: 0 }}
-        animate={{ y: 0, x: "-50", opacity: 1 }}
-      ></motion.div>
-
-      <nav className="flex justify-center fixed top-[0.15rem] left-1/2 h-12 -translate-x-1/2 py-2 sm:top-[1.7rem] sm:h-[initial] sm:py-0">
-        <ul className="flex w-[22rem] flex-wrap items-center justify-center gap-y-1 text-[0.9rem] font-medium text-gray-500 sm:w-[initial] sm:flex-nowrap sm:gap-5">
-          {links.map((link) => (
-            <motion.li
-              className="h-3/4 flex items-center justify-center relative"
-              key={link.hash}
-              initial={{ y: -100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-            >
-              <Link
-                className={clsx(
-                  "flex w-full items-center justify-center px-3 py-3 hover:text-gray-950 transition",
-                  {
-                    "text-gray-950": activeSection === link.name,
-                  }
-                )}
-                href={link.hash}
-                onClick={() => {
-                  setActiveSection(link.name);
-                  setTimeOfLastClick(Date.now());
-                }}
-              >
-                {link.name}
-
-                {link.name === activeSection && (
-                  <motion.span
-                    className="bg-gray-200 rounded-full absolute inset-0 -z-10"
-                    layoutId="activeSection"
-                    transition={{
-                      type: "spring",
-                      stiffness: 380,
-                      damping: 30,
-                    }}
-                  ></motion.span>
-                )}
-              </Link>
-            </motion.li>
-          ))}
-        </ul>
+    <motion.header
+      className={styles.header}
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <nav className={styles.navPill} ref={navRef}>
+        <div
+          className={styles.activePill}
+          style={{ left: pillStyle.left, width: pillStyle.width }}
+        />
+        {links.map((link) => (
+          <Link
+            key={link.hash}
+            href={link.hash}
+            className={clsx(styles.navLink, {
+              [styles.active]: activeSection === link.name,
+            })}
+            onClick={() => {
+              setActiveSection(link.name);
+              setTimeOfLastClick(Date.now());
+            }}
+          >
+            {link.name}
+          </Link>
+        ))}
       </nav>
-    </header>
+    </motion.header>
   );
 }

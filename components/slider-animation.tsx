@@ -53,7 +53,7 @@ const SliderAnimation = () => {
     <div className={styles.main}>
       <Image
         fill={true}
-        src="/selfie2.png"
+        src="/Ethanselfie2.png"
         alt="image"
         className={styles.image}
       />

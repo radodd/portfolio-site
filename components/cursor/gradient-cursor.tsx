@@ -37,6 +37,7 @@ const GradientCursor = ({ isHovered, distance }: GradientCursorProps) => {
   //   Update circle positions and sizes using GSAP
   const moveCircle = ({ x, y }: MoveCircleProps) => {
     circles.current.forEach((circle) => {
+      if (!circle) return;
       gsap.set(circle, {
         x,
         y,
@@ -49,8 +50,10 @@ const GradientCursor = ({ isHovered, distance }: GradientCursorProps) => {
   };
 
   //   Linear interpolation of circle size
-  const targetSize = isHovered ? Math.max(5, 300 - distance / 0.85) : 0;
+  const targetSize = isHovered ? Math.max(10, 400 - distance / 0.85) : 0;
   animatedSize.current = lerp(animatedSize.current, targetSize, 0.15);
+
+  const rafId = useRef<number>(0);
 
   const animate = () => {
     // Linear interpolation of circle position
@@ -60,7 +63,7 @@ const GradientCursor = ({ isHovered, distance }: GradientCursorProps) => {
       y: lerp(y, mouse.current.y, 0.075),
     };
 
-    window.requestAnimationFrame(animate);
+    rafId.current = window.requestAnimationFrame(animate);
 
     moveCircle(delayedMouse.current);
   };
@@ -69,9 +72,12 @@ const GradientCursor = ({ isHovered, distance }: GradientCursorProps) => {
     if (window.innerWidth <= 640) {
       return;
     } else {
-      animate();
+      rafId.current = window.requestAnimationFrame(animate);
       window.addEventListener("mousemove", manageMouseMove);
-      return () => window.removeEventListener("mousemove", manageMouseMove);
+      return () => {
+        window.cancelAnimationFrame(rafId.current);
+        window.removeEventListener("mousemove", manageMouseMove);
+      };
     }
   }, []);
 

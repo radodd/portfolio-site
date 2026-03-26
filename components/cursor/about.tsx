@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import GradientCursor from "./gradient-cursor";
 import { useSectionInView } from "@/lib/hooks";
 import { motion } from "framer-motion";
-import SectionDivider from "../section-divider";
 
 import styles from "@/scss/about.module.scss";
 
@@ -38,28 +37,18 @@ const About = () => {
         ref={ref}
         id="about"
         className={styles.section}
-        initial={{ opacity: 0, y: 100 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1 }}
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        viewport={{ once: true }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         <p className={styles.originStory}>
-          US Army Veteran turned Front End Engineer&nbsp;
-          {/* <span className={`${styles.location} ${styles.guam}`}>Guam</span> →
-          served the US Army in{" "}
-          <span className={`${styles.location} ${styles.hawaii}`}>Hawaii</span>{" "}
-          → studied in{" "}
-          <span className={`${styles.location} ${styles.socal}`}>
-            Southern California
-          </span>{" "}
-          → finally settling in{" "}
-          <span className={`${styles.location} ${styles.raleigh}`}>
-            Raleigh, NC &nbsp;
-          </span> */}
-          striving to make the web a more
-          <span className="beautiful">&nbsp;beautiful&nbsp;</span> place one{" "}
-          {"<div>"} at a time.
+          US Army Veteran turned Front End Engineer — striving to make the web
+          a more{" "}
+          <span className={styles.beautiful}>&nbsp;beautiful&nbsp;</span> place
+          one {"<div>"} at a time.
         </p>
       </motion.section>
       <GradientCursor isHovered={isHovered} distance={distance} />
