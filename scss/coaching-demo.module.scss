@@ -1,0 +1,162 @@
+/* ─── Demo wrapper ─────────────────────────────── */
+.demo {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 0 14px 14px;
+  min-height: 400px;
+
+  /* Background sits BELOW the blobs via z-index: -1.
+     Uses the client's actual palette (#1d5068 teal) so the
+     low-opacity SVG blobs designed for that background are visible. */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #1d5068 0%, #1e6070 45%, #163d50 100%);
+    z-index: -1;
+  }
+}
+
+/* ─── Blob layer ───────────────────────────────── */
+.blobLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1; /* above the ::before background */
+}
+
+/* Each blob image is absolutely positioned in .blobLayer */
+.blobImg {
+  position: absolute;
+  max-width: 80%;
+
+  @media (max-width: 640px) {
+    max-width: 120%;
+  }
+}
+
+/* ─── Content ──────────────────────────────────── */
+.content {
+  position: relative;
+  z-index: 2; /* above blobs so text is readable */
+  padding: 32px 36px 28px;
+
+  @media (max-width: 640px) {
+    padding: 24px 20px 20px;
+  }
+}
+
+.introRow {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+/* ─── Avatar (Gen Fulton selfie) ───────────────── */
+.avatar {
+  position: relative; /* required for Next.js Image fill */
+  width: 110px;
+  height: 148px;
+  border-radius: 55px 55px 0 0;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.avatarImg {
+  /* Next.js Image with fill — object-fit set inline */
+}
+
+/* ─── Text column ──────────────────────────────── */
+.textCol {
+  flex: 1;
+}
+
+.greeting {
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.bio {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.75;
+  max-width: 540px;
+  margin-bottom: 18px;
+}
+
+.seeMoreBtn {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.65);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  padding: 2px 0;
+  transition: color 0.2s, border-color 0.2s;
+
+  &:hover {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+.seeMoreBtnUp {
+  margin-top: 20px;
+  display: inline-block;
+}
+
+/* ─── Qualifications (See More expand) ─────────── */
+.qualInner {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 24px;
+  padding-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.qualSection {}
+
+.qualTitle {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 8px;
+  letter-spacing: 0.01em;
+}
+
+.qualText {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.58);
+  line-height: 1.7;
+}
+
+/* ─── Hint bar ─────────────────────────────────── */
+.demoHint {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  text-align: center;
+  padding: 9px 16px 11px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.18);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
