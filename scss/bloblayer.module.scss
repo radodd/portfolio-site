@@ -1,46 +1,48 @@
 @use "./queries.scss";
 @import "./queries.scss";
 
-@keyframes float1 {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  20% {
-    transform: translate(-5rem, 48rem) scale(0.96);
-  }
-  47% {
-    transform: translate(12rem, 42rem) scale(1.08);
-  }
-  73% {
-    transform: translate(-7rem, -12rem) scale(1.02);
-  }
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
+.blob1,
+.blob2 {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -10;
 }
 
-@keyframes float2 {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  20% {
-    transform: translate(-22rem, 45rem) scale(0.96);
-  }
-  47% {
-    transform: translate(12rem, 42rem) scale(1.08);
-  }
-  73% {
-    transform: translate(-7rem, -12rem) scale(1.02);
-  }
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
+.blob1 {
+  width: 600px;
+  height: 600px;
+  background: var(--ds-orange);
+  filter: blur(120px);
+  opacity: 0.05;
+  top: -150px;
+  right: -100px;
+  animation: blobDrift1 20s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
 
-.float {
-  animation: float1 15s cubic-bezier(0.65, 0.05, 0.36, 1) infinite;
-  animation-delay: -3s;
+.blob2 {
+  width: 700px;
+  height: 700px;
+  background: var(--ds-accent);
+  filter: blur(140px);
+  opacity: 0.05;
+  bottom: -200px;
+  left: -150px;
+  animation: blobDrift2 25s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
-.floatSlow {
-  animation: float2 15s cubic-bezier(0.65, 0.05, 0.36, 1) infinite;
+
+@keyframes blobDrift1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  25%  { transform: translate(-60px, 120px) scale(1.06); }
+  50%  { transform: translate(80px, 200px) scale(0.96); }
+  75%  { transform: translate(-40px, -80px) scale(1.04); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes blobDrift2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  30%  { transform: translate(80px, -100px) scale(1.08); }
+  60%  { transform: translate(-100px, -60px) scale(0.94); }
+  80%  { transform: translate(40px, 80px) scale(1.03); }
+  100% { transform: translate(0, 0) scale(1); }
 }
