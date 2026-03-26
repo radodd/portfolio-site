@@ -42,7 +42,7 @@ const FlipperAnimation = () => {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [lines.length]);
+  }, []);
 
   useEffect(() => {
     if (sliderRef.current) {
@@ -75,7 +75,7 @@ const FlipperAnimation = () => {
     <div className={styles.container}>
       <Image
         fill={true}
-        src="/selfie2.png"
+        src="/Ethanselfie2.png"
         alt="image"
         className={styles.image}
       />

@@ -1,108 +1,89 @@
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
-/*
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */
+@import url('https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ─── DESIGN SYSTEM v4 TOKENS ─────────────────── */
+:root {
+  /* Colors */
+  --ds-bg:        #0d1020;
+  --ds-surface:   #141830;
+  --ds-surface2:  #1a2040;
+  --ds-border:    rgba(255,255,255,0.07);
+  --ds-border-md: rgba(255,255,255,0.12);
+  --ds-orange:    #e86a20;
+  --ds-orange-dk: #c45518;
+  --ds-blue:      #5888c8;
+  --ds-blue-lt:   #7aa4d8;
+  --ds-pink:      #c83488;
+  --ds-accent:    #8e1a58;
+  --ds-accent-dk: #6e1248;
+  --ds-tag-bg:    #161d3a;
+  --ds-muted:     #7080a8;
+  --ds-text:      #e8e8f5;
+  --ds-text-dim:  #b0b8d0;
+  --ds-text-dk:   #d0d4e8;
+
+  /* Gradients */
+  --ds-grad:      linear-gradient(90deg, #e86a20, #c83488, #5888c8);
+  --ds-grad-long: linear-gradient(90deg, #e86a20, #c83488, #5888c8, #e86a20);
+
+  /* Fonts */
+  --font-body:    'Switzer', sans-serif;
+
+  /* Shadows */
+  --shadow-1: 0 1px 3px rgba(0,0,0,0.35), 0 1px 2px rgba(0,0,0,0.25);
+  --shadow-2: 0 4px 12px rgba(0,0,0,0.45), 0 2px 4px rgba(0,0,0,0.30);
+  --shadow-3: 0 8px 24px rgba(0,0,0,0.55), 0 4px 8px rgba(0,0,0,0.35);
+  --shadow-4: 0 16px 40px rgba(0,0,0,0.65), 0 6px 12px rgba(0,0,0,0.40);
+
+  /* Glows */
+  --glow-orange-sm: 0 0 12px rgba(232,106,32,0.35);
+  --glow-orange-md: 0 0 24px rgba(232,106,32,0.40), 0 0 8px rgba(232,106,32,0.20);
+  --glow-blue-sm:   0 0 12px rgba(88,136,200,0.35);
+  --glow-pink-sm:   0 0 12px rgba(200,52,136,0.35);
+  --glow-brand-md:  0 0 24px rgba(232,106,32,0.25), 0 0 40px rgba(200,52,136,0.15);
+
+  /* Glass */
+  --glass-bg:     rgba(255,255,255,0.07);
+  --glass-border: rgba(255,255,255,0.12);
+  --glass-shadow: 0 4px 16px rgba(0,0,0,0.30);
+}
+
+/* ─── BASE ────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 html {
-  --line-color: #e5e7eb;
+  scroll-behavior: smooth;
 }
 
-html.dark {
-  --line-color: rgba(255, 255, 255, 0.2);
+body {
+  background: var(--ds-bg);
+  color: var(--ds-text);
+  font-family: var(--font-body);
+  line-height: 1.6;
 }
 
+/* ─── SCROLLBAR ───────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+/* ─── SCROLL REVEAL ───────────────────────────── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+[data-reveal="visible"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── LEGACY UTILITIES ────────────────────────── */
 .borderBlack {
   @apply border border-black/10;
 }
-
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
-  }
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-  }
-}
-
-/* @layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-} */

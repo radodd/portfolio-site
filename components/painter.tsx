@@ -32,17 +32,15 @@ const Scene = () => {
   const prevPosition = useRef<{ x: number; y: number } | null>(null!);
 
   useEffect(() => {
-    if (dimension.width > 0) init();
-  }, [dimension]);
-
-  const init = () => {
-    const ctx = canvas.current.getContext("2d");
-    if (ctx) {
-      ctx.fillStyle = "#A53860";
-      ctx.fillRect(0, 0, dimension.width, dimension.height);
-      ctx.globalCompositeOperation = "destination-out";
+    if (dimension.width > 0) {
+      const ctx = canvas.current.getContext("2d");
+      if (ctx) {
+        ctx.fillStyle = "#A53860";
+        ctx.fillRect(0, 0, dimension.width, dimension.height);
+        ctx.globalCompositeOperation = "destination-out";
+      }
     }
-  };
+  }, [dimension]);
   const lerp: Lerp = (x, y, a) => x * (1 - a) + y * a;
   const manageMouseMove: React.MouseEventHandler<HTMLCanvasElement> = (e) => {
     const { clientX, clientY, movementX, movementY } = e;

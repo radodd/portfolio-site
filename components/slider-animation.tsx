@@ -18,7 +18,7 @@ const SliderAnimation = () => {
   const secondText = useRef(null);
   const slider = useRef(null);
   let xPercent = 0;
-  let direction = 1;
+  const directionRef = useRef(1);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -30,7 +30,7 @@ const SliderAnimation = () => {
         start: 0,
         end: window.innerWidth,
         scrub: 0.5,
-        onUpdate: (e) => (direction = e.direction * -1),
+        onUpdate: (e) => (directionRef.current = e.direction * -1),
       },
       x: "-=300xp",
     });
@@ -45,7 +45,7 @@ const SliderAnimation = () => {
     }
     gsap.set(firstText.current, { xPercent: xPercent });
     gsap.set(secondText.current, { xPercent: xPercent });
-    xPercent += 0.1 * direction;
+    xPercent += 0.1 * directionRef.current;
     requestAnimationFrame(animation);
   };
 
@@ -53,7 +53,7 @@ const SliderAnimation = () => {
     <div className={styles.main}>
       <Image
         fill={true}
-        src="/selfie2.png"
+        src="/Ethanselfie2.png"
         alt="image"
         className={styles.image}
       />

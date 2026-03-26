@@ -1,7 +1,165 @@
 @use "./queries.scss";
 @import "./queries.scss";
 
-.contact {
-  color: rgb(165, 165, 165);
-  margin-top: -1rem;
+.section {
+  width: 100%;
+  max-width: 480px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  padding-bottom: 6rem;
+}
+
+.lead {
+  font-size: 14px;
+  color: var(--ds-muted);
+  text-align: center;
+  margin-bottom: 2rem;
+  line-height: 1.75;
+
+  a {
+    color: var(--ds-orange);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(232, 106, 32, 0.35);
+    transition: border-color 0.15s;
+
+    &:hover { border-color: var(--ds-orange); }
+  }
+}
+
+/* Form layout */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Gradient-border field wrapper */
+.field {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -1.5px;
+    border-radius: 9.5px;
+    background: var(--ds-grad);
+    opacity: 0;
+    transform: scaleX(0.94);
+    z-index: 0;
+    transition: opacity 0.2s, transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  &:focus-within::before {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  .accentBar {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    bottom: 50%;
+    width: 3px;
+    border-radius: 8px 0 0 8px;
+    background: var(--ds-orange);
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 0.1s, top 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), bottom 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  &:focus-within .accentBar {
+    top: 6px;
+    bottom: 6px;
+    opacity: 1;
+  }
+}
+
+/* Inputs */
+.input {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 14px;
+  height: 56px;
+  padding: 0 16px 0 20px;
+  border-radius: 8px;
+  background: var(--ds-surface2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--ds-text);
+  outline: none;
+  transition: background 0.2s;
+
+  &:focus { background: rgba(26, 32, 64, 0.9); }
+
+  &::placeholder { color: var(--ds-muted); }
+}
+
+.textarea {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-body);
+  font-size: 14px;
+  width: 100%;
+  padding: 14px 16px 14px 20px;
+  border-radius: 8px;
+  background: var(--ds-surface2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--ds-text);
+  outline: none;
+  resize: vertical;
+  min-height: 130px;
+  transition: background 0.2s;
+
+  &:focus { background: rgba(26, 32, 64, 0.9); }
+  &::placeholder { color: var(--ds-muted); }
+}
+
+/* Submit button */
+.submitBtn {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 9999px;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  background: linear-gradient(135deg, #e86a20 0%, #8e1a58 40%, #8e1a58 60%, #5888c8 100%);
+  color: #fff;
+  transition: transform 0.15s, box-shadow 0.2s;
+  width: 100%;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 9999px;
+    background: rgba(10, 12, 28, 0.62);
+    backdrop-filter: blur(2px);
+    z-index: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  span, svg { position: relative; z-index: 1; }
+
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 28px rgba(88,136,200,0.25);
+    &::before { opacity: 0; }
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  &:active { transform: scale(1.01); }
 }

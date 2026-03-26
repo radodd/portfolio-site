@@ -5,10 +5,9 @@ import { experiencesData, projectsData } from "@/lib/data";
 import Projects from "@/components/projects";
 import About from "@/components/cursor/about";
 import SectionHeading from "@/components/section-heading";
+import SectionDivider from "@/components/section-divider";
 
 import styles from "@/scss/home.module.scss";
-import AboutButtons from "@/components/about-buttons";
-import SectionDivider from "@/components/section-divider";
 
 export default function Home() {
   return (
@@ -16,22 +15,17 @@ export default function Home() {
       <Intro />
 
       <About />
-      <AboutButtons />
-      <div className="flex flex-col items-center">
-        <SectionHeading>Completed Projects</SectionHeading>
-        <Projects projectsData={[projectsData[0], projectsData[1]]} />
-        <SectionDivider />
+
+      <div className="flex flex-col items-center w-full gap-0">
+        <SectionHeading eyebrow="Selected Work">Completed Projects</SectionHeading>
         <Projects
-          projectsData={[projectsData[2], projectsData[3]]}
-          reversed={true}
+          projectsData={[projectsData[0], projectsData[1], projectsData[2], projectsData[3]]}
+          cardStyle="co2"
         />
       </div>
 
-      {/* <div className="flex justify-center mt-[15rem]">
-        <Skills />
-      </div> */}
-
       <Experience experiencesData={[experiencesData[0], experiencesData[1]]} />
+
       <Contact />
     </main>
   );
