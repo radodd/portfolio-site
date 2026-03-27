@@ -36,7 +36,7 @@ const AboutButtons = () => {
 
         <a
           className="group bg-secondary bg-opacity-80 px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:bg-secondary hover:scale-105 text-white active:scale-105 transition borderBlack"
-          href="/Ethan Flores_Resume.pdf"
+          href="/ethan-flores-resume.pdf"
           download
           target="_blank"
         >

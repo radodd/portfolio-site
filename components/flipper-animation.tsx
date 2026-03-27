@@ -75,7 +75,7 @@ const FlipperAnimation = () => {
     <div className={styles.container}>
       <Image
         fill={true}
-        src="/Ethanselfie2.png"
+        src="/ethan-portrait.png"
         alt="image"
         className={styles.image}
       />

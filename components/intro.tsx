@@ -88,7 +88,7 @@ export default function Intro() {
         </Link>
 
         <a
-          href="/Ethan Flores_Resume.pdf"
+          href="/ethan-flores-resume.pdf"
           download
           target="_blank"
           className={styles.btnLiquid}
