@@ -1,4 +1,5 @@
 "use client";
+import { useRef, useEffect } from "react";
 
 const FEE_STEPS = [
   { id: "01", label: "Division",         note: "Base tier lookup" },
@@ -50,7 +51,7 @@ export function AydtFeeEngineDemo() {
           marginBottom: 28,
         }}
       >
-        {FEE_STEPS.map((step, i) => (
+        {FEE_STEPS.map((step) => (
           <div key={step.id} style={{ display: "flex", alignItems: "center" }}>
             <div
               style={{
@@ -209,240 +210,257 @@ export function AydtFeeEngineDemo() {
   );
 }
 
-// ─── Full Schema Constellation (all 65 tables) ────────────
-// 10 domain clusters · 3-row layout · 8 cross-domain FK flows
-//
-// Row 1: Identity · Semester & Program · Class Structure · Requirements & Access
-// Row 2:           Enrollment & Reg  ·  Auditions & Waitlist
-// Row 3: Discounts · Payments · Email & Comms · Media
+/* ── Schema Chord Diagram ───────────────────────────────── */
+// 10 domain arcs sized by table count · chords = cross-domain FK weight
 
-const CW = 870;    // canvas width
-const CH = 740;    // canvas height
-const ROW_H = 17;  // px per table row
-const HDR_H = 36;  // card header height
-const C_PAD = 16;  // card bottom padding
-const cH = (n: number) => HDR_H + n * ROW_H + C_PAD;
-
-// Domain color palette
-const DC = {
-  identity:   { b: "rgba(88,136,200,0.32)",   bg: "rgba(88,136,200,0.05)",   lb: "#5888c8",  ln: "rgba(88,136,200,0.5)"   },
-  semester:   { b: "rgba(232,106,32,0.32)",   bg: "rgba(232,106,32,0.05)",   lb: "#e86a20",  ln: "rgba(232,106,32,0.5)"   },
-  classes:    { b: "rgba(185,185,215,0.20)",  bg: "rgba(185,185,215,0.03)",  lb: "#8888a8",  ln: "rgba(185,185,215,0.38)" },
-  reqs:       { b: "rgba(255,185,50,0.32)",   bg: "rgba(255,185,50,0.04)",   lb: "#d49020",  ln: "rgba(255,185,50,0.48)"  },
-  enrollment: { b: "rgba(45,185,155,0.32)",   bg: "rgba(45,185,155,0.05)",   lb: "#2db99b",  ln: "rgba(45,185,155,0.48)"  },
-  auditions:  { b: "rgba(155,95,220,0.32)",   bg: "rgba(155,95,220,0.05)",   lb: "#9b5fdc",  ln: "rgba(155,95,220,0.48)"  },
-  discounts:  { b: "rgba(200,52,136,0.32)",   bg: "rgba(200,52,136,0.05)",   lb: "#c83488",  ln: "rgba(200,52,136,0.5)"   },
-  payments:   { b: "rgba(55,200,95,0.32)",    bg: "rgba(55,200,95,0.05)",    lb: "#37c85f",  ln: "rgba(55,200,95,0.48)"   },
-  comms:      { b: "rgba(65,185,220,0.32)",   bg: "rgba(65,185,220,0.05)",   lb: "#41b9dc",  ln: "rgba(65,185,220,0.48)"  },
-  media:      { b: "rgba(115,115,140,0.25)",  bg: "rgba(115,115,140,0.03)",  lb: "#73738c",  ln: "rgba(115,115,140,0.3)"  },
-} as const;
-type DK = keyof typeof DC;
-
-interface Domain { id: DK; label: string; tables: string[]; pos: [number, number]; w: number }
-
-// Card heights (computed): cH(n) = 36 + n*17 + 16
-// identity(4)=120  semester(9)=205  classes(13)=273  reqs(7)=171
-// enrollment(6)=154  auditions(3)=103
-// discounts(7)=171  payments(4)=120  comms(10)=222  media(2)=86
-//
-// Row gaps: row1 bottom = 20+273 = 293 → row2 top = 313
-//           row2 bottom = 313+154 = 467 → row3 top = 487
-
-const DOMAINS: Domain[] = [
-  {
-    id: "identity", label: "Identity & Accounts",
-    tables: ["users", "families", "dancers", "authorized_pickups"],
-    pos: [20, 20], w: 185,
-  },
-  {
-    id: "semester", label: "Semester & Program",
-    tables: ["semesters", "semester_fee_config", "semester_payment_plans",
-             "semester_payment_installments", "semester_audit_logs",
-             "special_program_tuition", "tuition_rate_bands",
-             "semester_coupons", "semester_discounts"],
-    pos: [220, 20], w: 195,
-  },
-  {
-    id: "classes", label: "Class Structure",
-    tables: ["classes", "class_schedules", "class_sessions",
-             "class_schedule_excluded_dates", "class_session_excluded_dates",
-             "class_session_options", "class_session_price_rows",
-             "schedule_price_tiers", "session_groups", "session_group_sessions",
-             "session_group_tags", "session_tags", "session_occurrence_dates"],
-    pos: [430, 20], w: 215,
-  },
-  {
-    id: "reqs", label: "Requirements & Access",
-    tables: ["class_requirements", "class_requirement_approved_dancers",
-             "requirement_waivers", "concurrent_enrollment_groups",
-             "concurrent_enrollment_options", "class_invites", "invite_events"],
-    pos: [660, 20], w: 185,
-  },
-  {
-    id: "enrollment", label: "Enrollment & Registration",
-    tables: ["registrations", "registration_batches", "registration_line_items",
-             "registration_days", "schedule_enrollments", "batch_payment_installments"],
-    pos: [220, 313], w: 200,
-  },
-  {
-    id: "auditions", label: "Auditions & Waitlist",
-    tables: ["audition_sessions", "audition_bookings", "waitlist_entries"],
-    pos: [435, 313], w: 210,
-  },
-  {
-    id: "discounts", label: "Discounts & Pricing",
-    tables: ["discounts", "discount_rules", "discount_rule_schedules",
-             "discount_rule_sessions", "discount_coupons",
-             "coupon_redemptions", "coupon_session_restrictions"],
-    pos: [20, 487], w: 195,
-  },
-  {
-    id: "payments", label: "Payments",
-    tables: ["payments", "stored_payment_methods", "shoppers", "family_account_credits"],
-    pos: [230, 487], w: 185,
-  },
-  {
-    id: "comms", label: "Email & Comms",
-    tables: ["emails", "email_templates", "email_deliveries", "email_recipients",
-             "email_recipient_selections", "email_activity_logs",
-             "email_subscribers", "email_subscriptions",
-             "notification_subscription_emails", "sms_notifications"],
-    pos: [430, 487], w: 215,
-  },
-  {
-    id: "media", label: "Media",
-    tables: ["media_images", "media_folders"],
-    pos: [660, 487], w: 170,
-  },
+const CHORD_DOMAINS = [
+  { name: "Identity & Accounts",    tables: 4,  color: "#5888c8" },
+  { name: "Semester & Program",     tables: 9,  color: "#e86a20" },
+  { name: "Class Structure",        tables: 13, color: "#8888a8" },
+  { name: "Requirements & Access",  tables: 7,  color: "#d49020" },
+  { name: "Enrollment & Reg",       tables: 6,  color: "#2db99b" },
+  { name: "Auditions & Waitlist",   tables: 3,  color: "#9b5fdc" },
+  { name: "Discounts & Pricing",    tables: 7,  color: "#c83488" },
+  { name: "Payments",               tables: 4,  color: "#37c85f" },
+  { name: "Email & Comms",          tables: 10, color: "#41b9dc" },
+  { name: "Media",                  tables: 2,  color: "#73738c" },
 ];
 
-// 8 cross-domain FK flows — hardcoded bezier paths + badge positions
-// Each path: source domain → target domain, arrow at end
-interface Flow { color: DK; path: string; badge: [number, number]; label: string }
-
-const FLOWS: Flow[] = [
-  // Semester.semester_id → Class Structure (5 FK refs: classes, schedules, sessions, etc.)
-  { color: "semester",   path: "M 415,122 C 422,125 423,153 430,156", badge: [422, 140], label: "5 FK" },
-  // Class Structure → Requirements & Access (4 FK refs: requirements, invites, etc.)
-  { color: "classes",    path: "M 645,156 C 652,155 653,106 660,105", badge: [652, 131], label: "4 FK" },
-  // Identity → Enrollment (6 FK refs: users, families, dancers → batches, registrations)
-  { color: "identity",   path: "M 112,140 C 112,226 250,226 250,313", badge: [172, 220], label: "6 FK" },
-  // Class Structure → Enrollment (4 FK refs: session_id, schedule_id)
-  { color: "classes",    path: "M 520,293 C 520,303 380,303 380,313", badge: [448, 300], label: "4 FK" },
-  // Class Structure → Auditions (3 FK refs: audition_sessions.class_id, etc.)
-  { color: "auditions",  path: "M 548,293 C 548,303 540,303 540,313", badge: [544, 300], label: "3 FK" },
-  // Enrollment → Payments (4 FK refs: batch_id, payment_method, etc.)
-  { color: "payments",   path: "M 320,467 L 322,487",                  badge: [321, 477], label: "4 FK" },
-  // Semester → Discounts (4 FK refs: semester_coupons, semester_discounts, rate_bands)
-  // Routes left of Identity to avoid passing through Enrollment card
-  { color: "semester",   path: "M 220,225 C 110,230 20,380 30,487",   badge: [88, 347],  label: "4 FK" },
-  // Discounts → Enrollment (3 FK refs: coupon_redemptions.registration_batch_id)
-  { color: "discounts",  path: "M 180,487 C 180,477 250,477 250,467", badge: [215, 481], label: "3 FK" },
+// Cross-domain FK matrix [from][to] — derived from schema flows
+const CHORD_MATRIX = [
+  // iden  sem  cls  req  enr  aud  dis  pay  com  med
+  [  0,    0,   0,   0,   6,   0,   0,   2,   0,   0  ], // Identity
+  [  0,    0,   5,   0,   0,   0,   4,   0,   0,   0  ], // Semester
+  [  0,    0,   0,   4,   4,   3,   0,   0,   0,   2  ], // Classes
+  [  0,    0,   0,   0,   0,   0,   0,   0,   0,   0  ], // Requirements
+  [  0,    0,   0,   0,   0,   0,   0,   4,   0,   0  ], // Enrollment
+  [  0,    0,   0,   0,   0,   0,   0,   0,   0,   0  ], // Auditions
+  [  0,    0,   0,   0,   3,   0,   0,   0,   0,   0  ], // Discounts
+  [  0,    0,   0,   0,   0,   0,   0,   0,   0,   0  ], // Payments
+  [  3,    0,   0,   0,   0,   0,   0,   0,   0,   0  ], // Comms
+  [  0,    0,   0,   0,   0,   0,   0,   0,   0,   0  ], // Media
 ];
 
-/* ── Full Schema Constellation ──────────────────────────── */
 export function AydtSchemaConstellationDemo() {
-  return (
-    <div style={{ background: "#0c0c14", padding: "22px 20px 18px", fontFamily: "var(--font-body)" }}>
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const hoveredRef = useRef<number | null>(null);
 
-      {/* Top bar */}
-      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 14, gap: 12, flexWrap: "wrap" }}>
-        <div style={{ fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: "#e86a20", fontWeight: 700, fontFamily: "var(--font-mono)", flexShrink: 0 }}>
-          65 tables &nbsp;·&nbsp; 10 domains &nbsp;·&nbsp; 8 cross-domain FK flows
-        </div>
-        {/* Legend */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "5px 12px", justifyContent: "flex-end" }}>
-          {(Object.entries(DC) as [DK, typeof DC[DK]][]).map(([id, c]) => (
-            <div key={id} style={{ display: "flex", alignItems: "center", gap: 5 }}>
-              <div style={{ width: 7, height: 7, borderRadius: 2, background: c.lb, opacity: 0.8, flexShrink: 0 }} />
-              <span style={{ fontSize: 9, color: "#404055", fontFamily: "var(--font-mono)", letterSpacing: "0.06em", whiteSpace: "nowrap" }}>
-                {DOMAINS.find(d => d.id === id)?.label}
-              </span>
-            </div>
-          ))}
-        </div>
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const dpr = window.devicePixelRatio || 1;
+    let W = 0, H = 0;
+
+    const totalTables = CHORD_DOMAINS.reduce((s, d) => s + d.tables, 0);
+    const gap = 0.025;
+    const totalAngle = 2 * Math.PI - gap * CHORD_DOMAINS.length;
+
+    type Arc = typeof CHORD_DOMAINS[0] & {
+      startAngle: number; endAngle: number; midAngle: number;
+    };
+    const arcs: Arc[] = [];
+    let a = -Math.PI / 2;
+    CHORD_DOMAINS.forEach(d => {
+      const sweep = (d.tables / totalTables) * totalAngle;
+      arcs.push({ ...d, startAngle: a, endAngle: a + sweep, midAngle: a + sweep / 2 });
+      a += sweep + gap;
+    });
+
+    function angleInArc(angle: number, start: number, end: number) {
+      const n = (x: number) => ((x % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+      const an = n(angle), sn = n(start), en = n(end);
+      return sn <= en ? an >= sn && an <= en : an >= sn || an <= en;
+    }
+
+    function draw() {
+      ctx!.clearRect(0, 0, W, H);
+      const cx = W / 2, cy = H / 2;
+      const R = Math.min(W, H) * 0.34;
+      const arcW = 14;
+      const hov = hoveredRef.current;
+
+      // Chords
+      for (let i = 0; i < arcs.length; i++) {
+        for (let j = i + 1; j < arcs.length; j++) {
+          const val = CHORD_MATRIX[i][j] + CHORD_MATRIX[j][i];
+          if (!val) continue;
+          const di = arcs[i], dj = arcs[j];
+          const x1 = cx + Math.cos(di.midAngle) * (R - arcW / 2);
+          const y1 = cy + Math.sin(di.midAngle) * (R - arcW / 2);
+          const x2 = cx + Math.cos(dj.midAngle) * (R - arcW / 2);
+          const y2 = cy + Math.sin(dj.midAngle) * (R - arcW / 2);
+          const cpx = cx + (x1 + x2 - 2 * cx) * 0.12;
+          const cpy = cy + (y1 + y2 - 2 * cy) * 0.12;
+
+          let alpha = 0.11;
+          if (hov !== null) alpha = hov === i || hov === j ? 0.55 : 0.025;
+
+          const grad = ctx!.createLinearGradient(x1, y1, x2, y2);
+          grad.addColorStop(0, di.color);
+          grad.addColorStop(1, dj.color);
+          ctx!.beginPath();
+          ctx!.moveTo(x1, y1);
+          ctx!.quadraticCurveTo(cpx, cpy, x2, y2);
+          ctx!.strokeStyle = grad;
+          ctx!.globalAlpha = alpha;
+          ctx!.lineWidth = Math.max(1, val * 1.1);
+          ctx!.stroke();
+          ctx!.globalAlpha = 1;
+
+          // FK count label on hovered chord
+          if (hov !== null && (hov === i || hov === j) && alpha > 0.3) {
+            const mx = (x1 + cpx * 2 + x2) / 4;
+            const my = (y1 + cpy * 2 + y2) / 4;
+            ctx!.font = '600 9px var(--font-mono, monospace)';
+            ctx!.fillStyle = "rgba(232,232,245,0.75)";
+            ctx!.textAlign = "center";
+            ctx!.textBaseline = "middle";
+            ctx!.fillText(`${val} FK`, mx, my);
+          }
+        }
+      }
+
+      // Arcs + labels
+      arcs.forEach((d, i) => {
+        const alpha = hov === null ? 0.9 : hov === i ? 1 : 0.18;
+
+        if (hov === i) {
+          ctx!.beginPath();
+          ctx!.arc(cx, cy, R, d.startAngle, d.endAngle);
+          ctx!.strokeStyle = d.color;
+          ctx!.lineWidth = arcW + 14;
+          ctx!.globalAlpha = 0.07;
+          ctx!.stroke();
+        }
+
+        ctx!.globalAlpha = alpha;
+        ctx!.beginPath();
+        ctx!.arc(cx, cy, R, d.startAngle, d.endAngle);
+        ctx!.strokeStyle = d.color;
+        ctx!.lineWidth = arcW;
+        ctx!.lineCap = "butt";
+        ctx!.stroke();
+
+        // Horizontal label — aligned left/right based on which half of circle
+        const lr = R + arcW + 14;
+        const lx = cx + Math.cos(d.midAngle) * lr;
+        const ly = cy + Math.sin(d.midAngle) * lr;
+        const onRight = Math.cos(d.midAngle) >= 0;
+        ctx!.globalAlpha = 1;
+        ctx!.textAlign = onRight ? "left" : "right";
+        ctx!.textBaseline = "middle";
+        ctx!.font = '600 10px var(--font-mono, monospace)';
+        ctx!.fillStyle = hov === i ? d.color : `rgba(176,184,208,${hov === null ? 0.75 : 0.22})`;
+        ctx!.fillText(d.name, lx, ly - 6);
+        ctx!.font = '400 8px var(--font-mono, monospace)';
+        ctx!.fillStyle = hov === i ? "rgba(232,232,245,0.55)" : `rgba(112,128,168,${hov === null ? 0.45 : 0.12})`;
+        ctx!.fillText(`${d.tables} tables`, lx, ly + 7);
+
+        // Info pill — only for hovered arc
+        if (hov === i) {
+          let fks = 0;
+          for (let j = 0; j < arcs.length; j++) {
+            if (j !== i) fks += CHORD_MATRIX[i][j] + CHORD_MATRIX[j][i];
+          }
+          const pillText = `${fks} cross-domain FKs`;
+          ctx!.font = '500 9px var(--font-mono, monospace)';
+          const tw = ctx!.measureText(pillText).width;
+          const ph = 18, pw = tw + 16, pr = 4;
+          const px = onRight ? lx : lx - pw;
+          const py = ly + 18;
+          // Background
+          ctx!.beginPath();
+          ctx!.roundRect(px, py, pw, ph, pr);
+          ctx!.fillStyle = "rgba(20,24,48,0.92)";
+          ctx!.fill();
+          ctx!.strokeStyle = d.color;
+          ctx!.globalAlpha = 0.35;
+          ctx!.lineWidth = 1;
+          ctx!.stroke();
+          ctx!.globalAlpha = 1;
+          // Text
+          ctx!.textAlign = "center";
+          ctx!.textBaseline = "middle";
+          ctx!.fillStyle = d.color;
+          ctx!.fillText(pillText, px + pw / 2, py + ph / 2);
+        }
+      });
+
+    }
+
+    function resize() {
+      const rect = canvas!.getBoundingClientRect();
+      W = rect.width; H = rect.height;
+      canvas!.width = W * dpr;
+      canvas!.height = H * dpr;
+      ctx!.scale(dpr, dpr);
+      draw();
+    }
+
+    function onMouseMove(e: MouseEvent) {
+      const rect = canvas!.getBoundingClientRect();
+      const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+      const cx = W / 2, cy = H / 2;
+      const dx = mx - cx, dy = my - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const R = Math.min(W, H) * 0.34;
+
+      let next: number | null = null;
+      if (dist > R - 18 && dist < R + 18) {
+        const angle = Math.atan2(dy, dx);
+        arcs.forEach((d, i) => { if (angleInArc(angle, d.startAngle, d.endAngle)) next = i; });
+      }
+      if (next !== hoveredRef.current) { hoveredRef.current = next; draw(); }
+    }
+
+    function onMouseLeave() { hoveredRef.current = null; draw(); }
+
+    canvas.addEventListener("mousemove", onMouseMove);
+    canvas.addEventListener("mouseleave", onMouseLeave);
+
+    const ro = new ResizeObserver(resize);
+    ro.observe(canvas);
+    resize();
+
+    return () => {
+      canvas.removeEventListener("mousemove", onMouseMove);
+      canvas.removeEventListener("mouseleave", onMouseLeave);
+      ro.disconnect();
+    };
+  }, []);
+
+  return (
+    <div style={{ background: "#0c0c14", padding: "20px 18px 16px", fontFamily: "var(--font-body)" }}>
+      {/* Top label */}
+      <div style={{ fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: "#e86a20", fontWeight: 700, fontFamily: "var(--font-mono)", marginBottom: 14 }}>
+        65 tables &nbsp;·&nbsp; 10 domains &nbsp;·&nbsp; 40 cross-domain FK flows — thicker chord = more coupling
       </div>
 
-      {/* Scrollable canvas */}
-      <div style={{ overflowX: "auto" }}>
-        <div style={{ position: "relative", width: CW, height: CH, flexShrink: 0 }}>
+      {/* Canvas */}
+      <canvas
+        ref={canvasRef}
+        style={{ display: "block", width: "100%", height: 480, cursor: "default" }}
+      />
 
-          {/* SVG connection layer */}
-          <svg width={CW} height={CH} style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 1 }}>
-            <defs>
-              {(Object.entries(DC) as [DK, typeof DC[DK]][]).map(([id, c]) => (
-                <marker key={id} id={`mk-${id}`} markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
-                  <path d="M 0 0.5 L 4.5 2.5 L 0 4.5 z" fill={c.lb} opacity="0.75" />
-                </marker>
-              ))}
-            </defs>
-            {FLOWS.map((f, i) => (
-              <g key={i}>
-                <path
-                  d={f.path}
-                  fill="none"
-                  stroke={DC[f.color].ln}
-                  strokeWidth={1.5}
-                  markerEnd={`url(#mk-${f.color})`}
-                />
-                <g transform={`translate(${f.badge[0]}, ${f.badge[1]})`}>
-                  <rect x="-14" y="-8" width="28" height="16" rx="3" fill="#0e0e1a" opacity="0.95" />
-                  <text x="0" y="5" textAnchor="middle" fontSize="8" fill={DC[f.color].lb} fontFamily="monospace" fontWeight="700">
-                    {f.label}
-                  </text>
-                </g>
-              </g>
-            ))}
-          </svg>
-
-          {/* Domain cluster cards */}
-          {DOMAINS.map(d => {
-            const c = DC[d.id];
-            return (
-              <div
-                key={d.id}
-                style={{
-                  position: "absolute",
-                  left: d.pos[0],
-                  top: d.pos[1],
-                  width: d.w,
-                  background: c.bg,
-                  border: `1px solid ${c.b}`,
-                  borderRadius: 8,
-                  overflow: "hidden",
-                  zIndex: 2,
-                }}
-              >
-                {/* Card header */}
-                <div style={{
-                  height: HDR_H,
-                  padding: "0 9px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  borderBottom: `1px solid ${c.b}`,
-                  gap: 5,
-                }}>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 9, fontWeight: 700, color: c.lb, letterSpacing: "0.05em", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                    {d.label}
-                  </span>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 8, color: c.lb, opacity: 0.55, background: `${c.lb}18`, padding: "2px 5px", borderRadius: 3, flexShrink: 0 }}>
-                    {d.tables.length}
-                  </span>
-                </div>
-                {/* Table list */}
-                <div style={{ padding: "3px 9px 6px" }}>
-                  {d.tables.map(t => (
-                    <div key={t} style={{ fontFamily: "var(--font-mono)", fontSize: 9, color: "#3a3a52", lineHeight: `${ROW_H}px`, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                      {t}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-
-        </div>
+      {/* Stats row */}
+      <div style={{ display: "flex", gap: 28, justifyContent: "center", marginTop: 14 }}>
+        {[
+          { val: "65", label: "Tables",           color: "#e86a20" },
+          { val: "10", label: "Domains",           color: "#c83488" },
+          { val: "40", label: "Cross-domain FKs",  color: "#5888c8" },
+        ].map(s => (
+          <div key={s.label} style={{ textAlign: "center" }}>
+            <div style={{ fontFamily: "var(--font-display)", fontStyle: "italic", fontSize: "1.25rem", fontWeight: 700, color: s.color, lineHeight: 1 }}>
+              {s.val}
+            </div>
+            <div style={{ fontSize: 8, letterSpacing: "0.12em", textTransform: "uppercase", color: "#7080a8", fontWeight: 600, marginTop: 4 }}>
+              {s.label}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
