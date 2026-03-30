@@ -43,7 +43,6 @@
 /* ─── HERO (full-width, outside .page) ─────────── */
 .heroSection {
   width: 100%;
-  min-height: 100vh;
   position: relative;
   overflow: hidden;
 }
@@ -55,10 +54,9 @@
   max-width: 72rem;
   margin: 0 auto;
   padding: 2.5rem 2.5rem 4.5rem;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 2.5rem;
 
   @include small-break {
     padding: 2rem 1.25rem 3.5rem;
