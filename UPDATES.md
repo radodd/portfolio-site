@@ -5,6 +5,27 @@ Each entry includes the date, scope, and a description of what changed.
 
 ---
 
+## [2026-03-30] — AYDT Case Study: Full Replacement with Deep-Dive Layout
+
+**Scope:** `app/projects/american-youth-dance-theater/page.tsx` (new dedicated route)
+
+**Changes:**
+- Replaced the shared `[slug]` template rendering for AYDT with a fully custom static route at `app/projects/american-youth-dance-theater/page.tsx`. This static route takes precedence over `[slug]` in Next.js App Router.
+- New layout is self-contained with scoped CSS (`.aydt-*` class prefix), all typography tokens mapped to global layout CSS vars (`--font-display`, `--font-mono`, `--font-body`).
+- Hero redesigned: full-width gradient with ambient blobs, italic Fraunces display type, no navigation rail — just a back link at top-left.
+- Stats strip: 5 KPI blocks below the hero (Net Profit, Active Users, Integrations, Security Model, Tables).
+- Overview replaces the old Overview/Challenge two-column layout. Four collapsible deep-dive panels replace the static process list:
+  - **01 — Domain Model:** Migration trail timeline, FK conflict callout, stats grid.
+  - **02 — Pricing Engine:** 2-step flow diagram (3 paths → student subtotal → family aggregation), collapsible worked example with Sofia + Mateo scenario, code/demo placeholder.
+  - **03 — Secure Payments:** Elavon context, 4-layer horizontal flow (API client → session → webhook → auto-charge), collapsible webhook code snippet, collapsible 3-layer security model.
+  - **04 — Seat Reservation:** 4-layer seat protection stack, configurable validation engine grid.
+- Through-line conclusion section.
+- Engineering highlights 2×2 grid (Dual-Guard Idempotency, Security Model, Validation Engine, Test Coverage).
+- Interactive chord diagram canvas preserved with React `useEffect` + `ResizeObserver` (hover to highlight domain arcs and FK chord counts).
+- Color palettes section (Client Portal + Admin Portal swatches with rationale prose).
+
+---
+
 ## [2026-03-26] — Case Study Layout: Side-by-Side Mocks + Outcomes Promoted
 
 **Scope:** `app/projects/[slug]/page.tsx`, `scss/project-detail.module.scss`
